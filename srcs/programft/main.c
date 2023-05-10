@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/03/28 22:27:49 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/10 08:55:52 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,23 @@
 void	close_game(t_cub *cub, char *mex)
 {
 	int i;
+
 	if (!cub->mlx)
 		exit(1);
 	if (!cub->win)
 		exit(1);
 	mlx_destroy_window(cub->mlx, cub->win);
 	freematrix(cub->map, row_counter(cub->map));
+	freematrix(cub->mat_tmp, row_counter(cub->mat_tmp));
+	if (cub->str_tmp)
+		free(cub->str_tmp);
 	if (!cub->data)
 		exit(1);
 	free(cub->data);
 	i = 0;
-	while (cub->wall_imgs_addrs[i])
-		free(cub->wall_imgs_addrs[i++]);
+	while (i < 4)
+		if (cub->wall_imgs_addrs[i++])
+			free(cub->wall_imgs_addrs[i - 1]);
 	fprintf(stderr, "\033[0;32m Quitting Cube: %s\033[0;37m\n", mex);
 	exit(0);
 }
@@ -39,6 +44,22 @@ int	exit_call(t_cub *cub)
 {
 	close_game(cub, "Closed program");
 	return (0);
+}
+
+// inizzializza array statici
+
+void	init_statics(t_cub *cub)
+{
+	int i;
+
+	i = 0;
+	while (i < 5)
+		cub->wall_imgs_addrs[i++] = NULL;
+	i = 0;
+	while (i < 4)
+		cub->wall_imgs[i++] = NULL;
+	cub->mat_tmp = NULL;
+	cub->str_tmp = NULL;
 }
 
 // inizializza le variabili mlx
@@ -57,6 +78,7 @@ int game_init(t_cub *cub)
 	if (!d)
 		return (0);
 	cub->data = d;
+	init_statics(cub);
 	return (1);
 }
 

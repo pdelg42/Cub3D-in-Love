@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freematrix.c                                       :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 14:27:14 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/10 07:54:45 by gdel-giu         ###   ########.fr       */
+/*   Created: 2023/05/10 08:35:26 by gdel-giu          #+#    #+#             */
+/*   Updated: 2023/05/10 08:47:18 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
-
-void	freematrix(char **splitted, int i)
+int	ft_isspace(int c) 
 {
-	int	k;
-
-	if (splitted)
-	{
-		k = -1;
-		while (++k < i)
-		{
-			free(splitted[k]);
-			splitted[k] = (void *)0;
-		}
-		free(splitted);
-	}
+	if (c == ' ' || (c > 8 && c < 14))
+		return (1);
+	return (0);	
 }

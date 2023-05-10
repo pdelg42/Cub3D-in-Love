@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freematrix.c                                       :+:      :+:    :+:   */
+/*   ft_clamp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 14:27:14 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/10 07:54:45 by gdel-giu         ###   ########.fr       */
+/*   Created: 2023/05/10 03:26:20 by gdel-giu          #+#    #+#             */
+/*   Updated: 2023/05/10 03:29:28 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../includes/libft.h"
 
-void	freematrix(char **splitted, int i)
+int	ft_clamp(const int val, const int min, const int max)
 {
-	int	k;
-
-	if (splitted)
-	{
-		k = -1;
-		while (++k < i)
-		{
-			free(splitted[k]);
-			splitted[k] = (void *)0;
-		}
-		free(splitted);
-	}
+	if (val > max)
+		return (max);
+	if (val < min)
+		return (min);
+	return (val);
 }

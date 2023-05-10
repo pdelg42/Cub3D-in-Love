@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+         #
+#    By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/03/27 23:22:31 by gdel-giu         ###   ########.fr        #
+#    Updated: 2023/05/10 13:37:44 by sgerace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIBS = -L./includes -lft -llistft -lgetnextline -I.
 KIT = -L./mlx -lmlx -framework openGL -framework AppKit
 FILES = ${wildcard $(PRGMFT)/*.c}
 
-FLAGS = # -Wall -Wextra -Werror
+FLAGS = -g # -Wall -Wextra -Werror
 DEBUGGER = -g
 
 OBJS = $(FILES:.c=.o)

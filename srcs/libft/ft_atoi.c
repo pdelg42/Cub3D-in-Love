@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 08:43:27 by aperrone          #+#    #+#             */
-/*   Updated: 2023/01/06 18:47:06 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:25:53 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ int	base(int c, int base)
 	return (-1);
 }
 
-void	check_sign(char sign)
+int	check_sign(char sign)
 {
 	if (sign > '9' || sign < '0')
-		exit(0);
+		return(0);
+	return (1);
 }
 
 long long	a_(char *str, int len_base)
@@ -51,7 +52,7 @@ long long	a_(char *str, int len_base)
 		sig = 1;
 		i++;
 	}
-	check_sign(str[i]);
+	// check_sign(str[i]);
 	while (base(str[i], len_base) != -1)
 	{
 		nbr = nbr * len_base;

@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freematrix.c                                       :+:      :+:    :+:   */
+/*   ft_isnum.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 14:27:14 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/10 12:53:27 by sgerace          ###   ########.fr       */
+/*   Created: 2023/05/10 20:33:56 by sgerace           #+#    #+#             */
+/*   Updated: 2023/05/10 21:17:44 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+# include "../../includes/libft.h"
 
-void	freematrix(char **splitted, int i)
+int	ft_isnum(char *str)
 {
-	int	k;
+	int i;
 
-	if (splitted)
+	i = 0;
+	printf("%s\n", str);
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+')
+		str++;
+	while (*str && i < 3 && ++i)
 	{
-		k = -1;
-		while (++k < i)
-		{
-			free(splitted[k]);
-			splitted[k] = ((void *)0);
-		}
-		free(splitted);
+		if (!ft_isdigit(*str))
+			break ;
+		str++ ;
 	}
-	splitted = ((void *)0);
+	while (*str != '\0')
+		if (!ft_isspace(*str++))
+			return (0);
+	return (1);
 }

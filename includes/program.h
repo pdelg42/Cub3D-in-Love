@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/03/28 05:44:17 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/10 04:31:08 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@
 # define WIN_SIZE_W 1028
 # define WIN_SIZE_H 720
 
+# define TILE_SIZE 64
+
 // enums per definire gli orientamenti di base
 // 0 -> 3
 
 enum e_orientations {
-	NORD = 0,
+	NORD = 1,
 	SOUTH, 
 	EAST,
 	WEST
@@ -36,7 +38,7 @@ enum e_orientations {
 // evitando ambiguitá particolari (generalmente valori non idonei)
 
 typedef union u_rgb {
-	int				rgb;
+	unsigned int	rgb;
 	unsigned char	col_param;
 }	t_rgb;
 
@@ -63,8 +65,10 @@ typedef struct s_cub
     void    *mlx;
     void    *win;
 	char	*str_tmp;
+	char	**mat_tmp;
 	char	**map;
 	char	*wall_imgs_addrs[5];
+	char	*wall_imgs[4];
 }   t_cub;
 
 // foos() and bars()

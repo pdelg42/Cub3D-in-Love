@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/10 04:31:08 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:58:49 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 # include "libft.h"
 # include "listft.h"
+# include "get_next_line.h"
 
 # include "../mlx/mlx.h"
-# include "get_next_line.h"
+# include "../fixed/fixed.h"
+# include "point.h"
 
 # define WIN_SIZE_W 1028
 # define WIN_SIZE_H 720
@@ -62,6 +64,7 @@ typedef struct s_cub
 	t_rgb	color;
 	t_rgb	*floor_color;
 	t_rgb	*ceil_color;
+	t_point	player_pos;
     void    *mlx;
     void    *win;
 	char	*str_tmp;

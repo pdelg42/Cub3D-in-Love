@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:27:24 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/10 19:45:08 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/12 22:53:09 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,11 @@ char **get_row_as_mat(char *str)
 	{
 		new_mat[j] = ft_strtrim(new_mat[j], " \t");
 		j++;
+	}
+	if (row_counter(new_mat) > 2)
+	{
+		freematrix(new_mat, row_counter(new_mat));
+		return (NULL);
 	}
 	return (new_mat);
 }

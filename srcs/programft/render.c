@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:42:53 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/12 20:38:35 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:36:11 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define SKY 0x00aaaaee
 #define WALL 0x0
 
-// disegna i muri
+// raycasting ops
 
 void	add_walls(t_cub *cub)
 {

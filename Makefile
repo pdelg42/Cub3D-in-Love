@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+         #
+#    By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/05/10 13:37:44 by sgerace          ###   ########.fr        #
+#    Updated: 2023/05/12 21:31:03 by gdel-giu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ MAIN = main.c
 INC = includes/program.h
 
 PRGMFT = ./srcs/programft
-LIBS = -L./includes -lft -llistft -lgetnextline -I.
+LIBS = -L./includes -lft -llistft -lgetnextline -lfixed -lpoint -I.
 KIT = -L./mlx -lmlx -framework openGL -framework AppKit
 FILES = ${wildcard $(PRGMFT)/*.c}
 
@@ -54,9 +54,11 @@ d :
 
 clean:
 	rm -rf $(OBJS)
+	make clean -C ./includes/.
 
 fclean: clean
 	rm -rf $(NAME)
+	make fclean -C ./includes/.
 
 re: fclean all
 	

@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnum.c                                         :+:      :+:    :+:   */
+/*   points.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 20:33:56 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/12 20:08:22 by gdel-giu         ###   ########.fr       */
+/*   Created: 2023/05/12 19:50:31 by gdel-giu          #+#    #+#             */
+/*   Updated: 2023/05/12 20:20:52 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/libft.h"
+#include "../../includes/point.h"
 
-int	ft_isnum(char *str)
+t_point	point_delta(t_point p1, t_point p2)
 {
-	int i;
+	t_point pdelta;
 
-	i = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+')
-		str++;
-	while (*str && i < 3 && ++i)
-	{
-		if (!ft_isdigit(*str))
-			break ;
-		str++ ;
-	}
-	while (*str != '\0')
-		if (!ft_isspace(*str++))
-			return (0);
-	return (1);
+	pdelta.x = fixabs(fixsub(p1.x, p2.x));
+	pdelta.y = fixabs(fixsub(p1.y, p2.y));
+	return (pdelta);
 }

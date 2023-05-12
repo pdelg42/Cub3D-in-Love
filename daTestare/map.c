@@ -162,6 +162,7 @@ int	anal_line(char* line, t_orientation* orient, int rows, int index)
 			orient->east++;
 		i++;
 	}
+	return (0);
 }
 
 int main (int argc, char** argv)

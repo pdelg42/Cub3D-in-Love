@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/12 19:58:49 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:40:10 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../mlx/mlx.h"
 # include "../fixed/fixed.h"
 # include "point.h"
+# include "gc.h"
 
 # define WIN_SIZE_W 1028
 # define WIN_SIZE_H 720

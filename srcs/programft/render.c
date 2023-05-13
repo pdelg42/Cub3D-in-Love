@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:42:53 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/12 21:36:11 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:40:02 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	add_walls(t_cub *cub)
 		stepval = delta.x;
 	else
 		stepval = delta.y;
-	printf("x %.1f, y %.1f\n", fixed2flo(delta.x), fixed2flo(delta.y));
+	//printf("x %.1f, y %.1f\n", fixed2flo(delta.x), fixed2flo(delta.y));
 	delta.x = fixdiv(delta.x, stepval);
 	delta.y = fixdiv(delta.y, stepval);
 	int i = 0;
@@ -44,7 +44,7 @@ void	add_walls(t_cub *cub)
 		pos0.y = fixsum(pos0.y, delta.y);
 		my_mlx_pixel_put(cub->data, fixed2int(pos0.x), fixed2int(pos0.y), WALL);
 	}
-	printf("x %.1f, y %.1f\n", fixed2flo(delta.x), fixed2flo(delta.y));
+	//printf("x %.1f, y %.1f\n", fixed2flo(delta.x), fixed2flo(delta.y));
 }
 
 // funzione placeholder per stampa su finestra e definizione di un orizzonte

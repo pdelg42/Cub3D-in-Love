@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/14 04:53:30 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 06:39:46 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,34 @@
 
 void	draw_square(t_cub* cub, unsigned long int color, int x, int y)
 {
-	int	i;
-	int	j;
-	int	miniw;
+	int miniw;
 	int	minih;
 	int	offset;
+	static int w;
+	static int h;
 
 	offset = 10;
-	// miniw = (64.f * 3.f / (float)(ft_strlen(cub->map[0]) - 1.f));
-	miniw = (64 * 3 / (ft_strlen(cub->map[0]) - 1));
-	minih = (64 * 3 / row_counter(cub->map));
+	miniw = 13;
+	minih = 13;
+
+	int i;
+	int j;
 	i = 0;
 	while (i < minih)
 	{
 		j = 0;
 		while (j < miniw)
 		{
-			my_mlx_pixel_put(cub->data, ( ((miniw * y) + (offset + j) - 1) ), ( ((minih * x) + (offset + i) + 1) ), color);
+			my_mlx_pixel_put(cub->data, ((h * 13) + (j + offset)), ((w * 13) + (i + offset)), color);
 			j++;
 		}
 		i++;
+	}
+	h++;
+	if (h == 15)
+	{
+		w++;
+		h = 0;
 	}
 }
 
@@ -57,6 +65,7 @@ void define_square(t_cub* cub, char tile, int x, int y)
 	}
 	else if (tile == 'N' || tile == 'E' || tile == 'W' || tile == 'S')
 	{
+		// printf("PLAYERX: %d PLAYERY %d\n", x, y);
 		draw_square(cub, 0x00fff000, x, y);
 	}
 	else
@@ -73,13 +82,13 @@ void draw_borders(t_cub *cub)
 	int	tiles;
 
 	i = 10;
-	tiles = (64 * 3) + 12;
+	tiles = (64 * 3) + 13;
 	while (i < tiles)
 	{
-		j = 9;
+		j = 10;
 		while (j < tiles)
 		{
-			if ((i == 10 || i == tiles - 1) || (j == 9 || j == tiles - 1))
+			if ((i == 10 || i == tiles - 1) || (j == 10 || j == tiles - 1))
 			{
 				my_mlx_pixel_put(cub->data, j, i, 0x0055cc55);
 			}
@@ -94,19 +103,9 @@ int	draw_minimap(t_cub* cub)
 	int	i;
 	int	j;
 
-	// my_mlx_pixel_put(cub->data, 10, 9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 11, 9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 12, 9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 13, 9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 14, 9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 15, 9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 16, 9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 17, 9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 18,  9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 19,  9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 20,  9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 21,  9, 0x00eee000);
-	// my_mlx_pixel_put(cub->data, 22,  9, 0x00eee000);
+	//valori placeholder da sostituire con la posizione del player in modo dinamico
+	int playerx = 7;
+	int	playery = 14;
 
 	i = 0;
 	while (cub->map[i])
@@ -115,7 +114,11 @@ int	draw_minimap(t_cub* cub)
 		while (cub->map[i][j])
 		{
 			write(1, &cub->map[i][j], 1);
-			define_square(cub, cub->map[i][j], i, j);
+			//disegna solo i quadrati attorno al player in un area di 8 caselle
+			if (((i > playerx - 8) && (i < playerx + 8)) && ((j > playery - 8) && (j < playery + 8)))
+			{
+				define_square(cub, cub->map[i][j], i, j);
+			}
 			j++;
 		}
 		write(1, "\n", 1);

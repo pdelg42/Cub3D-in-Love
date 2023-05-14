@@ -6,21 +6,28 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/14 04:44:22 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 06:07:16 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-char g_minimappa[8][16] = {
-	" 11111111111111\0",
-	"    10001   111\0",
-	"111110001   101\0",
-	"1N011001111111 \0",
-	"1001100000011  \0",
-	"1001100000011  \0",
-	"1001111110011  \0",
-	"1111111111111  \0"
+char g_minimappa[15][34] = {
+	"1111111111111111111111111        \0",
+	"1000000000110000000000001        \0",
+	"1011000001110000000000001        \0",
+	"1001000000000000000000001        \0",
+	"111111111011000001110000000000001\0",
+	"100000000011000001110111111111111\0",
+	"11110111111111011100000010001    \0",
+	"11110111111111N11101010010001    \0",
+	"11000000110101011100000010001    \0",
+	"10000000000000001100000010001    \0",
+	"10000000000000001101010010001    \0",
+	"1100000111010101111101111000111  \0",
+	"11110111 1110101 101111010001    \0",
+	"11111111 1111111 111111111111    \0",
+	"11111111 1111111 111111111111    \0"
 };
 
 // chiudi e libera
@@ -76,13 +83,25 @@ void	init_statics(t_cub *cub)
 int	move(int key, t_cub *cub)
 {
 	if (key == 13)
+	{
+		minimove(key);
 		printf("w");
-	if (key == 0)
+	}
+	else if (key == 0)
+	{
+		minimove(key);
 		printf("a");
-	if (key == 1)
+	}
+	else if (key == 1)
+	{
+		minimove(key);
 		printf("s");
-	if (key == 2)
+	}
+	else if (key == 2)
+	{
+		minimove(key);
 		printf("d");
+	}
 	printf("\n");
 	return (1);
 }
@@ -136,11 +155,11 @@ int main(int argc, char **argv)
 	t_cub	cub;
 
 	//inserimento manuale della minimappa per testing purpose
-	cub.map = (char**)malloc((8 * sizeof(char*) + 1));
+	cub.map = (char**)malloc((15 * sizeof(char*) + 1));
 	int i;
-	for (i = 0; i < 8; i++) 
+	for (i = 0; i < 15; i++) 
 	{
-		cub.map[i] = (char*)malloc(17 * sizeof(char));
+		cub.map[i] = (char*)malloc(34 * sizeof(char));
 		strcpy(cub.map[i], g_minimappa[i]);
 	}
 	cub.map[i] = NULL;

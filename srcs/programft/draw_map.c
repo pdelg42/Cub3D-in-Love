@@ -6,46 +6,59 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/14 06:39:46 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 09:57:45 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-void	draw_square(t_cub* cub, unsigned long int color, int x, int y)
+void draw_tile(t_cub* cub, unsigned long int color, int w, int h)
 {
-	int miniw;
-	int	minih;
-	int	offset;
-	static int w;
-	static int h;
+	int offset;
+    int i;
 
 	offset = 10;
-	miniw = 13;
-	minih = 13;
-
-	int i;
-	int j;
 	i = 0;
-	while (i < minih)
-	{
-		j = 0;
-		while (j < miniw)
-		{
-			my_mlx_pixel_put(cub->data, ((h * 13) + (j + offset)), ((w * 13) + (i + offset)), color);
-			j++;
-		}
-		i++;
-	}
-	h++;
-	if (h == 15)
-	{
-		w++;
-		h = 0;
-	}
+	//i quadratini che rappresentano i caratteri sono di grandezza 13x13
+	//con un distacco dal bordo in alto a sinitra di 10 in altezza e larghezza
+    while (i < 13)
+    {
+        int j = 0;
+        while (j < 13)
+        {
+            my_mlx_pixel_put(cub->data, ((h * 13) + (j + offset)), \
+				((w * 13) + (i + offset)), color);
+            j++;
+        }
+        i++;
+    }
 }
 
-void define_square(t_cub* cub, char tile, int x, int y)
+void update_coordinates(int* w, int* h)
+{
+    (*h)++;
+    if (*h == 15)
+    {
+        (*w)++;
+        *h = 0;
+    }
+    if (*w == 15)
+    {
+        *h = 0;
+        *w = 0;
+    }
+}
+
+void draw_square(t_cub* cub, unsigned long int color)
+{
+    static int w = 0;
+    static int h = 0;
+
+    draw_tile(cub, color, w, h);
+    update_coordinates(&w, &h);
+}
+
+void define_square(t_cub* cub, char tile)
 {
 	if (tile == '\0')
 	{
@@ -53,20 +66,19 @@ void define_square(t_cub* cub, char tile, int x, int y)
 	}
 	else if (tile == '0')
 	{
-		draw_square(cub, 0x00101010, x, y);
+		draw_square(cub, 0x00101010);
 	}
 	else if (tile == '1')
 	{
-		draw_square(cub, 0x00424242, x, y);
+		draw_square(cub, 0x00424242);
 	}
 	else if (tile == ' ')
 	{
-		draw_square(cub, 0x00694202, x, y);
+		draw_square(cub, 0x00694202);
 	}
 	else if (tile == 'N' || tile == 'E' || tile == 'W' || tile == 'S')
 	{
-		// printf("PLAYERX: %d PLAYERY %d\n", x, y);
-		draw_square(cub, 0x00fff000, x, y);
+		draw_square(cub, 0x00fff000);
 	}
 	else
 	{
@@ -98,27 +110,91 @@ void draw_borders(t_cub *cub)
 	}
 }
 
-int	draw_minimap(t_cub* cub)
+//cicla esattamente i valori +-8 di distanza dal player e disegnali
+//se la posizione del player+-8 esce dalla mappa stampa nero
+
+int	draw_minimap(t_cub* cub, int playerx, int playery)
 {
+	char g_minimappa[15][34] = {
+	"1111111111111111111111111        \0",
+	"1000000000110000000000001        \0",
+	"1011000001110000000000001        \0",
+	"1001000000000000000000001        \0",
+	"111111111011000001110000000000001\0",
+	"100000000011000001110111111111111\0",
+	"11110111111111011100000010001    \0",
+	"11110111111111N11101010010001    \0",
+	"11000000110101011100000010001    \0",
+	"10000000000000001100000010001    \0",
+	"10000000000000001101010010001    \0",
+	"1100000111010101111101111000111  \0",
+	"11110111 1110101 101111010001    \0",
+	"11111111111111111111111111111    \0",
+	"11111111 1111111 111111111111    \0"
+};
 	int	i;
 	int	j;
 
-	//valori placeholder da sostituire con la posizione del player in modo dinamico
-	int playerx = 7;
-	int	playery = 14;
+	int width;
+	int	height;
+	
+	width = ft_strlen(cub->map[0]) + 17;
+	height = row_counter(cub->map) + 16;
+	
+	printf("WIDTH: %d\n", width);
+	printf("HEIGHT: %d\n", height);
+	printf("PLAYERX: %d PLAYERY: %d\n", playerx, playery);
+
+	char** minimap;
+	int	k;
+	int	m;
+
+	k = 0;
+	minimap = (char**) malloc (sizeof(char*) * height);
+	for(int i = 0; i < height; i++) {
+    	minimap[i] = (char*) malloc (sizeof(char) * width);
+	}
+	while(k < height)
+	{
+		m = 0;
+		while (m < width)
+		{
+			minimap[k][m] = '0';
+			m++;
+		}
+		k++;
+	}
+	k = 0;
+	while (k < height - 16)
+	{
+		m = 0;
+		while (m < width - 16)
+		{
+			minimap[k + 8][m + 8] = g_minimappa[k][m];
+			m++;
+		}
+		k++;
+	}
+
+	// for(int i = 0; i < height; i++) {
+    // 	for(int j = 0; j < width; j++) {
+    //     	printf("%c", minimap[i][j]);
+    // 	}
+    // 	printf("\n");
+	// }
 
 	i = 0;
-	while (cub->map[i])
+	while (i < height)
 	{
 		j = 0;
-		while (cub->map[i][j])
+		while (j < width)
 		{
-			write(1, &cub->map[i][j], 1);
-			//disegna solo i quadrati attorno al player in un area di 8 caselle
-			if (((i > playerx - 8) && (i < playerx + 8)) && ((j > playery - 8) && (j < playery + 8)))
 			{
-				define_square(cub, cub->map[i][j], i, j);
+			//disegna solo i quadrati attorno al player in un area di 8 caselle partendo dal player
+			if (((i > playerx - 8) && (i < playerx + 8)) && ((j > playery - 8) && (j < playery + 8)))
+				define_square(cub, minimap[i][j]);
 			}
+			write(1, &minimap[i][j], 1);
 			j++;
 		}
 		write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/14 05:05:46 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 08:02:04 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@
 
 int	mov_offset_y(int key)
 {
-	if (key == 13)
-		return (1);
-	else if (key == 1)
-		return (-1);
-	return (0);
-}
-
-int	mov_offset_x(int key)
-{
 	if (key == 2)
 		return (1);
 	else if (key == 0)
@@ -35,12 +26,23 @@ int	mov_offset_x(int key)
 	return (0);
 }
 
-void	minimove(int key)
+int	mov_offset_x(int key)
+{
+	if (key == 13)
+		return (1);
+	else if (key == 1)
+		return (-1);
+	return (0);
+}
+
+void	minimove(t_cub* cub, int key)
 {
 	int	x;
 	int	y;
 
 	x = mov_offset_x(key);
 	y = mov_offset_y(key);
-	
+	cub->player_pos.x += x;
+	cub->player_pos.y += y;
+	draw_minimap(cub, cub->player_pos.x, cub->player_pos.y);
 }

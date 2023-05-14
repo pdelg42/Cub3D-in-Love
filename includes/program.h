@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/14 04:59:41 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 07:08:13 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int		import_elements(t_cub *cub);
 
 // minimap
 
-int		draw_minimap(t_cub* cub);
-void	minimove(int key);
+int		draw_minimap(t_cub* cub, int playerx, int playery);
+void	minimove(t_cub* cub, int key);
 
 
 #endif

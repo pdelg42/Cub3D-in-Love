@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/14 06:07:16 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 08:57:20 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 char g_minimappa[15][34] = {
 	"1111111111111111111111111        \0",
-	"1000000000110000000000001        \0",
+	"10000000001100N0000000001        \0",
 	"1011000001110000000000001        \0",
 	"1001000000000000000000001        \0",
 	"111111111011000001110000000000001\0",
 	"100000000011000001110111111111111\0",
 	"11110111111111011100000010001    \0",
-	"11110111111111N11101010010001    \0",
+	"11110111111111011101010010001    \0",
 	"11000000110101011100000010001    \0",
 	"10000000000000001100000010001    \0",
 	"10000000000000001101010010001    \0",
 	"1100000111010101111101111000111  \0",
 	"11110111 1110101 101111010001    \0",
-	"11111111 1111111 111111111111    \0",
+	"11111111111111111111111111111    \0",
 	"11111111 1111111 111111111111    \0"
 };
 
@@ -84,22 +84,22 @@ int	move(int key, t_cub *cub)
 {
 	if (key == 13)
 	{
-		minimove(key);
+		minimove(cub, key);
 		printf("w");
 	}
 	else if (key == 0)
 	{
-		minimove(key);
+		minimove(cub, key);
 		printf("a");
 	}
 	else if (key == 1)
 	{
-		minimove(key);
+		minimove(cub, key);
 		printf("s");
 	}
 	else if (key == 2)
 	{
-		minimove(key);
+		minimove(cub, key);
 		printf("d");
 	}
 	printf("\n");
@@ -172,7 +172,11 @@ int main(int argc, char **argv)
 		close_game(&cub, "\033[1;31mParse Error");
 	// define_player_pos(&cub);	
 	render(&cub);
-	if (draw_minimap(&cub))
+
+	//7 e 14 valori placeholder da sostituire con la posizione del player in modo dinamico
+	cub.player_pos.x = 7;
+	cub.player_pos.y = 14;
+	if (draw_minimap(&cub, cub.player_pos.x, cub.player_pos.y))
 		close_game(&cub, "\033[1;31mMap Error");
 	mlx_do_key_autorepeaton(cub.mlx);
 	mlx_hook(cub.win, 17, 0, exit_call, &cub);

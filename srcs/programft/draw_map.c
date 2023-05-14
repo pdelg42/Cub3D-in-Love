@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/14 04:40:30 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 04:53:30 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_square(t_cub* cub, unsigned long int color, int x, int y)
 		j = 0;
 		while (j < miniw)
 		{
-			my_mlx_pixel_put(cub->data, ( ((miniw * y) + (offset + j)) ), ( ((minih * x) + (offset + i)) ), color);
+			my_mlx_pixel_put(cub->data, ( ((miniw * y) + (offset + j) - 1) ), ( ((minih * x) + (offset + i) + 1) ), color);
 			j++;
 		}
 		i++;
@@ -73,13 +73,13 @@ void draw_borders(t_cub *cub)
 	int	tiles;
 
 	i = 10;
-	tiles = (64 * 3) + 13;
+	tiles = (64 * 3) + 12;
 	while (i < tiles)
 	{
-		j = 10;
+		j = 9;
 		while (j < tiles)
 		{
-			if ((i == 10 || i == tiles - 1) || (j == 10 || j == tiles - 1))
+			if ((i == 10 || i == tiles - 1) || (j == 9 || j == tiles - 1))
 			{
 				my_mlx_pixel_put(cub->data, j, i, 0x0055cc55);
 			}
@@ -94,19 +94,19 @@ int	draw_minimap(t_cub* cub)
 	int	i;
 	int	j;
 
-	my_mlx_pixel_put(cub->data, 10, 9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 11, 9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 12, 9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 13, 9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 14, 9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 15, 9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 16, 9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 17, 9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 18,  9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 19,  9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 20,  9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 21,  9, 0x00eee000);
-	my_mlx_pixel_put(cub->data, 22,  9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 10, 9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 11, 9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 12, 9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 13, 9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 14, 9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 15, 9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 16, 9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 17, 9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 18,  9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 19,  9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 20,  9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 21,  9, 0x00eee000);
+	// my_mlx_pixel_put(cub->data, 22,  9, 0x00eee000);
 
 	i = 0;
 	while (cub->map[i])

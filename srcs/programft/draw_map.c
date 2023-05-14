@@ -6,23 +6,11 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/13 19:39:27 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 04:40:30 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
-
-int	count_rows(char** map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 void	draw_square(t_cub* cub, unsigned long int color, int x, int y)
 {
@@ -30,8 +18,11 @@ void	draw_square(t_cub* cub, unsigned long int color, int x, int y)
 	int	j;
 	int	miniw;
 	int	minih;
+	int	offset;
 
-	miniw = (64 * 3 / ft_strlen(cub->map[0]));
+	offset = 10;
+	// miniw = (64.f * 3.f / (float)(ft_strlen(cub->map[0]) - 1.f));
+	miniw = (64 * 3 / (ft_strlen(cub->map[0]) - 1));
 	minih = (64 * 3 / row_counter(cub->map));
 	i = 0;
 	while (i < minih)
@@ -39,7 +30,7 @@ void	draw_square(t_cub* cub, unsigned long int color, int x, int y)
 		j = 0;
 		while (j < miniw)
 		{
-			my_mlx_pixel_put(cub->data, ( ((miniw * y) + (11 + j)) ), ( ((minih * x) + (11 + i)) ), color);
+			my_mlx_pixel_put(cub->data, ( ((miniw * y) + (offset + j)) ), ( ((minih * x) + (offset + i)) ), color);
 			j++;
 		}
 		i++;
@@ -66,7 +57,7 @@ void define_square(t_cub* cub, char tile, int x, int y)
 	}
 	else if (tile == 'N' || tile == 'E' || tile == 'W' || tile == 'S')
 	{
-		draw_square(cub, 0x00ff3400, x, y);
+		draw_square(cub, 0x00fff000, x, y);
 	}
 	else
 	{
@@ -82,13 +73,13 @@ void draw_borders(t_cub *cub)
 	int	tiles;
 
 	i = 10;
-	tiles = (64 * 3) + 1;
+	tiles = (64 * 3) + 13;
 	while (i < tiles)
 	{
 		j = 10;
 		while (j < tiles)
 		{
-			if ((i == 10 || i == tiles) || (j == 10 || j == tiles))
+			if ((i == 10 || i == tiles - 1) || (j == 10 || j == tiles - 1))
 			{
 				my_mlx_pixel_put(cub->data, j, i, 0x0055cc55);
 			}
@@ -103,7 +94,20 @@ int	draw_minimap(t_cub* cub)
 	int	i;
 	int	j;
 
-	draw_borders(cub);
+	my_mlx_pixel_put(cub->data, 10, 9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 11, 9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 12, 9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 13, 9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 14, 9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 15, 9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 16, 9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 17, 9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 18,  9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 19,  9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 20,  9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 21,  9, 0x00eee000);
+	my_mlx_pixel_put(cub->data, 22,  9, 0x00eee000);
+
 	i = 0;
 	while (cub->map[i])
 	{
@@ -117,6 +121,7 @@ int	draw_minimap(t_cub* cub)
 		write(1, "\n", 1);
 		i++;
 	}
+	draw_borders(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 	return (0);
 }

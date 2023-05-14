@@ -6,21 +6,21 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/13 19:38:22 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/13 20:27:34 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-char g_minimappa[8][18] = {
-	"    1111111111111\0",
-	"    10001   11111\0",
-	"111110001   10011\0",
-	"1001100111111111 \0",
-	"1001100000011    \0",
-	"1001100000011    \0",
-	"1001111110011    \0",
-	"1111111111111    \0"
+char g_minimappa[8][16] = {
+	" 11111111111111\0",
+	"    10001   111\0",
+	"111110001   101\0",
+	"10011001111111 \0",
+	"1001100000011  \0",
+	"1001100000011  \0",
+	"1001111110011  \0",
+	"1111111111111  \0"
 };
 // chiudi e libera
 
@@ -135,20 +135,22 @@ int main(int argc, char **argv)
 	t_cub	cub;
 
 	//inserimento manuale della minimappa per testing purpose
-	cub.map = (char**)malloc(8 * sizeof(char*));
-	for (int i = 0; i < 8; i++) 
+	cub.map = (char**)malloc((8 * sizeof(char*) + 1));
+	int i;
+	for (i = 0; i < 8; i++) 
 	{
-		cub.map[i] = (char*)malloc(18 * sizeof(char));
+		cub.map[i] = (char*)malloc(17 * sizeof(char));
 		strcpy(cub.map[i], g_minimappa[i]);
 	}
+	cub.map[i] = NULL;
 
 	if (argc < 2)
 		return (1);
 	if (!game_init(&cub))
 		close_game(&cub, "\033[1;31mInit error");
-	if (!parse_map(&cub, argv[1]))
+	if (0 && !parse_map(&cub, argv[1]))
 		close_game(&cub, "\033[1;31mParse Error");
-	// define_player_pos(&cub);
+	// define_player_pos(&cub);	
 	render(&cub);
 	if (draw_minimap(&cub))
 		close_game(&cub, "\033[1;31mMap Error");

@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 00:13:59 by aperrone          #+#    #+#             */
-/*   Updated: 2023/03/03 18:59:38 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:31:59 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*ft_strtrim(const char *s1, const char *set)
 	while (s < e)
 		str[i++] = s1[s++];
 	str[i] = 0;
-	free((char *)s1);
 	s1 = NULL;
 	return (str);
 }

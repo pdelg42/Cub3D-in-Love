@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   file_validator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/28 14:56:19 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/14 12:32:07 by aperrone         ###   ########.fr       */
+/*   Created: 2023/05/14 05:12:53 by aperrone          #+#    #+#             */
+/*   Updated: 2023/05/14 05:27:56 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+int	file_validator(char *map_path)
 {
-	size_t	i;
-	size_t	j;
-	char	*sum;
+	char	*temp;
 
-	sum = malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!sum)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[j])
-		sum[i++] = s1[j++];
-	j = 0;
-	while (s2[j])
-		sum[i++] = s2[j++];
-	sum[i] = '\0';
-	return (sum);
+	temp = ft_strstr(map_path, ".cub");
+	if (!temp || ft_strcmp(temp, ".cub"))
+		return (-1);
+	return (open(map_path, O_RDONLY));
 }

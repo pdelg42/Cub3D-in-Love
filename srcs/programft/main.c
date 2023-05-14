@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/14 08:57:20 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 12:37:30 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,19 @@ int	exit_call(t_cub *cub)
 
 // inizzializza array statici
 
-void	init_statics(t_cub *cub)
-{
-	int i;
+// void	init_statics(t_cub *cub)
+// {
+// 	int i;
 
-	i = 0;
-	while (i < 5)
-		cub->wall_imgs_addrs[i++] = NULL;
-	i = 0;
-	while (i < 4)
-		cub->wall_imgs[i++] = NULL;
-	cub->mat_tmp = NULL;
-	cub->str_tmp = NULL;
-}
+// 	i = 0;
+// 	while (i < 5)
+// 		cub->wall_imgs_addrs[i++] = NULL;
+// 	i = 0;
+// 	while (i < 4)
+// 		cub->wall_imgs[i++] = NULL;
+// 	cub->mat_tmp = NULL;
+// 	cub->str_tmp = NULL;
+// }
 
 int	move(int key, t_cub *cub)
 {
@@ -106,50 +106,6 @@ int	move(int key, t_cub *cub)
 	return (1);
 }
 
-// inizializza le variabili mlx
-
-int game_init(t_cub *cub)
-{
-	t_data	*d;
-
-	cub->mlx = mlx_init();
-	if (!cub->mlx)
-		return (0);
-	cub->win = mlx_new_window(cub->mlx, WIN_SIZE_W, WIN_SIZE_H, "cub3d");
-	if (!cub->win)
-		return (0);
-	d = (t_data *) ft_calloc(sizeof(t_data), 1);
-	if (!d)
-		return (0);
-	cub->data = d;
-	init_statics(cub);
-	return (1);
-}
-
-// void define_player_position(t_cub *cub)
-// {
-// 	int rows;
-
-// 	rows = row_counter(cub->map);
-// 	int y = 0;
-// 	while (y < rows)
-// 	{
-// 		int x = 0;
-// 		while (cub->map[y][x])
-// 		{
-// 			if (cub->map[y][x] == 'N')
-// 			{
-// 				cub->player_pos = set_point(int2fixed(x), int2fixed(y));
-// 				return ;
-// 			}
-// 		}
-// 		y++;
-// 	}
-// }
-
-
-// main
-
 int main(int argc, char **argv)
 {
 	t_cub	cub;
@@ -168,9 +124,12 @@ int main(int argc, char **argv)
 		return (1);
 	if (!game_init(&cub))
 		close_game(&cub, "\033[1;31mInit error");
-	if (0 && !parse_map(&cub, argv[1]))
-		close_game(&cub, "\033[1;31mParse Error");
+	if (!parser(file_validator(argv[1]), &cub))
+	{
+		printf("NO!\n");
+	}
 	// define_player_pos(&cub);	
+	pause();
 	render(&cub);
 
 	//7 e 14 valori placeholder da sostituire con la posizione del player in modo dinamico

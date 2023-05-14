@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/14 07:08:13 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/14 12:33:22 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,18 @@ typedef union u_rgb {
 	unsigned char	col_param;
 }	t_rgb;
 
-// struct necessaria (da guida) per poter disegnare e gesire i
-// pixel di un'immagine e stamparla a video
+typedef struct s_fetch
+{
+	t_node		*paths;
+	t_node		*colors;
+	t_node		*map;
+	t_node		*p_t;
+	t_node		*checks;
+	char		**paths_mtx;
+	char		**map_mtx;
+	char		*colors_str;
+	int			len;
+}	t_fetch;
 
 typedef struct	s_data 
 {
@@ -61,6 +71,7 @@ typedef struct	s_data
 
 typedef struct s_cub
 {
+	t_fetch	*fetched;
     t_data  *data;
 	t_rgb	color;
 	t_rgb	*floor_color;
@@ -79,8 +90,11 @@ typedef struct s_cub
 
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    render(t_cub *cub);
-int		parse_map(t_cub *cub, char *map_path);
+int		parser(int fd, t_cub *cub);
 int		import_elements(t_cub *cub);
+int		file_validator(char *map_path);
+int		game_init(t_cub *cub);
+void	init_fetch(t_cub *cub);
 
 // minimap
 

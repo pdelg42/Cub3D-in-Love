@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../incl/gc.h"
 
 // void	ft_init_fmv(t_xfillmv *fmv)
 // {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_incl/fixed.h"
+#include "../../incl/fixed.h"
 
 t_fixed8    fixsum(t_fixed8 a, t_fixed8 b)
 {

@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "_incl/engine.h"
 
 //per testare uso la key (cioé il movimento del player), in seguito
 //questo valore sará sostituito dall orientamento del player + key
-//es: player orientato a nord va avanti con w 
+//es: player orientato a nord va avanti con w
 //la x rimane uguale mentre la y diminuisce di 1 (si sta muovendo verso l alto)
 
 int	mov_offset_y(int key)

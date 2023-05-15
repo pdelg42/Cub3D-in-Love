@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_incl/fixed.h"
+#include "../../incl/fixed.h"
 
 t_point	point_delta(t_point p1, t_point p2)
 {

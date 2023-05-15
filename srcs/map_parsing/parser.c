@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incl/cub.h"
+#include "../../incl/map_parsing.h"
 
 void	build_to_compare(char *temp, char *box)
 {

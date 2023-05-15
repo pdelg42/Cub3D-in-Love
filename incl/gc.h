@@ -13,7 +13,7 @@
 #ifndef GC_H
 # define GC_H
 
-# include "../../../incl/cub.h"
+# include "cub.h"
 
 //gc structs
 typedef struct s_xfillmv

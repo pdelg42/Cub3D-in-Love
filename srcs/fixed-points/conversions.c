@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_incl/fixed.h"
+#include "../../incl/fixed.h"
 
 float	fixed2flo(t_fixed8 fixed)
 {

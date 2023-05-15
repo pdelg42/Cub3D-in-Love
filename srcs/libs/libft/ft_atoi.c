@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../../incl/libft.h"
 
 int	base(int c, int base)
 {

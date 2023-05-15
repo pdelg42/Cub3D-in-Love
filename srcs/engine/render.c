@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incl/cub.h"
+#include "_incl/engine.h"
 
 #define FLOOR 0x0055cc55
 #define SKY 0x00aaaaee
 #define WALL 0x0
 
 /**
+ * @brief raycasting operations for walls
  *
  * @param cub main structure
- *
- * @brief raycasting operations for walls
  */
 void	add_walls(t_cub *cub)
 {
@@ -51,8 +50,11 @@ void	add_walls(t_cub *cub)
 	//printf("x %.1f, y %.1f\n", fixed2flo(delta.x), fixed2flo(delta.y));
 }
 
-// funzione placeholder per stampa su finestra e definizione di un orizzonte
-
+/**
+ * @brief placeholder function to print on the window and definition of the horizon
+ *
+ * @param cub main structure
+ */
 void	render(t_cub *cub)
 {
 	mlx_clear_window(cub->mlx, cub->win);

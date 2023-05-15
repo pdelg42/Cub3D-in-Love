@@ -24,7 +24,7 @@
 # include <signal.h>
 # include <dirent.h>
 
-# include "../listft/listft.h"
+# include "listft.h"
 
 long long	a_(char *str, int len_base);
 int			ft_isdigit(char c);

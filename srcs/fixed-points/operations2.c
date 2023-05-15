@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_incl/fixed.h"
+#include "../../incl/fixed.h"
 
 t_fixed8	fixabs(t_fixed8 val)
 {

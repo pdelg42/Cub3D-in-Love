@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../incl/gc.h"
 
 static int	ft_nbrlen(long n)
 {

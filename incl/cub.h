@@ -13,7 +13,7 @@
 # include "../libs/listft/listft.h"
 # include "../fixed/fixed.h"
 # include "../srcs/fixed-points/_incl/point.h"
-# include "../srcs/gclib/_incl/gc.h"
+# include "gc.h"
 
 //macros
 # define WIN_SIZE_W 1028

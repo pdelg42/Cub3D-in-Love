@@ -1,7 +1,7 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefilevecchio                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
@@ -63,7 +63,7 @@ $(LIBGC): $(OBJS6)
 
 $(DIR1)/%.o: $(DIR1)/%.c
 	$(CC) -c $(CFLAGS) $< -o $@
-	
+
 $(DIR2)/%.o: $(DIR2)/%.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
@@ -86,7 +86,7 @@ clean:
 	rm -f $(OBJS4)
 	rm -f $(OBJS5)
 	rm -f $(OBJS6)
-	
+
 fclean: clean
 	rm -f $(OBJS1)
 	rm -f $(OBJS2)

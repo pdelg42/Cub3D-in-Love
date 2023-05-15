@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "_incl/engine.h"
 
 void draw_tile(t_cub* cub, unsigned long int color, int w, int h)
 {
@@ -137,10 +137,10 @@ int	draw_minimap(t_cub* cub, int playerx, int playery)
 
 	int width;
 	int	height;
-	
+
 	width = ft_strlen(cub->map[0]) + 17;
 	height = row_counter(cub->map) + 16;
-	
+
 	printf("WIDTH: %d\n", width);
 	printf("HEIGHT: %d\n", height);
 	printf("PLAYERX: %d PLAYERY: %d\n", playerx, playery);

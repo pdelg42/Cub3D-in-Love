@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../incl/gc.h"
 
 static int	wc(const char *s, char c)
 {

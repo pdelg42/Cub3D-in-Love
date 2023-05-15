@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../incl/gc.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

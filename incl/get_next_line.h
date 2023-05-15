@@ -12,7 +12,7 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include "../../../incl/cub.h"
+# include "cub.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1

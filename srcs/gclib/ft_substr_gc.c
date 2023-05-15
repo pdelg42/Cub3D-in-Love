@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../incl/gc.h"
 
 char	*ft_substr_m(t_garbage **garbage, char const *s, t_xsubstr sub)
 {

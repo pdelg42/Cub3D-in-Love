@@ -1,6 +1,6 @@
 #ifndef FIXED_TYPES_H
 # define FIXED_TYPES_H
-# include "../../../incl/cub.h"
+# include "cub.h"
 
 typedef unsigned int t_fixed8;
 

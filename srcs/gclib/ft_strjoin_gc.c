@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../incl/gc.h"
 
 char	*ftm_strjoin_utils(int flag, char const *s1, char const *s2)
 {

@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
-
 void	ft_lst_delete(t_node **stack)
 {
 	t_node	*tmp;

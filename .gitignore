@@ -1,0 +1,5 @@
+*.o
+cub3d
+.vscode
+.idea
+.DS_Store

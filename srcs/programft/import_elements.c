@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../incl/cub.h"
 
 // define di colori per effettuare un fallback nel caso non si riesca ad
 // aprire un immagine (da decidere se solo per debug o per feature)
@@ -57,14 +57,14 @@ t_rgb *get_color_from_string(char *str)
 
 int	is_color_type(char *str)
 {
-	return ((str[0] == 'C' || str[0] == 'F') 
+	return ((str[0] == 'C' || str[0] == 'F')
 		&& str[1] == ' ');
 }
 
 int	validate_colors(t_cub *cub, char *str)
 {
 	int i;
-	
+
 	if (!str || !*str)
 		return (0);
 	cub->mat_tmp = ft_split(str, ':');
@@ -102,7 +102,7 @@ int	import_elements(t_cub *cub)
 	i = 0;
 	while (cub->wall_imgs_addrs[i])
 	{
-		cub->wall_imgs[i] = mlx_xpm_file_to_image(cub->mlx, 
+		cub->wall_imgs[i] = mlx_xpm_file_to_image(cub->mlx,
 		cub->wall_imgs_addrs[i], &sizes[0], &sizes[1]);
 		if (!cub->wall_imgs[i++])
 		{

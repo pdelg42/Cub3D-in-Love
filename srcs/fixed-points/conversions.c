@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_mlx_pixel_put.c                                 :+:      :+:    :+:   */
+/*   conversions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 11:51:43 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/03/28 05:45:23 by gdel-giu         ###   ########.fr       */
+/*   Created: 2023/05/12 19:36:36 by gdel-giu          #+#    #+#             */
+/*   Updated: 2023/05/12 19:36:36 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incl/cub.h"
+#include "_incl/fixed.h"
 
-// funzione necessaria (da guida) per poter rendere piú efficiente
-// la gestione della stampa delle immagini
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+float	fixed2flo(t_fixed8 fixed)
 {
-	char	*dst;
+	return ((float) ((float) fixed / (1 << 8)));
+}
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+int	fixed2int(t_fixed8 fixed)
+{
+	return ((int) (fixed / (1 << 8)));
+}
+
+t_fixed8	int2fixed(int val)
+{
+	t_fixed8 fixed;
+	fixed = val * (1 << 8);
+	return (fixed);
+}
+
+t_fixed8	flo2fixed(float val)
+{
+	t_fixed8 fixed;
+	fixed = val * (1 << 8);
+	return (fixed);
 }

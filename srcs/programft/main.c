@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/14 12:37:30 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/16 00:17:12 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int main(int argc, char **argv)
 		cub.map[i] = (char*)malloc(34 * sizeof(char));
 		strcpy(cub.map[i], g_minimappa[i]);
 	}
+	
 	cub.map[i] = NULL;
 
 	if (argc < 2)
@@ -125,17 +126,13 @@ int main(int argc, char **argv)
 	if (!game_init(&cub))
 		close_game(&cub, "\033[1;31mInit error");
 	if (!parser(file_validator(argv[1]), &cub))
-	{
-		printf("NO!\n");
-	}
-	// define_player_pos(&cub);	
-	pause();
+		;
+	// pause();
 	render(&cub);
 
-	//7 e 14 valori placeholder da sostituire con la posizione del player in modo dinamico
-	cub.player_pos.x = 7;
-	cub.player_pos.y = 14;
-	if (draw_minimap(&cub, cub.player_pos.x, cub.player_pos.y))
+	add_map_padding(&cub);
+	define_player_pos(&cub);
+	if (draw_minimap(&cub))
 		close_game(&cub, "\033[1;31mMap Error");
 	mlx_do_key_autorepeaton(cub.mlx);
 	mlx_hook(cub.win, 17, 0, exit_call, &cub);

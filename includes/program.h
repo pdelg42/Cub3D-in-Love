@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/15 10:19:39 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:01:49 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_cub
 	char	*str_tmp;
 	char	**mat_tmp;
 	char	**map;
+	char	**minimap;
 	char	*wall_imgs_addrs[5];
 	char	*wall_imgs[4];
 }   t_cub;
@@ -96,10 +97,15 @@ int		file_validator(char *map_path);
 int		game_init(t_cub *cub);
 void	init_fetch(t_cub *cub);
 
+//map
+
+void	map_normalizer(t_fetch **fetched);
+
 // minimap
 
-int		draw_minimap(t_cub* cub, int playerx, int playery);
+void	define_player_pos(t_cub* cub);
+int		draw_minimap(t_cub* cub);
 void	minimove(t_cub* cub, int key);
-
+void	add_map_padding(t_cub* cub);
 
 #endif

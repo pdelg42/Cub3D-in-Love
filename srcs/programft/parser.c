@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/15 13:42:47 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/16 00:12:30 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ int		info_checks(t_node *info, t_fetch *fetched)
 	if (presence_validator(info, fetched) == 6)
 	{
 		info_adjust(&info, fetched);
-		printlist(&info);
-		printlist(&fetched->map);
-		pause();
+		// printlist(&info);
+		// printlist(&fetched->map);
+		// pause();
 		printf("continua ad eseguire\n");
 		return (1);
 	}
@@ -149,19 +149,21 @@ void	map_normalizer(t_fetch **fetched)
 		free(to_normalize);
 		(*fetched)->p_t = (*fetched)->p_t->next;
 	}
+	// printlist(&(*fetched)->map);
+	// pause();
 }
 
-int	map_checks(t_fetch **fetched)
-{
-	int	i;
+// int	map_checks(t_fetch **fetched)
+// {
+// 	// int	i;
 
-	(*fetched)->p_t = (*fetched)->map;
-	(*fetched)->len = (*fetched)->map->prev->id;
-	while ((*fetched)->p_t && (*fetched)->len--)
-	{
-		i = 0;
-	}
-}
+// 	// (*fetched)->p_t = (*fetched)->map;
+// 	// (*fetched)->len = (*fetched)->map->prev->id;
+// 	// while ((*fetched)->p_t && (*fetched)->len--)
+// 	// {
+// 	// 	i = 0;
+// 	// }
+// }
 
 void	build_information(int fd, t_node **info, t_fetch **fetched)
 {
@@ -178,7 +180,7 @@ void	build_information(int fd, t_node **info, t_fetch **fetched)
 				add_t(info, new_(ft_strtrim(line, " '\t''\n'"), ++i));
 			else
 			{
-				add_t(&(*fetched)->map, new_(ft_strtrim(line, "'\n'"), ++i));
+				add_t(&(*fetched)->map, new_(ft_strtrim(line, " '\t''\n'"), ++i));
 				if ((*fetched)->len < ft_strlen(line))
 					(*fetched)->len = ft_strlen(line) - 1;
 			}
@@ -187,8 +189,8 @@ void	build_information(int fd, t_node **info, t_fetch **fetched)
 		line = get_next_line(fd);
 	}
 	relister(&(*fetched)->map);
-	map_checks(fetched);
-	//map_normalizer(fetched);
+	//map_checks(fetched);
+	map_normalizer(fetched);
 }
 
 int	parser(int fd, t_cub *cub)
@@ -200,6 +202,9 @@ int	parser(int fd, t_cub *cub)
 	{
 		build_information(fd, &info, &cub->fetched);
 		info_checks(info, cub->fetched);
+		// map_normalizer(&cub->fetched);
+		//printlist(&cub->fetched->map);
+		cub->map = list_to_matrix(&cub->fetched->map);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/14 09:57:45 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 00:33:41 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,78 +110,47 @@ void draw_borders(t_cub *cub)
 	}
 }
 
-//cicla esattamente i valori +-8 di distanza dal player e disegnali
-//se la posizione del player+-8 esce dalla mappa stampa nero
-
-int	draw_minimap(t_cub* cub, int playerx, int playery)
+void	define_player_pos(t_cub* cub)
 {
-	char g_minimappa[15][34] = {
-	"1111111111111111111111111        \0",
-	"1000000000110000000000001        \0",
-	"1011000001110000000000001        \0",
-	"1001000000000000000000001        \0",
-	"111111111011000001110000000000001\0",
-	"100000000011000001110111111111111\0",
-	"11110111111111011100000010001    \0",
-	"11110111111111N11101010010001    \0",
-	"11000000110101011100000010001    \0",
-	"10000000000000001100000010001    \0",
-	"10000000000000001101010010001    \0",
-	"1100000111010101111101111000111  \0",
-	"11110111 1110101 101111010001    \0",
-	"11111111111111111111111111111    \0",
-	"11111111 1111111 111111111111    \0"
-};
+	int	i;
+	int	j;
+
+	i = 0;
+	while (cub->minimap[i])
+	{
+		j = 0;
+		while (cub->minimap[i][j])
+		{
+			if (cub->minimap[i][j] == 'N' || cub->minimap[i][j] == 'S' || cub->minimap[i][j] == 'W' || cub->minimap[i][j] == 'E')
+			{
+				cub->player_pos.x = i;
+				cub->player_pos.y = j;
+				printf("Mini check player pos: %c\n", cub->minimap[cub->player_pos.x][cub->player_pos.y]);
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+//cicla esattamente i valori +-8 di distanza dal player e disegnali
+//se la posizione del player+-8 esce dalla mappa stampa il padding
+
+int	draw_minimap(t_cub* cub)
+{
 	int	i;
 	int	j;
 
 	int width;
 	int	height;
-	
-	width = ft_strlen(cub->map[0]) + 17;
-	height = row_counter(cub->map) + 16;
-	
-	printf("WIDTH: %d\n", width);
-	printf("HEIGHT: %d\n", height);
-	printf("PLAYERX: %d PLAYERY: %d\n", playerx, playery);
 
-	char** minimap;
-	int	k;
-	int	m;
+	width = ft_strlen(cub->minimap[0]);
+	height = row_counter(cub->minimap);
 
-	k = 0;
-	minimap = (char**) malloc (sizeof(char*) * height);
-	for(int i = 0; i < height; i++) {
-    	minimap[i] = (char*) malloc (sizeof(char) * width);
-	}
-	while(k < height)
-	{
-		m = 0;
-		while (m < width)
-		{
-			minimap[k][m] = '0';
-			m++;
-		}
-		k++;
-	}
-	k = 0;
-	while (k < height - 16)
-	{
-		m = 0;
-		while (m < width - 16)
-		{
-			minimap[k + 8][m + 8] = g_minimappa[k][m];
-			m++;
-		}
-		k++;
-	}
-
-	// for(int i = 0; i < height; i++) {
-    // 	for(int j = 0; j < width; j++) {
-    //     	printf("%c", minimap[i][j]);
-    // 	}
-    // 	printf("\n");
-	// }
+	printf("MINIWIDTH: %d\n", width);
+	printf("MINIHEIGHT: %d\n", height);
+	printf("PLAYERX: %d PLAYERY: %d\n", cub->player_pos.x, cub->player_pos.y);
 
 	i = 0;
 	while (i < height)
@@ -189,12 +158,12 @@ int	draw_minimap(t_cub* cub, int playerx, int playery)
 		j = 0;
 		while (j < width)
 		{
+			//disegna solo i quadrati attorno al player in un area di 8 caselle partendo dal player, sommando 8 a playerx e playery per compensare il padding
+			if (((i > cub->player_pos.x - 8) && (i < cub->player_pos.x + 8)) && ((j > cub->player_pos.y - 8) && (j < cub->player_pos.y + 8)))
 			{
-			//disegna solo i quadrati attorno al player in un area di 8 caselle partendo dal player
-			if (((i > playerx - 8) && (i < playerx + 8)) && ((j > playery - 8) && (j < playery + 8)))
-				define_square(cub, minimap[i][j]);
+				write(1, &cub->minimap[i][j], 1);
+				define_square(cub, cub->minimap[i][j]);
 			}
-			write(1, &minimap[i][j], 1);
 			j++;
 		}
 		write(1, "\n", 1);
@@ -204,3 +173,4 @@ int	draw_minimap(t_cub* cub, int playerx, int playery)
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 	return (0);
 }
+ 

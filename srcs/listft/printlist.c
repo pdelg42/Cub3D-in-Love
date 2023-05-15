@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printlist.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 09:09:14 by aperrone          #+#    #+#             */
-/*   Updated: 2023/03/11 18:25:59 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/15 08:11:32 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	printlist(t_node **h)
 	tmp = *h;
 	while (tmp->next != *h)
 	{
-		printf("[%3d][%s][%s][%d]\n", tmp->id, tmp->box, tmp->type, tmp->status);
+		printf("[%3d][%s]\n", tmp->id, tmp->box);
 		tmp = tmp->next;
 	}
-	printf("[%3d][%s][%s][%d]\n", tmp->id, tmp->box, tmp->type, tmp->status);
+	printf("[%3d][%s]\n", tmp->id, tmp->box);
 }

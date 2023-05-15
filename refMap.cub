@@ -1,11 +1,11 @@
-WE ./textures/64/EW.xpm
-NO ./textures/64/nord.xpm
+		WE       ./textures/64/EW.xpm ufytvugvitv
+	NO    ./textures/64/nord.xpm
+			F 		30,      200    ,	    7      0    
 
-SO ./textures/64/sud.xpm
+SO 				./textures/64/sud.xpm	
 
-EA ./textures/64/EW.xpm
-F 30, 200,70
-C 0,0,150
+ EA 				./textures/64/EW.xpm
+C       0,   	  0,    			1     5            0
 11111111111111111111111111
 10000000000110000000000001
 1011000001110000000000001

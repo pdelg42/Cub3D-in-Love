@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/14 11:41:49 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:42:47 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,68 @@ int	presence_validator(t_node *info, t_fetch *fetched)
 	return (i);
 }
 
+void	cpychar(char c, char **out)
+{
+	char	c_[2];
+
+	c_[0] = c;
+	c_[1] = '\0';
+	*out = ft_strjoin(*out, c_);
+}
+
+char	*line_reparator(char *box)
+{
+	int		i;
+	int		flag;
+	char	*out;
+
+	i = 0;
+	flag = 0;
+	out = malloc(1);
+	out[0] = 0;
+	while (box[i])
+	{
+		if (ft_isspace(box[i]) && flag == 0)
+		{
+			flag = 1;
+			cpychar(box[i], &out);
+		}
+		else if (ft_isspace(box[i]) && flag == 1)
+		{
+			i++;
+			continue ;
+		}
+		else
+			cpychar(box[i], &out);
+		i++;
+	}
+	return (out);
+}
+
+void	info_adjust(t_node **info, t_fetch *fetched)
+{
+	char	*temp;
+
+	fetched->p_t = *info;
+	fetched->len = 6;
+	while (fetched->p_t && fetched->len--)
+	{
+		temp = line_reparator(fetched->p_t->box);
+		free(fetched->p_t->box);
+		fetched->p_t->box = ft_strdup(temp);
+		free(temp);
+		fetched->p_t = fetched->p_t->next;
+	}
+}
+
 int		info_checks(t_node *info, t_fetch *fetched)
 {
 	if (presence_validator(info, fetched) == 6)
 	{
+		info_adjust(&info, fetched);
+		printlist(&info);
+		printlist(&fetched->map);
+		pause();
 		printf("continua ad eseguire\n");
 		return (1);
 	}
@@ -73,7 +131,39 @@ int		info_checks(t_node *info, t_fetch *fetched)
 	return (0);
 }
 
-void	build_information(int fd, t_node **info, t_node **map)
+void	map_normalizer(t_fetch **fetched)
+{
+	char	*to_normalize;
+	int		len;
+	int		temp;
+
+	(*fetched)->p_t = (*fetched)->map;
+	len = (*fetched)->map->prev->id;
+	while ((*fetched)->p_t && len--)
+	{
+		temp = (*fetched)->len - ft_strlen((*fetched)->p_t->box);
+		to_normalize = malloc(temp);
+		ft_memset(to_normalize, '0', temp);
+		to_normalize[temp] = 0;
+		(*fetched)->p_t->box = ft_strjoin((*fetched)->p_t->box, to_normalize);
+		free(to_normalize);
+		(*fetched)->p_t = (*fetched)->p_t->next;
+	}
+}
+
+int	map_checks(t_fetch **fetched)
+{
+	int	i;
+
+	(*fetched)->p_t = (*fetched)->map;
+	(*fetched)->len = (*fetched)->map->prev->id;
+	while ((*fetched)->p_t && (*fetched)->len--)
+	{
+		i = 0;
+	}
+}
+
+void	build_information(int fd, t_node **info, t_fetch **fetched)
 {
 	char	*line;
 	int		i;
@@ -85,14 +175,20 @@ void	build_information(int fd, t_node **info, t_node **map)
 		if (ft_strcmp(line, "\n"))
 		{
 			if (i < 6)
-				add_t(info, new_(ft_strtrim(line, " '\t'"), ++i));
+				add_t(info, new_(ft_strtrim(line, " '\t''\n'"), ++i));
 			else
-				add_t(map, new_(line, ++i));
+			{
+				add_t(&(*fetched)->map, new_(ft_strtrim(line, "'\n'"), ++i));
+				if ((*fetched)->len < ft_strlen(line))
+					(*fetched)->len = ft_strlen(line) - 1;
+			}
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	relister(map);
+	relister(&(*fetched)->map);
+	map_checks(fetched);
+	//map_normalizer(fetched);
 }
 
 int	parser(int fd, t_cub *cub)
@@ -102,7 +198,7 @@ int	parser(int fd, t_cub *cub)
 	info = NULL;
 	if (fd > 0)
 	{
-		build_information(fd, &info, &cub->fetched->map);
+		build_information(fd, &info, &cub->fetched);
 		info_checks(info, cub->fetched);
 		return (1);
 	}

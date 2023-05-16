@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../../incl/listft.h"
 
 void	add_h(t_node **h, t_node *node)
 {

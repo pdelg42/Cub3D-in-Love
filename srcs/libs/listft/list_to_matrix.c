@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../../incl/listft.h"
 
 char	**list_to_matrix(t_node **head)
 {

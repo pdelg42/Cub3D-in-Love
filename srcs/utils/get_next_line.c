@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
+#include "../../incl/get_next_line.h"
 
 // join and free
 char	*ft_free(char *buffer, char *buf)

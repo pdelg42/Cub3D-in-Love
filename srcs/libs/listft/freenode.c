@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../../incl/listft.h"
 
 void	freenode(t_node	*h)
 {

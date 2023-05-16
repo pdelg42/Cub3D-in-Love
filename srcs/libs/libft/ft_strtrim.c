@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../../incl/libft.h"
 
 static int	ft_inset(int c, const char *set)
 {

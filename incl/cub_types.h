@@ -1,5 +1,7 @@
 #ifndef CUB_TYPES_H
 # define CUB_TYPES_H
+# include "listft.h"
+# include "fixed_types.h"
 
 /**
  * @brief define for the cardinal directions

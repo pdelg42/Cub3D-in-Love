@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../../incl/listft.h"
 
 char	*ft_strstr(char *str, char *to_find)
 {

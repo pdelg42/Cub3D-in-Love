@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/program.h"
+#include "../../../incl/listft.h"
 
 char	*key_fetcher(char *content)
 {
 	int		i;
 	char	*temp;
 
-	
+
 	i = -1;
 	temp = malloc(sizeof(char) * 256);
 	while (content[++i] && content[i] != '=')

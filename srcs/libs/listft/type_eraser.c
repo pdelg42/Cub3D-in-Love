@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../../incl/listft.h"
 
 void	type_eraser(t_node *h)
 {

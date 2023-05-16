@@ -12,6 +12,7 @@
 
 #ifndef LISTFT_H
 # define LISTFT_H
+#
 
 typedef struct s_node
 {
@@ -27,7 +28,7 @@ t_node	*new_(char *content, int id);
 void	add_h(t_node **h, t_node *node);
 void	add_t(t_node **h, t_node *node);
 void	del_h(t_node **h);
-void	del_t(t_node **h);	
+void	del_t(t_node **h);
 void	del_node(t_node **stack, int n);
 void	freelist(t_node **h);
 void	freenode(t_node	*h);

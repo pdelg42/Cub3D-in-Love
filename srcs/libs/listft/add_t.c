@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../../incl/listft.h"
 
 void	add_t(t_node **h, t_node *node)
 {

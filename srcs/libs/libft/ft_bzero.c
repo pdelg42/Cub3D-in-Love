@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../../incl/libft.h"
 
 void	ft_bzero(void *b, size_t n)
 {

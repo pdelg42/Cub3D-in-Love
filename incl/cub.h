@@ -6,14 +6,17 @@
 # include <unistd.h>
 # include <stdio.h>
 
+//types includes
+# include "fixed_types.h"
+# include "cub_types.h"
+
 //project includes
 # include "../mlx/mlx.h"
-# include "cub_types.h"
-# include "../libs/libft/libft.h"
-# include "../libs/listft/listft.h"
-# include "../fixed/fixed.h"
-# include "../srcs/fixed-points/_incl/point.h"
+# include "libft.h"
+# include "listft.h"
+# include "fixed.h"
 # include "gc.h"
+# include "get_next_line.h"
 
 //macros
 # define WIN_SIZE_W 1028

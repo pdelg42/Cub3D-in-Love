@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../../incl/libft.h"
 
 int	ft_clamp(const int val, const int min, const int max)
 {

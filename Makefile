@@ -34,7 +34,7 @@ RM				= rm -rf
 
 #####   RESOURCES   #####
 
-INCLUDE			= includes
+INCLUDE			= incl
 SRC_DIR			= srcs
 OBJ_DIR			= objs
 

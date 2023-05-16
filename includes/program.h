@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/16 19:07:15 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:11:41 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,7 @@ void	add_map_padding(t_cub* cub);
 void	info_adjust(t_node **info, t_fetch *fetched);
 int		presence_validator(t_node *info, t_fetch *fetched);
 int		valid_char(char c);
+int		wall_line(char *box);
+int		first_last(char *box);
 
 #endif

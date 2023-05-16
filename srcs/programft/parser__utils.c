@@ -6,11 +6,29 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/16 19:07:02 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/17 01:02:21 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
+
+int	first_last(char *box)
+{
+	if (box[0] == '1' && box[ft_strlen(box) - 1] == '1')
+		return (1);
+	return (0);
+}
+
+int	wall_line(char *box)
+{
+	int	i;
+
+	i = -1;
+	while (box[++i])
+		if (box[i] != '1' && box[i] != ' ')
+			return (0);
+	return (1);
+}
 
 int	valid_char(char c)
 {

@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/16 19:56:45 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/17 01:12:08 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,50 @@ int	map_normalizer(t_fetch **fetched)
 	return (1);
 }
 
-int	map_validator(t_fetch **fetched)
+int	map_validator(t_cub **cub)
 {
 	int	i;
 	int	len;
 
-	(*fetched)->p_t = (*fetched)->map;
-	len = (*fetched)->map->prev->id;
-	while ((*fetched)->p_t && len--)
+	(*cub)->fetched->p_t = (*cub)->fetched->map;
+	len = (*cub)->fetched->map->prev->id;
+	while ((*cub)->fetched->p_t && len--)
 	{
 		i = -1;
-		while ((*fetched)->p_t->box[++i])
-			if (!valid_char((*fetched)->p_t->box[i]))
+		while ((*cub)->fetched->p_t->box[++i])
+			if (!valid_char((*cub)->fetched->p_t->box[i]))
 				return (0);
-		(*fetched)->p_t = (*fetched)->p_t->next;
+		(*cub)->fetched->p_t = (*cub)->fetched->p_t->next;
+	}
+	(*cub)->map = list_to_matrix(&(*cub)->fetched->map);
+	return (1);
+}
+
+int	map_checks(t_cub **cub)
+{
+	int	i;
+	int	k;
+
+	i = 0;
+	while ((*cub)->map[++i])
+	{
+		if (first_last((*cub)->map[i]))
+		{
+			k = 0;
+			{
+				while ((*cub)->map[i][++k])
+				{
+					if ((*cub)->map[i][k] == '0')
+					{
+						if (((*cub)->map[i - 1][k] == ' '
+							|| ((*cub)->map[i + 1][k] == ' '))
+							|| ((*cub)->map[i][k - 1] == ' '
+							|| (*cub)->map[i][k + 1] == ' '))
+							return (0);
+					}
+				}
+			}
+		}
 	}
 	return (1);
 }
@@ -81,7 +111,8 @@ int	build_information(int fd, t_node **info, t_cub **cub)
 				add_t(info, new_(ft_strtrim(line, " \t\n"), ++i));
 			else
 			{
-				add_t(&(*cub)->fetched->map, new_(ft_strtrim(line, " \t\n"), ++i));
+				add_t(&(*cub)->fetched->map,
+					new_(ft_strtrim(line, " \t\n"), ++i));
 				if ((*cub)->fetched->len < ft_strlen(line))
 					(*cub)->fetched->len = ft_strlen(line) - 1;
 			}
@@ -90,9 +121,13 @@ int	build_information(int fd, t_node **info, t_cub **cub)
 		line = get_next_line(fd);
 	}
 	relister(&(*cub)->fetched->map);
-	if (map_validator(&(*cub)->fetched))
-		if (map_normalizer(&(*cub)->fetched))
-			return (1);
+	if (wall_line((*cub)->fetched->map->box)
+		&& wall_line((*cub)->fetched->map->prev->box))
+		if (map_validator(cub))
+			if (map_checks(cub))
+				pause(); 
+				// if (map_normalizer(&(*cub)->fetched))
+				// 	return (1);
 	return (0);
 }
 
@@ -109,7 +144,7 @@ int	parser(int fd, t_cub *cub)
 			return (0);
 		printlist(&info);
 		printlist(&cub->fetched->map);
-		cub->map = list_to_matrix(&cub->fetched->map);
+		// cub->map = list_to_matrix(&cub->fetched->map);
 		return (1);
 	}
 	return (0);

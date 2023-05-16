@@ -12,19 +12,7 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
-# include <stdlib.h>
-# include <stdio.h>
-# include <string.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <fcntl.h>
-# include <limits.h>
-# include <unistd.h>
-# include <signal.h>
-# include <dirent.h>
-
-# include "listft.h"
+# include "cub.h"
 
 long long	a_(char *str, int len_base);
 int			ft_isdigit(char c);

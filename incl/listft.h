@@ -12,17 +12,7 @@
 
 #ifndef LISTFT_H
 # define LISTFT_H
-#
-
-typedef struct s_node
-{
-	int				id;
-	int				status;
-	char			*box;
-	char			*type;
-	struct s_node	*next;
-	struct s_node	*prev;
-}	t_node;
+#include "cub.h"
 
 t_node	*new_(char *content, int id);
 void	add_h(t_node **h, t_node *node);

@@ -1,7 +1,16 @@
 #ifndef CUB_TYPES_H
 # define CUB_TYPES_H
-# include "listft.h"
-# include "fixed_types.h"
+# include "cub.h"
+
+typedef struct s_node
+{
+    int				id;
+    int				status;
+    char			*box;
+    char			*type;
+    struct s_node	*next;
+    struct s_node	*prev;
+}	t_node;
 
 /**
  * @brief define for the cardinal directions

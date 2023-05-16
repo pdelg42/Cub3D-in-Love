@@ -1,22 +1,28 @@
 #ifndef CUB_H
 # define CUB_H
+
 //std includes
-# include <math.h>
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <stdio.h>
+# include <math.h>
+# include <string.h>
+# include <fcntl.h>
+# include <limits.h>
+# include <signal.h>
+# include <dirent.h>
+
+//project includes
+# include "libft.h"
+# include "fixed.h"
+# include "gc.h"
+# include "get_next_line.h"
+# include "../mlx/mlx.h"
 
 //types includes
 # include "fixed_types.h"
 # include "cub_types.h"
-
-//project includes
-# include "../mlx/mlx.h"
-# include "libft.h"
 # include "listft.h"
-# include "fixed.h"
-# include "gc.h"
-# include "get_next_line.h"
 
 //macros
 # define WIN_SIZE_W 1028

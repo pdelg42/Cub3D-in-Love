@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/16 19:48:15 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 21:11:05 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int main(int argc, char **argv)
 		exit(printf("NO\n"));
 	// pause();
 	render(&cub);
+
+	printf("ualsjfoiaj\n");
 
 	add_map_padding(&cub);
 	define_player_pos(&cub);

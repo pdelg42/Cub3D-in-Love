@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/16 23:22:59 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 23:36:57 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	close_game(t_cub *cub, char *mex)
 	mlx_destroy_window(cub->mlx, cub->win);
 	freematrix(cub->map, row_counter(cub->map));
 	freematrix(cub->mat_tmp, row_counter(cub->mat_tmp));
+	freematrix(cub->minimap, row_counter(cub->minimap));
 	if (cub->str_tmp)
 		free(cub->str_tmp);
 	if (!cub->data)
@@ -48,19 +49,19 @@ int	exit_call(t_cub *cub)
 
 // inizzializza array statici
 
-// void	init_statics(t_cub *cub)
-// {
-// 	int i;
+void	init_statics(t_cub *cub)
+{
+	int i;
 
-// 	i = 0;
-// 	while (i < 5)
-// 		cub->wall_imgs_addrs[i++] = NULL;
-// 	i = 0;
-// 	while (i < 4)
-// 		cub->wall_imgs[i++] = NULL;
-// 	cub->mat_tmp = NULL;
-// 	cub->str_tmp = NULL;
-// }
+	i = 0;
+	while (i < 5)
+		cub->wall_imgs_addrs[i++] = NULL;
+	i = 0;
+	while (i < 4)
+		cub->wall_imgs[i++] = NULL;
+	cub->mat_tmp = NULL;
+	cub->str_tmp = NULL;
+}
 
 int	move(int key, t_cub *cub)
 {
@@ -84,11 +85,10 @@ int	move(int key, t_cub *cub)
 		minimove(cub, key);
 		printf("d");
 	}
-	else if (key == 53)
+	else if (key == 53)			//tasto associato all esc
 	{
 		exit_call(cub);
 	}
-	printf("\n");
 	return (1);
 }
 

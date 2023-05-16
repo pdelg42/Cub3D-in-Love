@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/16 15:12:10 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:07:15 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ typedef struct s_cub
 
 // foos() and bars()
 
-void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void    render(t_cub *cub);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	render(t_cub *cub);
 int		parser(int fd, t_cub *cub);
 int		import_elements(t_cub *cub);
 int		file_validator(char *map_path);
@@ -108,6 +108,10 @@ int		draw_minimap(t_cub* cub);
 void	minimove(t_cub* cub, int key);
 void	add_map_padding(t_cub* cub);
 
-//int	parse_map(t_cub *cub, char *map_path);
+// parser
+
+void	info_adjust(t_node **info, t_fetch *fetched);
+int		presence_validator(t_node *info, t_fetch *fetched);
+int		valid_char(char c);
 
 #endif

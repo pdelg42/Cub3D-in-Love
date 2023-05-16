@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/16 19:48:15 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 21:09:00 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int main(int argc, char **argv)
 		exit(printf("NO\n"));
 	// pause();
 	render(&cub);
+	printf("avadachedabra\n");
 
 	add_map_padding(&cub);
 	define_player_pos(&cub);

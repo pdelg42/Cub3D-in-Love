@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/16 15:05:13 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:48:15 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
-
-char g_minimappa[15][34] = {
-	"1111111111111111111111111        \0",
-	"10000000001100N0000000001        \0",
-	"1011000001110000000000001        \0",
-	"1001000000000000000000001        \0",
-	"111111111011000001110000000000001\0",
-	"100000000011000001110111111111111\0",
-	"11110111111111011100000010001    \0",
-	"11110111111111011101010010001    \0",
-	"11000000110101011100000010001    \0",
-	"10000000000000001100000010001    \0",
-	"10000000000000001101010010001    \0",
-	"1100000111010101111101111000111  \0",
-	"11110111 1110101 101111010001    \0",
-	"11111111111111111111111111111    \0",
-	"11111111 1111111 111111111111    \0"
-};
 
 // chiudi e libera
 
@@ -110,16 +92,6 @@ int main(int argc, char **argv)
 {
 	t_cub	cub;
 
-	//inserimento manuale della minimappa per testing purpose
-	cub.map = (char**)malloc((15 * sizeof(char*) + 1));
-	int i;
-	for (i = 0; i < 15; i++) 
-	{
-		cub.map[i] = (char*)malloc(34 * sizeof(char));
-		strcpy(cub.map[i], g_minimappa[i]);
-	}
-	cub.map[i] = NULL;
-
 	if (argc < 2)
 		return (1);
 	if (!game_init(&cub))
@@ -133,6 +105,7 @@ int main(int argc, char **argv)
 	define_player_pos(&cub);
 	if (draw_minimap(&cub))
 		close_game(&cub, "\033[1;31mMap Error");
+
 	mlx_do_key_autorepeaton(cub.mlx);
 	mlx_hook(cub.win, 17, 0, exit_call, &cub);
 	mlx_hook(cub.win, 2, 0, move, &cub);

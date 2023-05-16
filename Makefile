@@ -6,7 +6,7 @@
 #    By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/05/15 23:19:02 by sgerace          ###   ########.fr        #
+#    Updated: 2023/05/16 18:36:01 by sgerace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIBS = -L./includes -lft -llistft -lgetnextline -lfixed -lpoint -lgc -I.
 KIT = -L./mlx -lmlx -framework openGL -framework AppKit
 FILES = ${wildcard $(PRGMFT)/*.c}
 
-FLAGS = # -Wall -Wextra -Werror
+FLAGS = -g # -Wall -Wextra -Werror
 DEBUGGER = -g
 
 OBJS = $(FILES:.c=.o)

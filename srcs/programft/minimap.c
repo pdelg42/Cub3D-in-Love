@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/16 00:33:17 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 19:50:48 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,14 @@ void add_map_padding(t_cub* cub)
 	int	m;
 
 	//+8 per il padding a destra, +8 a sinistra, sopra e sotto, +1 alla width per il \0 o \n character
-	width = ft_strlen(cub->map[0]) + 17;
+	width = ft_strlen(cub->map[0]) + 16;
 	height = row_counter(cub->map) + 16;
-
-	printf("WIDTH: %d\n", width);
-	printf("HEIGHT: %d\n", height);
 	
 	int i;
 	cub->minimap = (char**) malloc (sizeof(char*) * height);
-	for (i = 0; i < height; i++) {
-    	cub->minimap[i] = (char*) malloc (sizeof(char) * width);
+	for (i = 0; i < height; i++) 
+	{
+    	cub->minimap[i] = (char*) malloc (sizeof(char) * width + 1);
 	}
 	cub->minimap[i] = NULL;
 
@@ -46,21 +44,20 @@ void add_map_padding(t_cub* cub)
 		while (m < width)
 		{
 			cub->minimap[k][m] = '0';
-			// write(1, &cub->minimap[k][m], 1);
+			write(1, &cub->minimap[k][m], 1);
 			m++;
 		}
-		// write(1, "\n", 1);
+		write(1, "\n", 1);
 		cub->minimap[k][m] = '\0';
 		k++;
 	}
-	cub->minimap[k] = NULL;
+	write(1, "\n", 1);
 
-	
 	k = 0;
-	while (cub->map[k])
+	while (k < height - 16)
 	{
 		m = 0;
-		while (cub->map[k][m])
+		while (m < width - 16)
 		{
 			cub->minimap[k + 8][m + 8] = cub->map[k][m];
 			// write(1, &cub->minimap[k + 8][m + 8], 1);
@@ -70,7 +67,6 @@ void add_map_padding(t_cub* cub)
 		k++;
 	}
 }
-
 
 int	mov_offset_y(int key)
 {

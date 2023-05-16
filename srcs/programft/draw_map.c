@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/16 17:44:33 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:29:54 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,22 @@ int	draw_minimap(t_cub* cub)
 	printf("MINIWIDTH: %d\n", width);
 	printf("MINIHEIGHT: %d\n", height);
 	printf("PLAYERX: %d PLAYERY: %d\n", cub->player_pos.x, cub->player_pos.y);
+
+	int k, m;
+	k = 0;
+	while (k < height)
+	{
+		m = 0;
+		while (m < width)
+		{
+			// cub->minimap[k][m] = '0';
+			write(1, &cub->minimap[k][m], 1);
+			m++;
+		}
+		write(1, "\n", 1);
+		// cub->minimap[k][m] = '\0';
+		k++;
+	}
 
 	i = 0;
 	while (i < height)

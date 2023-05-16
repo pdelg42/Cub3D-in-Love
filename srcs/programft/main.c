@@ -6,11 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/05/16 22:58:24 by sgerace          ###   ########.fr       */
-=======
-/*   Updated: 2023/05/16 21:11:05 by sgerace          ###   ########.fr       */
->>>>>>> 4f2f74dfc07f18ef1ad8fdcc60e90ee378ffc4de
+/*   Updated: 2023/05/16 23:22:59 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +83,10 @@ int	move(int key, t_cub *cub)
 	{
 		minimove(cub, key);
 		printf("d");
+	}
+	else if (key == 53)
+	{
+		exit_call(cub);
 	}
 	printf("\n");
 	return (1);

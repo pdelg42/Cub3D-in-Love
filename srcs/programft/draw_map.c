@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/16 18:29:54 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 23:28:11 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,55 +119,27 @@ void	define_player_pos(t_cub* cub)
 	}
 }
 
-//cicla esattamente i valori +-8 di distanza dal player e disegnali
-//se la posizione del player+-8 esce dalla mappa stampa il padding
-
 int	draw_minimap(t_cub* cub)
 {
 	int	i;
 	int	j;
-
 	int width;
 	int	height;
 
 	width = ft_strlen(cub->minimap[0]);
 	height = row_counter(cub->minimap);
-
-	printf("MINIWIDTH: %d\n", width);
-	printf("MINIHEIGHT: %d\n", height);
-	printf("PLAYERX: %d PLAYERY: %d\n", cub->player_pos.x, cub->player_pos.y);
-
-	int k, m;
-	k = 0;
-	while (k < height)
-	{
-		m = 0;
-		while (m < width)
-		{
-			// cub->minimap[k][m] = '0';
-			write(1, &cub->minimap[k][m], 1);
-			m++;
-		}
-		write(1, "\n", 1);
-		// cub->minimap[k][m] = '\0';
-		k++;
-	}
-
 	i = 0;
 	while (i < height)
 	{
 		j = 0;
 		while (j < width)
 		{
-			//disegna solo i quadrati attorno al player in un area di 8 caselle partendo dal player, sommando 8 a playerx e playery per compensare il padding
 			if (((i > cub->player_pos.x - 8) && (i < cub->player_pos.x + 8)) && ((j > cub->player_pos.y - 8) && (j < cub->player_pos.y + 8)))
 			{
-				write(1, &cub->minimap[i][j], 1);
 				define_square(cub, cub->minimap[i][j]);
 			}
 			j++;
 		}
-		write(1, "\n", 1);
 		i++;
 	}
 	draw_borders(cub);

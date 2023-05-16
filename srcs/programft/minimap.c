@@ -6,11 +6,48 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/16 19:50:48 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 23:34:12 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
+
+void allocate_minimap_memory(t_cub* cub, int height, int width)
+{
+    int i;
+    cub->minimap = (char**)malloc(sizeof(char*) * height);
+    for (i = 0; i < height; i++) 
+    {
+        cub->minimap[i] = (char*)malloc(sizeof(char) * width + 1);
+    }
+    cub->minimap[i] = NULL;
+}
+
+void initialize_minimap(t_cub* cub, int height, int width)
+{
+    int k, m;
+    for (k = 0; k < height; k++)
+    {
+        for (m = 0; m < width; m++)
+        {
+            cub->minimap[k][m] = '0';
+        }
+        cub->minimap[k][m] = '\0';
+    }
+}
+
+void copy_map_to_minimap(t_cub* cub, int height, int width)
+{
+    int k, m;
+    for (k = 0; k < height - 16; k++)
+    {
+        for (m = 0; m < width - 16; m++)
+        {
+            cub->minimap[k + 8][m + 8] = cub->map[k][m];
+        }
+    }
+}
+
 
 //per testare uso la key (cioé il movimento del player), in seguito
 //questo valore sará sostituito dall orientamento del player + key
@@ -21,51 +58,14 @@ void add_map_padding(t_cub* cub)
 {
 	int	width;
 	int	height;
-	int	k;
-	int	m;
 
 	//+8 per il padding a destra, +8 a sinistra, sopra e sotto, +1 alla width per il \0 o \n character
 	width = ft_strlen(cub->map[0]) + 16;
 	height = row_counter(cub->map) + 16;
 	
-	int i;
-	cub->minimap = (char**) malloc (sizeof(char*) * height);
-	for (i = 0; i < height; i++) 
-	{
-    	cub->minimap[i] = (char*) malloc (sizeof(char) * width + 1);
-	}
-	cub->minimap[i] = NULL;
-
-
-	k = 0;
-	while (k < height)
-	{
-		m = 0;
-		while (m < width)
-		{
-			cub->minimap[k][m] = '0';
-			write(1, &cub->minimap[k][m], 1);
-			m++;
-		}
-		write(1, "\n", 1);
-		cub->minimap[k][m] = '\0';
-		k++;
-	}
-	write(1, "\n", 1);
-
-	k = 0;
-	while (k < height - 16)
-	{
-		m = 0;
-		while (m < width - 16)
-		{
-			cub->minimap[k + 8][m + 8] = cub->map[k][m];
-			// write(1, &cub->minimap[k + 8][m + 8], 1);
-			m++;
-		}
-		// write(1, "\n", 1);
-		k++;
-	}
+    allocate_minimap_memory(cub, height, width);
+    initialize_minimap(cub, height, width);
+    copy_map_to_minimap(cub, height, width);
 }
 
 int	mov_offset_y(int key)

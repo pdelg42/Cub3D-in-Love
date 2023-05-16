@@ -104,11 +104,6 @@ int main(int argc, char **argv)
 		exit(printf("NO\n"));
 	// pause();
 	render(&cub);
-	printf("avadachedabra\n");
-	printf("avadachedabra\n");
-	printf("avadachedabra\n");
-
-	printf("ualsjfoiaj\n");
 
 	add_map_padding(&cub);
 	define_player_pos(&cub);

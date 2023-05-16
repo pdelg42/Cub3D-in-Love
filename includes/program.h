@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/15 23:01:49 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 15:12:10 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	init_fetch(t_cub *cub);
 
 //map
 
-void	map_normalizer(t_fetch **fetched);
+int	map_normalizer(t_fetch **fetched);
 
 // minimap
 
@@ -107,5 +107,7 @@ void	define_player_pos(t_cub* cub);
 int		draw_minimap(t_cub* cub);
 void	minimove(t_cub* cub, int key);
 void	add_map_padding(t_cub* cub);
+
+//int	parse_map(t_cub *cub, char *map_path);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/16 00:12:30 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 17:44:46 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,6 @@ int	presence_validator(t_node *info, t_fetch *fetched)
 	return (i);
 }
 
-void	cpychar(char c, char **out)
-{
-	char	c_[2];
-
-	c_[0] = c;
-	c_[1] = '\0';
-	*out = ft_strjoin(*out, c_);
-}
-
 char	*line_reparator(char *box)
 {
 	int		i;
@@ -85,7 +76,7 @@ char	*line_reparator(char *box)
 		if (ft_isspace(box[i]) && flag == 0)
 		{
 			flag = 1;
-			cpychar(box[i], &out);
+			ft_cpychar(box[i], &out);
 		}
 		else if (ft_isspace(box[i]) && flag == 1)
 		{
@@ -93,7 +84,7 @@ char	*line_reparator(char *box)
 			continue ;
 		}
 		else
-			cpychar(box[i], &out);
+			ft_cpychar(box[i], &out);
 		i++;
 	}
 	return (out);
@@ -115,7 +106,7 @@ void	info_adjust(t_node **info, t_fetch *fetched)
 	}
 }
 
-int		info_checks(t_node *info, t_fetch *fetched)
+void		info_checks(t_node *info, t_fetch *fetched)
 {
 	if (presence_validator(info, fetched) == 6)
 	{
@@ -124,48 +115,60 @@ int		info_checks(t_node *info, t_fetch *fetched)
 		// printlist(&fetched->map);
 		// pause();
 		printf("continua ad eseguire\n");
-		return (1);
 	}
 	else
 		printf("Invalid information\n");
-	return (0);
 }
 
-void	map_normalizer(t_fetch **fetched)
+int	map_normalizer(t_fetch **fetched)
 {
 	char	*to_normalize;
 	int		len;
 	int		temp;
+	t_node	*map_;
+
+	map_ = (*fetched)->map;
+	len = (*fetched)->map->prev->id;
+	while (map_ && len--)
+	{
+		temp = (*fetched)->len - ft_strlen(map_->box);
+		to_normalize = malloc(temp);
+		ft_memset(to_normalize, '0', temp);
+		to_normalize[temp] = 0;
+		map_->box = ft_strjoin(map_->box, to_normalize);
+		free(to_normalize);
+		map_ = map_->next;
+	}
+	return (1);
+}
+
+int	map_validator(t_fetch **fetched)
+{
+	int	i;
+	int	len;
 
 	(*fetched)->p_t = (*fetched)->map;
 	len = (*fetched)->map->prev->id;
 	while ((*fetched)->p_t && len--)
 	{
-		temp = (*fetched)->len - ft_strlen((*fetched)->p_t->box);
-		to_normalize = malloc(temp);
-		ft_memset(to_normalize, '0', temp);
-		to_normalize[temp] = 0;
-		(*fetched)->p_t->box = ft_strjoin((*fetched)->p_t->box, to_normalize);
-		free(to_normalize);
+		i = -1;
+		while ((*fetched)->p_t->box[++i])
+		{
+			if ((*fetched)->p_t->box[i] != '1'
+				&& (*fetched)->p_t->box[i] != '0'
+				&& (*fetched)->p_t->box[i] != ' '
+				&& (*fetched)->p_t->box[i] != 'N'
+				&& (*fetched)->p_t->box[i] != 'S'
+				&& (*fetched)->p_t->box[i] != 'E'
+				&& (*fetched)->p_t->box[i] != 'W')
+				return (0);
+		}
 		(*fetched)->p_t = (*fetched)->p_t->next;
 	}
-	// printlist(&(*fetched)->map);
-	// pause();
+	return (1);
 }
 
-// int	map_checks(t_fetch **fetched)
-// {
-// 	// int	i;
-
-// 	// (*fetched)->p_t = (*fetched)->map;
-// 	// (*fetched)->len = (*fetched)->map->prev->id;
-// 	// while ((*fetched)->p_t && (*fetched)->len--)
-// 	// {
-// 	// 	i = 0;
-// 	// }
-// }
-
-void	build_information(int fd, t_node **info, t_fetch **fetched)
+int	build_information(int fd, t_node **info, t_fetch **fetched)
 {
 	char	*line;
 	int		i;
@@ -189,8 +192,10 @@ void	build_information(int fd, t_node **info, t_fetch **fetched)
 		line = get_next_line(fd);
 	}
 	relister(&(*fetched)->map);
-	//map_checks(fetched);
-	map_normalizer(fetched);
+	if (map_validator(fetched))
+		if (map_normalizer(fetched))
+			return (1);
+	return (0);
 }
 
 int	parser(int fd, t_cub *cub)
@@ -200,10 +205,12 @@ int	parser(int fd, t_cub *cub)
 	info = NULL;
 	if (fd > 0)
 	{
-		build_information(fd, &info, &cub->fetched);
-		info_checks(info, cub->fetched);
-		// map_normalizer(&cub->fetched);
-		//printlist(&cub->fetched->map);
+		if (build_information(fd, &info, &cub->fetched))
+			info_checks(info, cub->fetched);
+		else
+			return (0);
+		printlist(&info);
+		printlist(&cub->fetched->map);
 		cub->map = list_to_matrix(&cub->fetched->map);
 		return (1);
 	}

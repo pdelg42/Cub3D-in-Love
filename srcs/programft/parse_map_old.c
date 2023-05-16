@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:27:24 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/15 08:26:18 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:36:16 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,5 +197,7 @@
 // 		return (0);
 // 	if (!import_elements(cub))
 // 		return (0);
+// 	while(*cub->map)
+// 		printf("%s\n", *cub->map++);
 // 	return (1);
 // }

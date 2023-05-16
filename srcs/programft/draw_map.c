@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/16 00:33:41 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 17:44:33 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,15 @@ void draw_square(t_cub* cub, unsigned long int color)
 void define_square(t_cub* cub, char tile)
 {
 	if (tile == '\0')
-	{
 		return ;
-	}
-	else if (tile == '0')
-	{
+	if (tile == '0')
 		draw_square(cub, 0x00101010);
-	}
-	else if (tile == '1')
-	{
+	if (tile == '1')
 		draw_square(cub, 0x00424242);
-	}
-	else if (tile == ' ')
-	{
+	if (tile == ' ')
 		draw_square(cub, 0x00694202);
-	}
-	else if (tile == 'N' || tile == 'E' || tile == 'W' || tile == 'S')
-	{
+	if (tile == 'N' || tile == 'E' || tile == 'W' || tile == 'S')
 		draw_square(cub, 0x00fff000);
-	}
-	else
-	{
-		write(1, "Char not printable: Error map\n", \
-			ft_strlen("Char not printable: Error map\n"));
-	}
 }
 
 void draw_borders(t_cub *cub)

@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:31:17 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/15 10:45:06 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:20:42 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *b, size_t n);
 char        *ft_strstr(char *str, char *to_find);
 void		*ft_memset(void *b, int c, size_t len);
+void		ft_cpychar(char c, char **out);
 
 #endif

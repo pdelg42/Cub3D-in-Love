@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/16 00:17:12 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/16 15:05:13 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int main(int argc, char **argv)
 		cub.map[i] = (char*)malloc(34 * sizeof(char));
 		strcpy(cub.map[i], g_minimappa[i]);
 	}
-	
 	cub.map[i] = NULL;
 
 	if (argc < 2)
@@ -126,7 +125,7 @@ int main(int argc, char **argv)
 	if (!game_init(&cub))
 		close_game(&cub, "\033[1;31mInit error");
 	if (!parser(file_validator(argv[1]), &cub))
-		;
+		exit(printf("NO\n"));
 	// pause();
 	render(&cub);
 

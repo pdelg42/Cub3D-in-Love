@@ -12,8 +12,9 @@
 
 #include "../../includes/program.h"
 
-int	first_last(char *box)
+int	first_last(char *box, int *k)
 {
+	(*k) = 0;
 	if (box[0] == '1' && box[ft_strlen(box) - 1] == '1')
 		return (1);
 	return (0);

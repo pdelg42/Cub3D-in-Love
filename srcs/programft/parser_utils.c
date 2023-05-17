@@ -41,12 +41,12 @@ char	*line_reparator(char *box)
 	return (out);
 }
 
-void	info_adjust(t_node **info, t_fetch *fetched)
+int	info_adjust(t_node **info, t_fetch *fetched)
 {
 	char	*temp;
 
 	fetched->p_t = *info;
-	fetched->len = 6;
+	fetched->len = MAX_MAP_PARAMS;
 	while (fetched->p_t && fetched->len--)
 	{
 		temp = line_reparator(fetched->p_t->box);
@@ -55,14 +55,9 @@ void	info_adjust(t_node **info, t_fetch *fetched)
 		free(temp);
 		fetched->p_t = fetched->p_t->next;
 	}
+	return (1);
 }
 
-void	build_to_compare(char *temp, char *box)
-{
-	temp[0] = box[0];
-	temp[1] = box[1];
-	temp[2] = '\0';
-}
 
 int	box_compare(int *i, t_node *p_checks, char *temp)
 {
@@ -77,6 +72,12 @@ int	box_compare(int *i, t_node *p_checks, char *temp)
 			return (0);
 	}
 	return (1);
+}
+void	build_to_compare(char *temp, char *box)
+{
+	temp[0] = box[0];
+	temp[1] = box[1];
+	temp[2] = '\0';
 }
 
 int	presence_validator(t_node *info, t_fetch *fetched)

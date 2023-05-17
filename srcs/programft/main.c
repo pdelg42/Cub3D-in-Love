@@ -25,7 +25,7 @@ void	close_game(t_cub *cub, char *mex)
 	mlx_destroy_window(cub->mlx, cub->win);
 	freematrix(cub->map, row_counter(cub->map));
 	freematrix(cub->mat_tmp, row_counter(cub->mat_tmp));
-	freematrix(cub->minimap, row_counter(cub->minimap));
+	// freematrix(cub->minimap, row_counter(cub->minimap));
 	if (cub->str_tmp)
 		free(cub->str_tmp);
 	if (!cub->data)
@@ -49,19 +49,19 @@ int	exit_call(t_cub *cub)
 
 // inizzializza array statici
 
-void	init_statics(t_cub *cub)
-{
-	int i;
+// void	init_statics(t_cub *cub)
+// {
+// 	int i;
 
-	i = 0;
-	while (i < 5)
-		cub->wall_imgs_addrs[i++] = NULL;
-	i = 0;
-	while (i < 4)
-		cub->wall_imgs[i++] = NULL;
-	cub->mat_tmp = NULL;
-	cub->str_tmp = NULL;
-}
+// 	i = 0;
+// 	while (i < 5)
+// 		cub->wall_imgs_addrs[i++] = NULL;
+// 	i = 0;
+// 	while (i < 4)
+// 		cub->wall_imgs[i++] = NULL;
+// 	cub->mat_tmp = NULL;
+// 	cub->str_tmp = NULL;
+// }
 
 int	move(int key, t_cub *cub)
 {

@@ -22,9 +22,9 @@ void	freematrix(char **splitted, int i)
 		while (++k < i)
 		{
 			free(splitted[k]);
-			splitted[k] = ((void *)0);
+			splitted[k] = NULL;
 		}
 		free(splitted);
 	}
-	splitted = ((void *)0);
+	splitted = NULL;
 }

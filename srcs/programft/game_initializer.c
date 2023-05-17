@@ -24,6 +24,8 @@ void	init_fetch(t_cub *cub)
 	cub->fetched->p_t = NULL;
 	cub->fetched->len = 0;
 	cub->fetched->checks = NULL;
+	cub->player_existence = 0;
+	cub->fetched->map_mtx = NULL;
 	add_t(&cub->fetched->checks, new_("WE", 1));
 	add_t(&cub->fetched->checks, new_("NO", 2));
 	add_t(&cub->fetched->checks, new_("SO", 3));

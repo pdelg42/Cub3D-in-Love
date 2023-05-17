@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser__utils.c                                    :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/17 01:02:21 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:15:21 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,16 @@ int	map_normalizer(t_cub **cub)
 int	map_checks(t_cub **cub)
 {
 	int	i;
-	int	*k;
+	int	k;
 
 	i = 0;
+	k = 0;
 	while ((*cub)->fetched->map_mtx[++i])
-		if (first_last((*cub)->fetched->map_mtx[i], k))
-			while ((*cub)->fetched->map_mtx[i][++(*k)])
-				if ((*cub)->fetched->map_mtx[i][(*k)] == '0'
-					|| is_player(cub, (*cub)->fetched->map_mtx[i][(*k)], i , (*k)))
-					if (is_void((*cub)->fetched->map_mtx, i, (*k)))
+		if (first_last((*cub)->fetched->map_mtx[i], &k))
+			while ((*cub)->fetched->map_mtx[i][++(k)])
+				if ((*cub)->fetched->map_mtx[i][(k)] == '0'
+					|| is_player(cub, (*cub)->fetched->map_mtx[i][(k)], i , (k)))
+					if (is_void((*cub)->fetched->map_mtx, i, (k)))
 						return (0);
 	if ((*cub)->player_existence == 1)
 	{

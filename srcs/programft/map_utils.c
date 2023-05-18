@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/17 18:15:21 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:59:33 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	is_player(t_cub **cub, char c, int i, int k)
 {
 	if (c == 'N' || c == 'S' || c == 'E'|| c == 'W')
 	{
+		printf("isplayer\n");
 		(*cub)->player_existence++;
 		// (*cub)->player_pos.x = k;
 		// (*cub)->player_pos.y = i;
@@ -65,12 +66,18 @@ int	map_checks(t_cub **cub)
 	i = 0;
 	k = 0;
 	while ((*cub)->fetched->map_mtx[++i])
+	{
 		if (first_last((*cub)->fetched->map_mtx[i], &k))
+		{
 			while ((*cub)->fetched->map_mtx[i][++(k)])
 				if ((*cub)->fetched->map_mtx[i][(k)] == '0'
-					|| is_player(cub, (*cub)->fetched->map_mtx[i][(k)], i , (k)))
+				|| is_player(cub, (*cub)->fetched->map_mtx[i][(k)], i, (k)))
 					if (is_void((*cub)->fetched->map_mtx, i, (k)))
 						return (0);
+		}
+		else
+			return (0);
+	}
 	if ((*cub)->player_existence == 1)
 	{
 		freecontent((*cub)->fetched->map);

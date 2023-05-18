@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/17 18:16:35 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:33:37 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	first_last(char *box, int *k)
 {
 	(*k) = 0;
-	if (box[0] == '1' && box[ft_strlen(box)] == '1')
+	if (box[0] == '1' && box[ft_strlen(box) - 1] == '1')
 		return (1);
 	return (0);
 }

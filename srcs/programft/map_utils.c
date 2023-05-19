@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/18 18:59:33 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/19 09:01:20 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	is_void(char **map, int i, int k)
 {
-	if ((map[i - 1][k] == ' '
-		|| (map[i + 1][k] == ' '))
-		|| (map[i][k - 1] == ' '
-		|| map[i][k + 1] == ' '))
+	if (map[i - 1][k] == ' ' || !map[i - 1][k]
+		|| map[i + 1][k] == ' ' || !map[i + 1][k]
+		|| map[i][k - 1] == ' ' || !map[i][k - 1]
+		|| map[i][k + 1] == ' ' || !map[i][k + 1])
 		return (1);
 	return (0);
 }

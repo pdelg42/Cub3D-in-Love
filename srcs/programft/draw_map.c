@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/19 03:29:12 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/19 15:43:19 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
+
 
 // void draw_tile(t_cub* cub, unsigned long int color, int w, int h)
 // {
@@ -108,8 +109,8 @@ void	define_player_pos(t_cub* cub)
 		{
 			if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S' || cub->map[i][j] == 'W' || cub->map[i][j] == 'E')
 			{
-				cub->player_pos.x = i;
-				cub->player_pos.y = j;
+				cub->player_pos.x = int2fixed(i);
+				cub->player_pos.y = int2fixed(j);
 				return ;
 			}
 			j++;
@@ -146,47 +147,22 @@ void	define_player_pos(t_cub* cub)
 // 	return (0);
 // }
 
-void	draw_player(t_cub* cub, float x, float y)
+void	player_img_init(t_cub *cub)
 {
-	float	width;
-	float	height;
-	int	k;
-	int	m;
+	t_data *pI = (t_data *) ft_calloc(sizeof(t_data), 1);
 
-	float	mapw;
-	float	maph;
+	pI->img = mlx_new_image(cub->mlx, 8, 8);
+	pI->addr = mlx_get_data_addr(pI->img, 
+		&pI->bits_per_pixel, &pI->line_length, &pI->endian);
+	for (int i = 0; i < 8; i++)
+		for (int j = 0; j < 8; j++)
+			my_mlx_pixel_put(pI, j, i, 0x0aabbcc);
+	cub->playerImg = pI;
+}
 
-	mapw = ft_strlen(cub->map[0]);
-	maph = row_counter(cub->map);
-
-	width = (WIN_SIZE_W/mapw) / 4;
-	height = (WIN_SIZE_H/maph) / 4;
-
-	m = 0;
-	while (m < width)
-	{
-		k = 0;
-		while (k < width)
-		{
-			my_mlx_pixel_put(cub->data, (int)((cub->player_pos.y - y) * width) + m, (int)((cub->player_pos.x - x) * height) + k, 0x0ffffff);
-			k++;
-		}
-		m++;
-	}
-
-	m = 0;
-	while (m < width)
-	{
-		k = 0;
-		while (k < width)
-		{
-			my_mlx_pixel_put(cub->data, (int)((cub->player_pos.y) * width) + m, (int)((cub->player_pos.x) * height) + k, 0x0aabbcc);
-			k++;
-		}
-		m++;
-	}
-	
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
+void	draw_player(t_cub* cub)
+{
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->playerImg->img, fixed2int(cub->player_pos.x), fixed2int(cub->player_pos.y));
 }
 
 int	draw_minimap(t_cub* cub)

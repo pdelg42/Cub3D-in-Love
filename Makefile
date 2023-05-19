@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/05/17 18:07:31 by aperrone         ###   ########.fr        #
+#    Updated: 2023/05/19 17:44:59 by gdel-giu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,11 @@ MAIN = main.c
 INC = includes/program.h
 
 PRGMFT = ./srcs/programft
-LIBS = -L./includes -lft -llistft -lgetnextline -lfixed -lpoint -lgc -I.
+LIBS = -L./includes -lft -llistft -lgetnextline -lfixed -lpoint -lgc -I./includes
 KIT = -L./mlx -lmlx -framework OpenGL -framework AppKit
 FILES = ${wildcard $(PRGMFT)/*.c}
 
-FLAGS = -g # -Wall -Wextra -Werror
+FLAGS = # -Wall -Wextra -Werror
 DEBUGGER = -g
 
 OBJS = $(FILES:.c=.o)

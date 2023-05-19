@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/19 05:42:32 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:35:06 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,12 @@ typedef struct s_cub
 {
 	t_fetch	*fetched;
     t_data  *data;
+    t_data  *playerImg;
 	t_rgb	color;
 	t_rgb	*floor_color;
 	t_rgb	*ceil_color;
 	t_point	player_pos;
+	float	player_angle;
     void    *mlx;
     void    *win;
 	char	*str_tmp;
@@ -133,7 +135,9 @@ int		first_last(char *box, int *k);
 int		wall_line(char *box);
 int		valid_char(char c);
 
-void	draw_player(t_cub* cub, float x, float y);
-void	draw2d();
+void	draw_player(t_cub* cub);
+int		draw2d(t_cub* cub);
+
+void	player_img_init(t_cub *cub);
 
 #endif

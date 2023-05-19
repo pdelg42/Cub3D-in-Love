@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 11:42:53 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/19 03:01:54 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/19 15:49:12 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,8 @@ void	add_walls(t_cub *cub)
 
 void	render(t_cub *cub)
 {
-	mlx_clear_window(cub->mlx, cub->win);
 	cub->data->img = mlx_new_image(cub->mlx, WIN_SIZE_W, WIN_SIZE_H);
-	cub->data->img2 = mlx_new_image(cub->mlx, WIN_SIZE_W, WIN_SIZE_H);
 	cub->data->addr = mlx_get_data_addr(cub->data->img, 
-		&cub->data->bits_per_pixel, &cub->data->line_length, &cub->data->endian);
-	cub->data->addr2 = mlx_get_data_addr(cub->data->img2, 
 		&cub->data->bits_per_pixel, &cub->data->line_length, &cub->data->endian);
 	// for (int y = 0; y < WIN_SIZE_H; y++)
 	// {
@@ -68,6 +64,6 @@ void	render(t_cub *cub)
 	// 			my_mlx_pixel_put(cub->data, x, y, cub->ceil_color->rgb);
 	// 	}
 	// }
-	add_walls(cub);
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
+	// add_walls(cub);
+	// mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 }

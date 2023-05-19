@@ -4,14 +4,15 @@
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
 	"configurations": [
+
 		{
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/Users/aperrone/Desktop/Cub3D-in-Love/cub3d",
-			"args": ["refMap.cub"],
+			"program": "/Users/gdel-giu/Desktop/cub3d/cub3d",
+			"args": ["maps/map.cub"],
 			"stopAtEntry": false,
-			"cwd": "/Users/aperrone/Desktop/Cub3D-in-Love",
+			"cwd": "/Users/gdel-giu/Desktop/cub3d",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb"

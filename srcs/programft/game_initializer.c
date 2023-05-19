@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_initializer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:58:47 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/19 02:53:32 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/19 16:27:32 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	init_statics(t_cub *cub)
 		cub->wall_imgs[i++] = NULL;
 	cub->mat_tmp = NULL;
 	cub->str_tmp = NULL;
+	cub->player_angle = M_PI_2;
 }
 
 int	game_init(t_cub *cub)

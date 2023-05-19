@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/16 23:34:12 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/19 02:33:57 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,34 @@ void add_map_padding(t_cub* cub)
     copy_map_to_minimap(cub, height, width);
 }
 
-int	mov_offset_y(int key)
+float	mov_offset_y(int key)
 {
 	if (key == 2)
-		return (1);
+	{
+		printf("2\n");
+		return (0.1);
+	}
 	else if (key == 0)
-		return (-1);
-	return (0);
+	{
+		printf("0\n");
+		return (-0.1);
+	}
+	return (0.);
 }
 
-int	mov_offset_x(int key)
+float	mov_offset_x(int key)
 {
 	if (key == 1)
-		return (1);
+	{
+		printf("1\n");
+		return (0.1);
+	}
 	else if (key == 13)
-		return (-1);
-	return (0);
+	{
+		printf("13\n");
+		return (-0.1);
+	}
+	return (0.);
 }
 
 char	get_orientation(char** map)
@@ -117,23 +129,27 @@ void	update_minimap(t_cub* cub, int x, int y)
 	char	orientation;
 	
 	// orientation = get_orientation(cub->map);
-	cub->minimap[cub->player_pos.x][cub->player_pos.y] = '0';	
-	cub->minimap[cub->player_pos.x + x][cub->player_pos.y + y] = 'N';
+	cub->minimap[(int)cub->player_pos.x][(int)cub->player_pos.y] = '0';	
+	cub->minimap[(int)cub->player_pos.x + x][(int)cub->player_pos.y + y] = 'N';
 }
 
 void	minimove(t_cub* cub, int key)
 {
-	int	x;
-	int	y;
+	float	x;
+	float	y;
 
 	x = mov_offset_x(key);
+	// printf("offx: %f\n", mov_offset_x(key));
 	y = mov_offset_y(key);
-	if (cub->minimap[cub->player_pos.x + x][cub->player_pos.y + y] == '1')
-	{
-		return ;
-	}
-	update_minimap(cub, x, y);
+	// printf("offy: %f\n", mov_offset_y(key));
+	// if (cub->minimap[(int)cub->player_pos.x + (int)x][(int)cub->player_pos.y + (int)y] == '1')
+	// {
+	// 	return ;
+	// }
+	// update_minimap(cub, x, y);
+	
 	cub->player_pos.x += x;
 	cub->player_pos.y += y;
-	draw_minimap(cub);
+	printf("X: %f Y: %f\n", cub->player_pos.x, cub->player_pos.y);
+	draw_player(cub, x, y);
 }

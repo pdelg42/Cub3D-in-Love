@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/16 23:36:57 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/19 01:59:06 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,28 +68,35 @@ int	move(int key, t_cub *cub)
 	if (key == 13)
 	{
 		minimove(cub, key);
-		printf("w");
+		printf("w\n");
 	}
 	else if (key == 0)
 	{
 		minimove(cub, key);
-		printf("a");
+		printf("a\n");
 	}
 	else if (key == 1)
 	{
 		minimove(cub, key);
-		printf("s");
+		printf("s\n");
 	}
 	else if (key == 2)
 	{
 		minimove(cub, key);
-		printf("d");
+		printf("d\n");
 	}
 	else if (key == 53)			//tasto associato all esc
 	{
 		exit_call(cub);
 	}
 	return (1);
+}
+
+void	draw_shit(t_cub* cub)
+{
+	if (draw_minimap(cub))
+		close_game(cub, "\033[1;31mMap Error");
+	draw_player(cub, 0., 0.);
 }
 
 int main(int argc, char **argv)
@@ -105,10 +112,10 @@ int main(int argc, char **argv)
 	// pause();
 	render(&cub);
 
-	add_map_padding(&cub);
 	define_player_pos(&cub);
-	if (draw_minimap(&cub))
-		close_game(&cub, "\033[1;31mMap Error");
+	printf("Mini check player pos: %c\n", cub.map[(int)cub.player_pos.x][(int)cub.player_pos.y]);
+	add_map_padding(&cub);
+	draw_shit(&cub);
 
 	mlx_do_key_autorepeaton(cub.mlx);
 	mlx_hook(cub.win, 17, 0, exit_call, &cub);

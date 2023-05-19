@@ -47,6 +47,22 @@ int	exit_call(t_cub *cub)
 	return (0);
 }
 
+// inizzializza array statici
+
+// void	init_statics(t_cub *cub)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (i < 5)
+// 		cub->wall_imgs_addrs[i++] = NULL;
+// 	i = 0;
+// 	while (i < 4)
+// 		cub->wall_imgs[i++] = NULL;
+// 	cub->mat_tmp = NULL;
+// 	cub->str_tmp = NULL;
+// }
+
 int	move(int key, t_cub *cub)
 {
 	if (key == 13)

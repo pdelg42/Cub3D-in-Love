@@ -8,10 +8,10 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/Users/sgerace/Desktop/test/cub3d",
+			"program": "/Users/aperrone/Desktop/Cub3D-in-Love/cub3d",
 			"args": ["refMap.cub"],
 			"stopAtEntry": false,
-			"cwd": "/Users/sgerace/Desktop/test",
+			"cwd": "/Users/aperrone/Desktop/Cub3D-in-Love",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb"

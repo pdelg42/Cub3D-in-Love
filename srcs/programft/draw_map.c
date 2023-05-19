@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/19 02:19:02 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/19 03:29:12 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,14 +159,14 @@ void	draw_player(t_cub* cub, float x, float y)
 	mapw = ft_strlen(cub->map[0]);
 	maph = row_counter(cub->map);
 
-	width = WIN_SIZE_W/mapw;
-	height = WIN_SIZE_H/maph;
+	width = (WIN_SIZE_W/mapw) / 4;
+	height = (WIN_SIZE_H/maph) / 4;
 
 	m = 0;
 	while (m < width)
 	{
 		k = 0;
-		while (k < height)
+		while (k < width)
 		{
 			my_mlx_pixel_put(cub->data, (int)((cub->player_pos.y - y) * width) + m, (int)((cub->player_pos.x - x) * height) + k, 0x0ffffff);
 			k++;
@@ -178,7 +178,7 @@ void	draw_player(t_cub* cub, float x, float y)
 	while (m < width)
 	{
 		k = 0;
-		while (k < height)
+		while (k < width)
 		{
 			my_mlx_pixel_put(cub->data, (int)((cub->player_pos.y) * width) + m, (int)((cub->player_pos.x) * height) + k, 0x0aabbcc);
 			k++;
@@ -193,20 +193,24 @@ int	draw_minimap(t_cub* cub)
 {
 	float	width;
 	float	height;
-	int	k;
-	int	m;
+	float	k;
+	float	m;
+
+	// int offset;
 
 	float	mapw;
 	float	maph;
 	int i;
 	int	j;
 
+	// offset = 10;
+
 	mapw = ft_strlen(cub->map[0]);
 	maph = row_counter(cub->map);
 	printf("w map: %zu, h map: %d\n", ft_strlen(cub->map[0]), row_counter(cub->map));
 
-	width = WIN_SIZE_W/mapw;
-	height = WIN_SIZE_H/maph;
+	width = (WIN_SIZE_W/mapw) / 4;
+	height = (WIN_SIZE_H/maph) / 4;
 	printf("w tile: %f, h tile: %f\n", width, height);
 
 	i = 0;
@@ -215,22 +219,40 @@ int	draw_minimap(t_cub* cub)
 		j = 0;
 		while (j < mapw)
 		{
-			m = 0;
-			while (m < width)
+			if (cub->map[i][j] == '1')
 			{
-				k = 0;
-				while (k < height)
+				m = 1;
+				while (m < width - 1)
 				{
-					my_mlx_pixel_put(cub->data, (int)(j * width) + m, (int)(i * height) + k, 0x0ffffff);
-					k++;
+					k = 1;
+					while (k < height - 1)
+					{
+						my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * height) + k), 0x0abcdef);
+						k++;
+					}
+					m++;					
 				}
-				m++;
+			}
+			else
+			{
+				m = 1;
+				while (m < width - 1)
+				{
+					k = 1;
+					while (k < height - 1)
+					{
+						my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * height) + k), 0x0ffffff);
+						//my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * height) + k), 0x0ffffff);
+						k++;
+					}
+					m++;
+				}
 			}
 			j++;
 		}
 		i++;
 	}
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
+	//mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 	return (0);
 }
  

@@ -19,7 +19,7 @@ char	**list_to_matrix(t_node **head)
 	int		len;
 	int		i;
 
-	len = len_list(head);
+	len = (*head)->prev->id;
 	matrix = malloc(sizeof(char *) * len + 1);
 	temp = *head;
 	i = 0;

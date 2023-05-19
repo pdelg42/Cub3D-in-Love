@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+         #
+#    By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/05/16 18:36:01 by sgerace          ###   ########.fr        #
+#    Updated: 2023/05/17 18:07:31 by aperrone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ INC = includes/program.h
 
 PRGMFT = ./srcs/programft
 LIBS = -L./includes -lft -llistft -lgetnextline -lfixed -lpoint -lgc -I.
-KIT = -L./mlx -lmlx -framework openGL -framework AppKit
+KIT = -L./mlx -lmlx -framework OpenGL -framework AppKit
 FILES = ${wildcard $(PRGMFT)/*.c}
 
 FLAGS = -g # -Wall -Wextra -Werror

@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/19 03:30:08 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/19 05:42:32 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROGRAM_H
 # define PROGRAM_H
 
+# define _USE_MATH_DEFINES
+
+# include <math.h>
 # include "libft.h"
 # include "listft.h"
 # include "get_next_line.h"
@@ -131,5 +134,6 @@ int		wall_line(char *box);
 int		valid_char(char c);
 
 void	draw_player(t_cub* cub, float x, float y);
+void	draw2d();
 
 #endif

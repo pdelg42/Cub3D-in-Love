@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/19 12:00:53 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/21 02:27:36 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,15 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 	float	center_y;
 
     // Cancella la vecchia posizione del giocatore.
-	if (key == 13)
-	{
-		center_x = ((cub->player_pos.y - (cub->player_pos.diry * 0.05))) * width;
-		center_y = ((cub->player_pos.x - (cub->player_pos.dirx * 0.05))) * height;
-	}
-	else if (key == 1)
+	if (key == 13)	//w
 	{
 		center_x = ((cub->player_pos.y + (cub->player_pos.diry * 0.05))) * width;
 		center_y = ((cub->player_pos.x + (cub->player_pos.dirx * 0.05))) * height;
+	}
+	else if (key == 1)	//s
+	{
+		center_x = ((cub->player_pos.y - (cub->player_pos.diry * 0.05))) * width;
+		center_y = ((cub->player_pos.x - (cub->player_pos.dirx * 0.05))) * height;
 	}
 	else if (key == 0) // a
 	{
@@ -107,8 +107,10 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 		{
             int final_x = (int)(center_x + m);
             int final_y = (int)(center_y + k);
-
-            my_mlx_pixel_put(cub->data, final_x, final_y, 0xff00000);
+			if (final_x > width && final_y > height)
+            	my_mlx_pixel_put(cub->data, final_x, final_y, 0xff00000); //rosso
+			else
+				my_mlx_pixel_put(cub->data, final_x, final_y, 0x0abcdef); //wall color
 			k++;
 		}
 		m++;
@@ -138,7 +140,6 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 }
 
-
 int	draw_minimap(t_cub* cub)
 {
 	float	width;
@@ -157,11 +158,9 @@ int	draw_minimap(t_cub* cub)
 
 	mapw = ft_strlen(cub->map[0]);
 	maph = row_counter(cub->map);
-	printf("w map: %zu, h map: %d\n", ft_strlen(cub->map[0]), row_counter(cub->map));
 
 	width = (WIN_SIZE_W/mapw) / 2;
 	height = (WIN_SIZE_H/maph) / 2;
-	printf("w tile: %f, h tile: %f\n", width, height);
 
 	i = 0;
 	while (i < maph)

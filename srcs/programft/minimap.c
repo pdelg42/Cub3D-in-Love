@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/19 12:03:31 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/21 02:19:28 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ char	get_orientation(char** map)
 
 void rotate_player(t_cub* cub, float angle)
 {
-    float old_dirx;
-    float old_diry;
+	float old_dirx;
+	float old_diry;
 
-    old_dirx = cub->player_pos.dirx;
-    old_diry = cub->player_pos.diry;
-    cub->player_pos.dirx = old_dirx * cos(angle) - old_diry * sin(angle);
-    cub->player_pos.diry = old_dirx * sin(angle) + old_diry * cos(angle);
+	old_dirx = cub->player_pos.dirx;
+	old_diry = cub->player_pos.diry;
+	cub->player_pos.dirx = old_dirx * cos(angle) - old_diry * sin(angle);
+	cub->player_pos.diry = old_dirx * sin(angle) + old_diry * cos(angle);
 }
 
 void minimove(t_cub* cub, int key)
@@ -101,27 +101,27 @@ void minimove(t_cub* cub, int key)
 
 	if (key == 13) // w
 	{
-		cub->player_pos.x += cub->player_pos.dirx * moveStep;
-		cub->player_pos.y += cub->player_pos.diry * moveStep;
-	}
-	else if (key == 1) // s
-	{
 		cub->player_pos.x -= cub->player_pos.dirx * moveStep;
 		cub->player_pos.y -= cub->player_pos.diry * moveStep;
 	}
+	else if (key == 1) // s
+	{
+		cub->player_pos.x += cub->player_pos.dirx * moveStep;
+		cub->player_pos.y += cub->player_pos.diry * moveStep;
+	}
 	else if (key == 0) // a
 	{
-		cub->player_pos.x -= cub->player_pos.diry * moveStep;
-		cub->player_pos.y += cub->player_pos.dirx * moveStep;
+		cub->player_pos.y -= cub->player_pos.dirx * moveStep;
+		cub->player_pos.x += cub->player_pos.diry * moveStep;
 	}
 	else if (key == 2) // d
 	{
-		cub->player_pos.x += cub->player_pos.diry * moveStep;
-		cub->player_pos.y -= cub->player_pos.dirx * moveStep;
+		cub->player_pos.y += cub->player_pos.dirx * moveStep;
+		cub->player_pos.x -= cub->player_pos.diry * moveStep;
 	}
 	else if (key == 124)
 	{
-		rotate_player(cub, M_PI_2  / 35);
+		rotate_player(cub, M_PI_2 / 35);
 	}
 	else if (key == 123)
 	{

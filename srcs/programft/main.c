@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/19 12:03:03 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/21 02:15:22 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	exit_call(t_cub *cub)
 
 int	move(int key, t_cub *cub)
 {
-	printf("Key: %d\n", key);
 	cub->key_state[key] = 1;
 	if (key == 53)			//tasto associato all esc
 	{
@@ -75,23 +74,23 @@ void	define_player_orientation(t_cub* cub)
 {
 	if (cub->map[(int)cub->player_pos.x][(int)cub->player_pos.y] == 'N')
 	{
-		cub->player_pos.dirx = -1;
+		cub->player_pos.dirx = 1;
 		cub->player_pos.diry = 0;
 	}
 	else if (cub->map[(int)cub->player_pos.x][(int)cub->player_pos.y] == 'S')
 	{
-		cub->player_pos.dirx = 1;
+		cub->player_pos.dirx = -1;
 		cub->player_pos.diry = 0;	
 	}
 	else if (cub->map[(int)cub->player_pos.x][(int)cub->player_pos.y] == 'E')
 	{
 		cub->player_pos.dirx = 0;
-		cub->player_pos.diry = 1;	
+		cub->player_pos.diry = -1;	
 	}
 	else if (cub->map[(int)cub->player_pos.x][(int)cub->player_pos.y] == 'W')
 	{
 		cub->player_pos.dirx = 0;
-		cub->player_pos.diry = -1;	
+		cub->player_pos.diry = 1;
 	}
 }
 

@@ -14,10 +14,10 @@
 
 int	is_void(char **map, int i, int k)
 {
-	if ((map[i - 1][k] == ' '
-		|| (map[i + 1][k] == ' '))
-		|| (map[i][k - 1] == ' '
-		|| map[i][k + 1] == ' '))
+	if (map[i - 1][k] == ' ' || !map[i - 1][k]
+		|| map[i + 1][k] == ' ' || !map[i + 1][k]
+		|| map[i][k - 1] == ' ' || !map[i][k - 1]
+		|| map[i][k + 1] == ' ' || !map[i][k + 1])
 		return (1);
 	return (0);
 }

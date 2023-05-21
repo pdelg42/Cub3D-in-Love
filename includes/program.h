@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/19 03:30:08 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/19 12:05:08 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 
 # define TILE_SIZE 64
 
-#define MAX_MAP_PARAMS 6
+# define MAX_MAP_PARAMS 6
 
+# define KEY_COUNT 256
 // enums per definire gli orientamenti di base
 // 0 -> 3
 
@@ -81,8 +82,8 @@ typedef struct s_cub
 	t_rgb	*floor_color;
 	t_rgb	*ceil_color;
 	t_point	player_pos;
-    void    *mlx;
-    void    *win;
+    void   	*mlx;
+    void   	*win;
 	char	*str_tmp;
 	char	**mat_tmp;
 	char	**map;
@@ -90,6 +91,11 @@ typedef struct s_cub
 	char	*wall_imgs_addrs[5];
 	char	*wall_imgs[4];
 	int		player_existence;
+	int		wstate;
+	int		sstate;
+	int		astate;
+	int		dstate;
+	int		key_state[KEY_COUNT];
 }   t_cub;
 
 // foos() and bars()
@@ -130,6 +136,6 @@ int		first_last(char *box, int *k);
 int		wall_line(char *box);
 int		valid_char(char c);
 
-void	draw_player(t_cub* cub, float x, float y);
+void	draw_player(t_cub* cub, float x, float y, float a, int key);
 
 #endif

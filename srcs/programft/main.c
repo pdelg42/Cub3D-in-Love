@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/19 01:59:06 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/21 02:15:22 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,56 +47,86 @@ int	exit_call(t_cub *cub)
 	return (0);
 }
 
-// inizzializza array statici
-
-// void	init_statics(t_cub *cub)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (i < 5)
-// 		cub->wall_imgs_addrs[i++] = NULL;
-// 	i = 0;
-// 	while (i < 4)
-// 		cub->wall_imgs[i++] = NULL;
-// 	cub->mat_tmp = NULL;
-// 	cub->str_tmp = NULL;
-// }
-
 int	move(int key, t_cub *cub)
 {
-	if (key == 13)
-	{
-		minimove(cub, key);
-		printf("w\n");
-	}
-	else if (key == 0)
-	{
-		minimove(cub, key);
-		printf("a\n");
-	}
-	else if (key == 1)
-	{
-		minimove(cub, key);
-		printf("s\n");
-	}
-	else if (key == 2)
-	{
-		minimove(cub, key);
-		printf("d\n");
-	}
-	else if (key == 53)			//tasto associato all esc
+	cub->key_state[key] = 1;
+	if (key == 53)			//tasto associato all esc
 	{
 		exit_call(cub);
 	}
 	return (1);
 }
 
-void	draw_shit(t_cub* cub)
+int	stop_motion(int key, t_cub* cub)
+{
+	cub->key_state[key] = 0;
+	return (0);
+}
+
+void	draw_everything(t_cub* cub)
 {
 	if (draw_minimap(cub))
 		close_game(cub, "\033[1;31mMap Error");
-	draw_player(cub, 0., 0.);
+	draw_player(cub, 0., 0., 0., 0);
+}
+
+void	define_player_orientation(t_cub* cub)
+{
+	if (cub->map[(int)cub->player_pos.x][(int)cub->player_pos.y] == 'N')
+	{
+		cub->player_pos.dirx = 1;
+		cub->player_pos.diry = 0;
+	}
+	else if (cub->map[(int)cub->player_pos.x][(int)cub->player_pos.y] == 'S')
+	{
+		cub->player_pos.dirx = -1;
+		cub->player_pos.diry = 0;	
+	}
+	else if (cub->map[(int)cub->player_pos.x][(int)cub->player_pos.y] == 'E')
+	{
+		cub->player_pos.dirx = 0;
+		cub->player_pos.diry = -1;	
+	}
+	else if (cub->map[(int)cub->player_pos.x][(int)cub->player_pos.y] == 'W')
+	{
+		cub->player_pos.dirx = 0;
+		cub->player_pos.diry = 1;
+	}
+}
+
+void	define_player_stats(t_cub* cub)
+{
+	define_player_pos(cub);
+	define_player_orientation(cub);
+}
+
+int	game_loop(t_cub* cub)
+{
+	if (cub->key_state[13])
+	{
+		minimove(cub, 13);
+	}
+	if (cub->key_state[0])
+	{
+		minimove(cub, 0);
+	}
+	if (cub->key_state[1])
+	{
+		minimove(cub, 1);
+	}
+	if (cub->key_state[2])
+	{
+		minimove(cub, 2);
+	}
+	if (cub->key_state[124])
+	{
+		minimove(cub, 124);
+	}
+   	if (cub->key_state[123])
+	{
+		minimove(cub, 123);
+	}
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -109,17 +139,17 @@ int main(int argc, char **argv)
 		close_game(&cub, "\033[1;31mInit error");
 	if (!parser(file_validator(argv[1]), &cub))
 		exit(printf("NO\n"));
-	// pause();
 	render(&cub);
 
-	define_player_pos(&cub);
-	printf("Mini check player pos: %c\n", cub.map[(int)cub.player_pos.x][(int)cub.player_pos.y]);
+	define_player_stats(&cub);
 	add_map_padding(&cub);
-	draw_shit(&cub);
+	draw_everything(&cub);
 
 	mlx_do_key_autorepeaton(cub.mlx);
 	mlx_hook(cub.win, 17, 0, exit_call, &cub);
 	mlx_hook(cub.win, 2, 0, move, &cub);
+	mlx_hook(cub.win, 3, 0, stop_motion, &cub);
+	mlx_loop_hook(cub.mlx, game_loop, &cub);
 	mlx_loop(cub.mlx);
 	return (0);
 }

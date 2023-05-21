@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:58:47 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/19 02:53:32 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/21 02:19:00 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	init_fetch(t_cub *cub)
 	add_t(&cub->fetched->checks, new_("EA", 4));
 	add_t(&cub->fetched->checks, new_("F ", 5));
 	add_t(&cub->fetched->checks, new_("C ", 6));
+	cub->player_pos.x = 0.;
+	cub->player_pos.y = 0.;
 }
 
 void	init_statics(t_cub *cub)
@@ -44,6 +46,9 @@ void	init_statics(t_cub *cub)
 	i = 0;
 	while (i < 4)
 		cub->wall_imgs[i++] = NULL;
+	i = 0;
+	while (i < KEY_COUNT)
+		cub->key_state[i++] = 0;
 	cub->mat_tmp = NULL;
 	cub->str_tmp = NULL;
 }

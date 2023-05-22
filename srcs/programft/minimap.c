@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/21 02:19:28 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/22 22:52:51 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ void minimove(t_cub* cub, int key)
 	}
 	else if (key == 124)
 	{
-		rotate_player(cub, M_PI_2 / 35);
+		rotate_player(cub, 0.5);
 	}
 	else if (key == 123)
 	{
-		rotate_player(cub, -M_PI_2 / 35);
+		rotate_player(cub, -0.5);
 	}
-	draw_player(cub, 0., 0., 0., key);
+	// draw_player(cub, 0., 0., 0., key);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_initializer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:58:47 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/21 02:19:00 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/22 21:17:15 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ void	init_statics(t_cub *cub)
 		cub->key_state[i++] = 0;
 	cub->mat_tmp = NULL;
 	cub->str_tmp = NULL;
+	cub->data->img = mlx_new_image(cub->mlx, WIN_SIZE_W, WIN_SIZE_H);
+	cub->data->addr = mlx_get_data_addr(cub->data->img, 
+	&cub->data->bits_per_pixel, &cub->data->line_length, &cub->data->endian);
+	cub->player_pos.x = 5.f;
+	cub->player_pos.y = 1.f;
+	cub->player_pos.angle = 0.f;
 }
 
 int	game_init(t_cub *cub)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mainTest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/21 02:15:22 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/22 22:53:24 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,53 +100,115 @@ void	define_player_stats(t_cub* cub)
 	define_player_orientation(cub);
 }
 
-int	game_loop(t_cub* cub)
+
+// int main(int argc, char **argv)
+// {
+// 	t_cub	cub;
+
+// 	if (argc < 2)
+// 		return (1);
+// 	if (!game_init(&cub))
+// 		close_game(&cub, "\033[1;31mInit error");
+// 	if (!parser(file_validator(argv[1]), &cub))
+// 		exit(printf("NO\n"));
+// 	render(&cub);
+
+// 	define_player_stats(&cub);
+// 	add_map_padding(&cub);
+// 	draw_everything(&cub);
+
+// 	mlx_do_key_autorepeaton(cub.mlx);
+// 	mlx_hook(cub.win, 17, 0, exit_call, &cub);
+// 	mlx_hook(cub.win, 2, 0, move, &cub);
+// 	mlx_hook(cub.win, 3, 0, stop_motion, &cub);
+// 	mlx_loop_hook(cub.mlx, game_loop, &cub);
+// 	mlx_loop(cub.mlx);
+// 	return (0);
+// }
+
+void	draw_wall(t_cub *cub, int x, float wall_height)
 {
-	if (cub->key_state[13])
+	// printf("%f\n", tile_size);
+	int wall_top = ((WIN_SIZE_H / 2) - (wall_height * TILE_SIZE / 2));
+	int wall_bottom = ((WIN_SIZE_H / 2) + (wall_height * TILE_SIZE / 2));
+
+	for (int y = 0; y <= WIN_SIZE_H; y++) 
 	{
-		minimove(cub, 13);
+		//sky grey
+		if (y < wall_top)
+			my_mlx_pixel_put(cub->data, x, y, 0x00afafaf);
+		//floor red
+		else if (y > wall_bottom)
+			my_mlx_pixel_put(cub->data, x, y, 0x00ee5555);
+		//wall green
+		else
+			my_mlx_pixel_put(cub->data, x, y, 0x0011aa11);
 	}
-	if (cub->key_state[0])
+}
+
+int	render0(t_cub *cub)
+{
+	mlx_clear_window(cub->mlx, cub->win);
+	for (int x = 0; x < WIN_SIZE_W; x++)
 	{
-		minimove(cub, 0);
+		float ray_angle = x * 0.0005;// (cub->player_pos.angle - (FOV_ANGLE / 2)) + (((float)x / WIN_SIZE_W) * FOV_ANGLE);
+		float distance_to_wall = 0.f;
+		float step_size = 0.1;
+
+		while (distance_to_wall < 10)
+		{
+			float test_x = cub->player_pos.x + distance_to_wall * cos(ray_angle);
+			float test_y = cub->player_pos.y + distance_to_wall * sin(ray_angle);
+
+			if (cub->map[((int)test_y)][((int)test_x)] == '1')
+				break ;
+			
+			distance_to_wall += step_size;
+		}
+		
+		float wall_height = (distance_to_wall / TILE_SIZE) * ((float)(WIN_SIZE_W / 2) / (float)-tan(FOV_ANGLE / 2));
+
+		draw_wall(cub, x , wall_height);
+		// add_walls(cub);
 	}
-	if (cub->key_state[1])
-	{
-		minimove(cub, 1);
-	}
-	if (cub->key_state[2])
-	{
-		minimove(cub, 2);
-	}
-	if (cub->key_state[124])
-	{
-		minimove(cub, 124);
-	}
-   	if (cub->key_state[123])
-	{
-		minimove(cub, 123);
-	}
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	game_loop(t_cub* cub)
+{
+	if (cub->key_state[13])
+		minimove(cub, 13);
+	if (cub->key_state[0])
+		minimove(cub, 0);
+	if (cub->key_state[1])
+		minimove(cub, 1);
+	if (cub->key_state[2])
+		minimove(cub, 2);
+	if (cub->key_state[124])
+		minimove(cub, 124);
+   	if (cub->key_state[123])
+		minimove(cub, 123);
+	render0(cub);
+	return (0);
+}
+
+int	main(int argc, char **argv) 
 {
 	t_cub	cub;
 
-	if (argc < 2)
+	if (argc != 2)
 		return (1);
 	if (!game_init(&cub))
 		close_game(&cub, "\033[1;31mInit error");
 	if (!parser(file_validator(argv[1]), &cub))
 		exit(printf("NO\n"));
-	render(&cub);
-
-	define_player_stats(&cub);
-	add_map_padding(&cub);
-	draw_everything(&cub);
-
+	
+	define_player_orientation(&cub);
+		
+	cub.player_pos.dirx = 1;
+	cub.player_pos.diry = 0;
 	mlx_do_key_autorepeaton(cub.mlx);
-	mlx_hook(cub.win, 17, 0, exit_call, &cub);
 	mlx_hook(cub.win, 2, 0, move, &cub);
 	mlx_hook(cub.win, 3, 0, stop_motion, &cub);
 	mlx_loop_hook(cub.mlx, game_loop, &cub);

@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/21 02:27:36 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/23 03:38:37 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,22 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 	if (key == 13)	//w
 	{
 		center_x = ((cub->player_pos.y + (cub->player_pos.diry * 0.05))) * width;
-		center_y = ((cub->player_pos.x + (cub->player_pos.dirx * 0.05))) * height;
+		center_y = ((cub->player_pos.x + (cub->player_pos.dirx * 0.05))) * width;
 	}
 	else if (key == 1)	//s
 	{
 		center_x = ((cub->player_pos.y - (cub->player_pos.diry * 0.05))) * width;
-		center_y = ((cub->player_pos.x - (cub->player_pos.dirx * 0.05))) * height;
+		center_y = ((cub->player_pos.x - (cub->player_pos.dirx * 0.05))) * width;
 	}
 	else if (key == 0) // a
 	{
 		center_x = (cub->player_pos.y + cub->player_pos.dirx * 0.05) * width;
-		center_y = (cub->player_pos.x - cub->player_pos.diry * 0.05) * height;
+		center_y = (cub->player_pos.x - cub->player_pos.diry * 0.05) * width;
 	}
 	else if (key == 2) // d
 	{
 		center_x = (cub->player_pos.y - cub->player_pos.dirx * 0.05) * width;
-		center_y = (cub->player_pos.x + cub->player_pos.diry * 0.05) * height;
+		center_y = (cub->player_pos.x + cub->player_pos.diry * 0.05) * width;
 	}
 
 	m = 0;
@@ -118,8 +118,11 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 
     // Disegna il giocatore nella sua nuova posizione con la rotazione.
     center_x = (cub->player_pos.y) * width;
-    center_y = (cub->player_pos.x) * height;
+    center_y = (cub->player_pos.x) * width;
 
+	int	final_x = 0;
+	int	final_y = 0;
+	
 	m = 0;
 	while (m < width)
 	{
@@ -129,14 +132,20 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 			float rotated_x = m * cos(angle) - k * sin(angle);
             float rotated_y = m * sin(angle) + k * cos(angle);
 
-            int final_x = (int)(center_x + rotated_x);
-            int final_y = (int)(center_y + rotated_y);
+            final_x = (int)(center_x + rotated_x);
+            final_y = (int)(center_y + rotated_y);
 
             my_mlx_pixel_put(cub->data, final_x, final_y, 0x0cddddf);
 			k++;
 		}
 		m++;
 	}
+
+	for (int o = 0; o < cub->player_pos.wd * width; o++)
+	{
+		my_mlx_pixel_put(cub->data, center_x + (o * -cub->player_pos.diry), center_y + (o * -cub->player_pos.dirx), 0x0000000);
+	}
+	
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 }
 
@@ -162,6 +171,7 @@ int	draw_minimap(t_cub* cub)
 	width = (WIN_SIZE_W/mapw) / 2;
 	height = (WIN_SIZE_H/maph) / 2;
 
+	
 	i = 0;
 	while (i < maph)
 	{
@@ -174,9 +184,9 @@ int	draw_minimap(t_cub* cub)
 				while (m < width - 1)
 				{
 					k = 1;
-					while (k < height - 1)
+					while (k < width - 1)
 					{
-						my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * height) + k), 0x0abcdef);
+						my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * width) + k), 0x0abcdef);
 						k++;
 					}
 					m++;					
@@ -188,9 +198,9 @@ int	draw_minimap(t_cub* cub)
 				while (m < width - 1)
 				{
 					k = 1;
-					while (k < height - 1)
+					while (k < width - 1)
 					{
-						my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * height) + k), 0x0ffffff);
+						my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * width) + k), 0x0ffffff);
 						k++;
 					}
 					m++;

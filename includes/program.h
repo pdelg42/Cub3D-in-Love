@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/23 01:06:10 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/23 03:30:03 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "point.h"
 # include "gc.h"
 
-# define WIN_SIZE_W 720
+# define WIN_SIZE_W 1080
 # define WIN_SIZE_H 720
 
 # define TILE_SIZE 64
@@ -83,6 +83,7 @@ typedef struct s_player
 	float y;
 	float dirx;
 	float diry;
+	float wd;
 
 } t_player;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_initializer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:58:47 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/23 01:23:23 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/23 03:22:44 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_fetch(t_cub *cub)
 	add_t(&cub->fetched->checks, new_("C ", 6));
 	cub->player_pos.x = 0.;
 	cub->player_pos.y = 0.;
+	cub->player_pos.wd = 0.;
 }
 
 void	init_statics(t_cub *cub)

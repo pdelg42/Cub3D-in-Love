@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/22 22:04:23 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:06:10 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define KEY_COUNT 256
 
 # define FOV_ANGLE 60.f
+
+# define ONE_DEG 0.0174533f
 // enums per definire gli orientamenti di base
 // 0 -> 3
 

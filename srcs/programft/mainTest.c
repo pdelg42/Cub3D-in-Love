@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/22 22:53:24 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/23 02:02:03 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	define_player_stats(t_cub* cub)
 
 void	draw_wall(t_cub *cub, int x, float wall_height)
 {
-	// printf("%f\n", tile_size);
+	printf("%f\n", wall_height);
 	int wall_top = ((WIN_SIZE_H / 2) - (wall_height * TILE_SIZE / 2));
 	int wall_bottom = ((WIN_SIZE_H / 2) + (wall_height * TILE_SIZE / 2));
 
@@ -149,16 +149,16 @@ void	draw_wall(t_cub *cub, int x, float wall_height)
 int	render0(t_cub *cub)
 {
 	mlx_clear_window(cub->mlx, cub->win);
-	for (int x = 0; x < WIN_SIZE_W; x++)
+	for (int x = 0; x <= WIN_SIZE_W; x++)
 	{
-		float ray_angle = x * 0.0005;// (cub->player_pos.angle - (FOV_ANGLE / 2)) + (((float)x / WIN_SIZE_W) * FOV_ANGLE);
+		float ray_angle = (((cub->player_pos.angle) - (FOV_ANGLE / 2)) + (((float)x / WIN_SIZE_W) * FOV_ANGLE));
 		float distance_to_wall = 0.f;
-		float step_size = 0.1;
+		float step_size = 0.1f;
 
-		while (distance_to_wall < 10)
+		while (distance_to_wall < 100)
 		{
-			float test_x = cub->player_pos.x + distance_to_wall * cos(ray_angle);
-			float test_y = cub->player_pos.y + distance_to_wall * sin(ray_angle);
+			float test_x = cub->player_pos.x + distance_to_wall * cos((ray_angle / 180) * M_PI);
+			float test_y = cub->player_pos.y + distance_to_wall * sin((ray_angle / 180) * M_PI);
 
 			if (cub->map[((int)test_y)][((int)test_x)] == '1')
 				break ;
@@ -166,7 +166,7 @@ int	render0(t_cub *cub)
 			distance_to_wall += step_size;
 		}
 		
-		float wall_height = (distance_to_wall / TILE_SIZE) * ((float)(WIN_SIZE_W / 2) / (float)-tan(FOV_ANGLE / 2));
+		float wall_height = (distance_to_wall / TILE_SIZE) * ((float)(WIN_SIZE_W / 2) / (float)tan(((FOV_ANGLE / 180) * M_PI) / 2));
 
 		draw_wall(cub, x , wall_height);
 		// add_walls(cub);
@@ -205,9 +205,10 @@ int	main(int argc, char **argv)
 		exit(printf("NO\n"));
 	
 	define_player_orientation(&cub);
-		
+
+	cub.player_pos.dirx = 0;
 	cub.player_pos.dirx = 1;
-	cub.player_pos.diry = 0;
+	cub.player_pos.angle = 0;
 	mlx_do_key_autorepeaton(cub.mlx);
 	mlx_hook(cub.win, 2, 0, move, &cub);
 	mlx_hook(cub.win, 3, 0, stop_motion, &cub);

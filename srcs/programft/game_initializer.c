@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:58:47 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/22 21:17:15 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:23:23 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_statics(t_cub *cub)
 	cub->mat_tmp = NULL;
 	cub->str_tmp = NULL;
 	cub->data->img = mlx_new_image(cub->mlx, WIN_SIZE_W, WIN_SIZE_H);
-	cub->data->addr = mlx_get_data_addr(cub->data->img, 
+	cub->data->addr = mlx_get_data_addr(cub->data->img,
 	&cub->data->bits_per_pixel, &cub->data->line_length, &cub->data->endian);
 	cub->player_pos.x = 5.f;
 	cub->player_pos.y = 1.f;

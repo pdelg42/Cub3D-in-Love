@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/22 22:52:51 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:59:24 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void rotate_player(t_cub* cub, float angle)
 	old_diry = cub->player_pos.diry;
 	cub->player_pos.dirx = old_dirx * cos(angle) - old_diry * sin(angle);
 	cub->player_pos.diry = old_dirx * sin(angle) + old_diry * cos(angle);
+	cub->player_pos.angle += (angle * 180 / M_PI);
 }
 
 void minimove(t_cub* cub, int key)
@@ -119,13 +120,13 @@ void minimove(t_cub* cub, int key)
 		cub->player_pos.y += cub->player_pos.dirx * moveStep;
 		cub->player_pos.x -= cub->player_pos.diry * moveStep;
 	}
-	else if (key == 124)
+	else if (key == 124) // ->
 	{
-		rotate_player(cub, 0.5);
+		rotate_player(cub, ONE_DEG * 2);
 	}
-	else if (key == 123)
+	else if (key == 123) // <-
 	{
-		rotate_player(cub, -0.5);
+		rotate_player(cub, -ONE_DEG * 2);
 	}
 	// draw_player(cub, 0., 0., 0., key);
 }

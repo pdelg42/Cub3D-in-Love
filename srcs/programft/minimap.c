@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/23 02:18:15 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/24 02:41:50 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,34 @@ char	get_orientation(char** map)
 	return ('N');
 }
 
-void rotate_player(t_cub* cub, float angle)
+void rotate_player(t_cub* cub, double angle)
 {
-	float old_dirx;
-	float old_diry;
+	double old_dirx;
+	double old_diry;
+	double old_planex;
+	double old_planey;
 
 	old_dirx = cub->player_pos.dirx;
 	old_diry = cub->player_pos.diry;
+	old_planex = cub->player_pos.plane.x;
+	old_planey = cub->player_pos.plane.y;
 	cub->player_pos.dirx = old_dirx * cos(angle) - old_diry * sin(angle);
 	cub->player_pos.diry = old_dirx * sin(angle) + old_diry * cos(angle);
-	cub->player_pos.angle += (angle * 180 / M_PI);
+	cub->player_pos.plane.x = old_planex * cos(angle) - old_planey * sin(angle);
+	cub->player_pos.plane.y = old_planex * sin(angle) + old_planey * cos(angle);
+	// cub->player_pos.angle += (angle * 180 / M_PI);
 }
 
 void minimove(t_cub* cub, int key)
 {
 	float moveStep = 0.05;
 
-	if (key == 13) // w
+	if (key == 1) // w
 	{
 		cub->player_pos.x -= cub->player_pos.dirx * moveStep;
 		cub->player_pos.y -= cub->player_pos.diry * moveStep;
 	}
-	else if (key == 1) // s
+	else if (key == 13) // s
 	{
 		cub->player_pos.x += cub->player_pos.dirx * moveStep;
 		cub->player_pos.y += cub->player_pos.diry * moveStep;

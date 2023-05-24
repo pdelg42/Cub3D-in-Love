@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   point.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 19:30:31 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/21 02:18:52 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/24 02:10:23 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 typedef struct s_point
 {
-	float	x;
-	float	y;
-	float	dirx;
-	float	diry;
+	double	x;
+	double	y;
+	double	dirx;
+	double	diry;
 } t_point;
 
 t_point	point_delta(t_point p1, t_point p2);

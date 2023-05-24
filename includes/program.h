@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/23 03:30:03 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/24 02:35:52 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,25 @@
 
 # define KEY_COUNT 256
 
-# define FOV_ANGLE 60.f
+# define FOV_ANGLE 60.0
 
-# define ONE_DEG 0.0174533f
+# define ONE_DEG 0.0174533
 // enums per definire gli orientamenti di base
 // 0 -> 3
+
+typedef struct s_ray
+{
+	t_point	ray_dir;
+	t_point	side_dist;
+	t_point	delta_dist;
+	int		map_x;
+	int		map_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		side;
+	double	ratio;
+}			t_ray;
 
 enum e_orientations {
 	NORD = 1,
@@ -79,10 +93,11 @@ typedef struct	s_data
 typedef struct s_player 
 {
 	float angle;
-	float x;
-	float y;
-	float dirx;
-	float diry;
+	double x;
+	double y;
+	double dirx;
+	double diry;
+	t_point plane;
 	float wd;
 
 } t_player;
@@ -152,6 +167,7 @@ int		wall_line(char *box);
 int		valid_char(char c);
 
 void	draw_player(t_cub* cub, float x, float y, float a, int key);
+void	draw_game(t_cub* cub);
 void	add_walls(t_cub *cub);
 
 #endif

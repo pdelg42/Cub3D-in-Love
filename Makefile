@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/05/17 18:07:31 by aperrone         ###   ########.fr        #
+#    Updated: 2023/05/23 21:59:41 by gdel-giu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,11 @@ MAIN = main.c
 INC = includes/program.h
 
 PRGMFT = ./srcs/programft
-LIBS = -L./includes -lft -llistft -lgetnextline -lfixed -lpoint -lgc -I.
+LIBS = -L./includes -lft -llistft -lgetnextline -lfixed -lpoint -lgc
 KIT = -L./mlx -lmlx -framework OpenGL -framework AppKit
 FILES = ${wildcard $(PRGMFT)/*.c}
 
-FLAGS = -g # -Wall -Wextra -Werror
+FLAGS = # -Wall -Wextra -Werror
 DEBUGGER = -g
 
 OBJS = $(FILES:.c=.o)
@@ -47,7 +47,7 @@ $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(LIBS) $(OBJS) $(KIT) -o $(NAME) 
 
 $(PRGMFT)/%.o : $(PRGMFT)/%.c
-	$(CC) -c $(FLAGS) $< -o $@
+	$(CC) -c $(LIBS) $(FLAGS) $< -o $@
 
 d :
 	$(CC) $(DEBUGGER) $(FLAGS) $(LIBS) $(OBJS) $(KIT) -o $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_initializer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:58:47 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/23 03:22:44 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/24 00:55:34 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,30 @@ void	init_fetch(t_cub *cub)
 	cub->player_pos.wd = 0.;
 }
 
+void	set_plane(t_cub *cub)
+{
+	t_point	dir;
+
+	dir.x = cub->player_pos.dirx;
+	dir.y = cub->player_pos.diry;
+	if (dir.x == 0)
+	{
+		if (dir.y == 1)
+			cub->player_pos.plane.x = -1;
+		else
+			cub->player_pos.plane.x = 1;
+		cub->player_pos.plane.y = 0;
+	}
+	else
+	{
+		if (dir.x == 1)
+			cub->player_pos.plane.y = 1;
+		else
+			cub->player_pos.plane.y = -1;
+		cub->player_pos.plane.x = 0;
+	}
+}
+
 void	init_statics(t_cub *cub)
 {
 	int	i;
@@ -55,9 +79,12 @@ void	init_statics(t_cub *cub)
 	cub->data->img = mlx_new_image(cub->mlx, WIN_SIZE_W, WIN_SIZE_H);
 	cub->data->addr = mlx_get_data_addr(cub->data->img,
 	&cub->data->bits_per_pixel, &cub->data->line_length, &cub->data->endian);
-	cub->player_pos.x = 5.f;
-	cub->player_pos.y = 1.f;
+	cub->player_pos.x = 11.f;
+	cub->player_pos.y = 6.f;
+	cub->player_pos.dirx = 1;
+	cub->player_pos.diry = 0;
 	cub->player_pos.angle = 0.f;
+	set_plane(cub);
 }
 
 int	game_init(t_cub *cub)

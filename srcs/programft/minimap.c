@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/26 19:18:41 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/26 19:43:19 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,62 @@ void rotate_player(t_cub* cub, double angle)
 	// cub->player_pos.angle += (angle * 180 / M_PI);
 }
 
+int	check_wall_collision(t_cub* cub, int key)
+{
+	t_cub		tmp;
+	t_ray		ray;
+	double		camera_x;
+	int			x;
+	
+	tmp = *cub;
+	if (key == 1) // w
+	{
+		tmp.player_pos.x -= tmp.player_pos.dirx * 0.1;
+		tmp.player_pos.y -= tmp.player_pos.diry * 0.1;
+	}
+	else if (key == 13) // s
+	{
+		tmp.player_pos.x += tmp.player_pos.dirx * 0.1;
+		tmp.player_pos.y += tmp.player_pos.diry * 0.1;
+	}
+	else if (key == 0) // a
+	{
+		tmp.player_pos.y -= tmp.player_pos.dirx * 0.1;
+		tmp.player_pos.x += tmp.player_pos.diry * 0.1;
+	}
+	else if (key == 2) // d
+	{
+		tmp.player_pos.y += tmp.player_pos.dirx * 0.1;
+		tmp.player_pos.x -= tmp.player_pos.diry * 0.1;
+	}
+	else if (key == 124) // ->
+	{
+		rotate_player(&tmp, ONE_DEG);
+	}
+	else if (key == 123) // <-
+	{
+		rotate_player(&tmp, -ONE_DEG);
+	}
+	set_plane(&tmp);
+	x = 0;
+	while (x < WIN_SIZE_W)
+	{
+		camera_x = 2 * x / (double)WIN_SIZE_W - 1;
+		ray = raycast(&tmp, tmp.map, camera_x);
+		if (ray.perp_wall_dist < 0.1 + 0.5)
+			return (1);
+		x++;
+	}
+	return (0);
+}
+
 void minimove(t_cub* cub, int key)
 {
-	float moveStep = 0.05;
+	float moveStep = 0.1;
 
 	if (key == 1) // w
 	{
-		if (!check_wall_collision)
+		if (!check_wall_collision(cub, key))
 		{
 			cub->player_pos.x -= cub->player_pos.dirx * moveStep;
 			cub->player_pos.y -= cub->player_pos.diry * moveStep;
@@ -116,18 +165,27 @@ void minimove(t_cub* cub, int key)
 	}
 	else if (key == 13) // s
 	{
-		cub->player_pos.x += cub->player_pos.dirx * moveStep;
-		cub->player_pos.y += cub->player_pos.diry * moveStep;
+		if (!check_wall_collision(cub, key))
+		{
+			cub->player_pos.x += cub->player_pos.dirx * moveStep;
+			cub->player_pos.y += cub->player_pos.diry * moveStep;
+		}
 	}
 	else if (key == 0) // a
 	{
-		cub->player_pos.y -= cub->player_pos.dirx * moveStep;
-		cub->player_pos.x += cub->player_pos.diry * moveStep;
+		if (!check_wall_collision(cub, key))
+		{
+			cub->player_pos.y -= cub->player_pos.dirx * moveStep;
+			cub->player_pos.x += cub->player_pos.diry * moveStep;
+		}
 	}
 	else if (key == 2) // d
 	{
-		cub->player_pos.y += cub->player_pos.dirx * moveStep;
-		cub->player_pos.x -= cub->player_pos.diry * moveStep;
+		if (!check_wall_collision(cub, key))
+		{
+			cub->player_pos.y += cub->player_pos.dirx * moveStep;
+			cub->player_pos.x -= cub->player_pos.diry * moveStep;
+		}
 	}
 	else if (key == 124) // ->
 	{

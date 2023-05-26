@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mainTest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/24 02:32:13 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:04:35 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,6 @@ int	exit_call(t_cub *cub)
 	return (0);
 }
 
-int	move(int key, t_cub *cub)
-{
-	cub->key_state[key] = 1;
-	if (key == 53)			//tasto associato all esc
-	{
-		exit_call(cub);
-	}
-	return (1);
-}
-
-int	stop_motion(int key, t_cub* cub)
-{
-	cub->key_state[key] = 0;
-	return (0);
-}
-
-
 int	game_loop(t_cub* cub)
 {
 	int	key;
@@ -99,6 +82,25 @@ int	game_loop(t_cub* cub)
 		key = 123;
 	}
 	draw_game(cub);
+	draw_minimap(cub);
+	draw_player(cub, 0., 0., 0., key);
+	return (0);
+}
+
+int	move(int key, t_cub *cub)
+{
+	cub->key_state[key] = 1;
+	if (key == 53)
+	{
+		exit_call(cub);
+	}
+	// game_loop(cub);
+	return (1);
+}
+
+int	stop_motion(int key, t_cub* cub)
+{
+	cub->key_state[key] = 0;
 	return (0);
 }
 
@@ -115,12 +117,17 @@ int	main(int argc, char **argv)
 	// if (!import_elements(&cub))
 	// 	close_game(&cub, "\033[1;31mParse Error");
 
+	define_player_pos(&cub);
+	define_player_orientation(&cub);
+	set_plane(&cub);
+
 	draw_game(&cub);
+	draw_minimap(&cub);
+	draw_player(&cub, 0., 0., 0., 13);
 	
 	mlx_hook(cub.win, 2, 0, move, &cub);
 	mlx_hook(cub.win, 3, 0, stop_motion, &cub);
 	mlx_loop_hook(cub.mlx, game_loop, &cub);
-	
 	mlx_loop(cub.mlx);
 	return (0);
 }

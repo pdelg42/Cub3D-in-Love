@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/24 02:41:50 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:18:41 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,11 @@ void minimove(t_cub* cub, int key)
 
 	if (key == 1) // w
 	{
-		cub->player_pos.x -= cub->player_pos.dirx * moveStep;
-		cub->player_pos.y -= cub->player_pos.diry * moveStep;
+		if (!check_wall_collision)
+		{
+			cub->player_pos.x -= cub->player_pos.dirx * moveStep;
+			cub->player_pos.y -= cub->player_pos.diry * moveStep;
+		}
 	}
 	else if (key == 13) // s
 	{
@@ -134,5 +137,4 @@ void minimove(t_cub* cub, int key)
 	{
 		rotate_player(cub, -ONE_DEG);
 	}
-	// draw_player(cub, 0., 0., 0., key);
 }

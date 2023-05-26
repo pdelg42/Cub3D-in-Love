@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/24 00:52:21 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:42:06 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	is_player(t_cub **cub, char c, int i, int k)
 {
 	if (c == 'N' || c == 'S' || c == 'E'|| c == 'W')
 	{
-		printf("isplayer\n");
 		(*cub)->player_existence++;
 		// (*cub)->player_pos.x = k;
 		// (*cub)->player_pos.y = i;

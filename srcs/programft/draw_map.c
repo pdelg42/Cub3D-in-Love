@@ -6,36 +6,13 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/23 03:38:37 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/26 19:04:11 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-// void draw_borders(t_cub *cub)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	tiles;
-
-// 	i = 10;
-// 	tiles = (64 * 3) + 13;
-// 	while (i < tiles)
-// 	{
-// 		j = 10;
-// 		while (j < tiles)
-// 		{
-// 			if ((i == 10 || i == tiles - 1) || (j == 10 || j == tiles - 1))
-// 			{
-// 				my_mlx_pixel_put(cub->data, j, i, 0x0055cc55);
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
-
-void	define_player_pos(t_cub* cub)
+t_player*	define_player_pos(t_cub* cub)
 {
 	int	i;
 	int	j;
@@ -48,14 +25,15 @@ void	define_player_pos(t_cub* cub)
 		{
 			if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S' || cub->map[i][j] == 'W' || cub->map[i][j] == 'E')
 			{
-				cub->player_pos.x = i;
-				cub->player_pos.y = j;
-				return ;
+				cub->player_pos.x = (float)j + 0.5;
+				cub->player_pos.y = (float)i + 0.5;
+				return (&cub->player_pos);
 			}
 			j++;
 		}
 		i++;
 	}
+	return (NULL);
 }
 
 void	draw_player(t_cub* cub, float x, float y, float angle, int key)
@@ -68,66 +46,31 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 	float	mapw;
 	float	maph;
 
+	int	b_size;
+
 	mapw = ft_strlen(cub->map[0]);
 	maph = row_counter(cub->map);
 
-	width = (WIN_SIZE_W/mapw) / 2;
-	height = (WIN_SIZE_H/maph) / 2;
+	if (mapw > maph)
+		b_size = MINI_WIN_SIZE / mapw;
+	else
+		b_size = MINI_WIN_SIZE / maph;
 
 	float	center_x;
 	float	center_y;
 
-    // Cancella la vecchia posizione del giocatore.
-	if (key == 13)	//w
-	{
-		center_x = ((cub->player_pos.y + (cub->player_pos.diry * 0.05))) * width;
-		center_y = ((cub->player_pos.x + (cub->player_pos.dirx * 0.05))) * width;
-	}
-	else if (key == 1)	//s
-	{
-		center_x = ((cub->player_pos.y - (cub->player_pos.diry * 0.05))) * width;
-		center_y = ((cub->player_pos.x - (cub->player_pos.dirx * 0.05))) * width;
-	}
-	else if (key == 0) // a
-	{
-		center_x = (cub->player_pos.y + cub->player_pos.dirx * 0.05) * width;
-		center_y = (cub->player_pos.x - cub->player_pos.diry * 0.05) * width;
-	}
-	else if (key == 2) // d
-	{
-		center_x = (cub->player_pos.y - cub->player_pos.dirx * 0.05) * width;
-		center_y = (cub->player_pos.x + cub->player_pos.diry * 0.05) * width;
-	}
-
-	m = 0;
-	while (m < width)
-	{
-		k = 0;
-		while (k < width)
-		{
-            int final_x = (int)(center_x + m);
-            int final_y = (int)(center_y + k);
-			if (final_x > width && final_y > height)
-            	my_mlx_pixel_put(cub->data, final_x, final_y, 0xff00000); //rosso
-			else
-				my_mlx_pixel_put(cub->data, final_x, final_y, 0x0abcdef); //wall color
-			k++;
-		}
-		m++;
-	}
-
     // Disegna il giocatore nella sua nuova posizione con la rotazione.
-    center_x = (cub->player_pos.y) * width;
-    center_y = (cub->player_pos.x) * width;
+    center_x = (cub->player_pos.x) * b_size;
+    center_y = (cub->player_pos.y) * b_size;
 
 	int	final_x = 0;
 	int	final_y = 0;
 	
 	m = 0;
-	while (m < width)
+	while (m < 15)
 	{
 		k = 0;
-		while (k < width)
+		while (k < 15)
 		{
 			float rotated_x = m * cos(angle) - k * sin(angle);
             float rotated_y = m * sin(angle) + k * cos(angle);
@@ -141,12 +84,110 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 		m++;
 	}
 
-	for (int o = 0; o < cub->player_pos.wd * width; o++)
+	for (int o = 0; o < b_size; o++)
 	{
-		my_mlx_pixel_put(cub->data, center_x + (o * -cub->player_pos.diry), center_y + (o * -cub->player_pos.dirx), 0x0000000);
+		my_mlx_pixel_put(cub->data, center_x + (o * cub->player_pos.dirx), center_y + (o * cub->player_pos.diry), 0x0000000);
 	}
 	
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
+}
+
+static void	draw_line_y(t_player *sp, t_player *ep, t_cub* cub)
+{
+	double	m;
+	double	k;
+	t_player	point;
+	int		size;
+	int		i;
+
+	m = (sp->y - ep->y) / (sp->x - ep->x);
+	k = sp->y - m * (sp->x);
+	size = fabs(sp->y - ep->y);
+	if (sp->y < ep->y)
+		point.y = sp->y;
+	else
+		point.y = ep->y;
+	i = 0;
+	while (i <= size)
+	{
+		if (sp->x != ep->x)
+			point.x = floor(((point.y + i) - k) / m + 0.5);
+		else
+			point.x = sp->x;
+		my_mlx_pixel_put(cub->data, point.x, point.y + i, 0xff0000);
+		i++;
+	}
+}
+
+static void	draw_line_x(t_player *sp, t_player *ep, t_cub* cub)
+{
+	double	m;
+	double	k;
+	t_player	point;
+	int		size;
+	int		i;
+
+	m = (sp->y - ep->y) / (sp->x - ep->x);
+	k = sp->y - m * (sp->x);
+	size = fabs(sp->x - ep->x);
+
+	if (sp->x < ep->x)
+		point.x = sp->x;
+	else
+		point.x = ep->x;
+
+	i = 0;
+	while (i <= size)
+	{
+		point.y = floor(m * (point.x + i) + k + 0.5);
+		my_mlx_pixel_put(cub->data, point.x + i, point.y, 0xff0000);
+		i++;
+	}
+}
+
+void	draw_line(t_player *sp, t_player *ep, t_cub* cub)
+{
+	if (fabs(sp->x - ep->x) < 1)
+	{
+		// printf("< 1");
+		draw_line_y(sp, ep, cub);
+	}
+	else
+	{
+		// printf(">= 1");
+		draw_line_x(sp, ep, cub);
+	}
+}
+
+void	draw_ray(t_cub *cub, t_ray *ray)
+{
+	// t_player*	pos;
+	t_player	sp;
+	t_player	ep;
+	int		b_size;
+
+	if (ft_strlen(cub->map[0]) > row_counter(cub->map))
+		b_size = MINI_WIN_SIZE / ft_strlen(cub->map[0]);
+	else
+		b_size = MINI_WIN_SIZE / row_counter(cub->map);
+
+	// pos = define_player_pos(cub);
+
+	sp.x = b_size * cub->player_pos.x;
+	sp.y = b_size * cub->player_pos.y;
+
+	if (ray->side == 0) // 0 = incide sul lato delle X
+	{
+		ep.y = b_size * (cub->player_pos.y + ray->perp_wall_dist * ray->ray_dir.y);
+		ep.x = b_size * (cub->player_pos.x + ray->perp_wall_dist * ray->ray_dir.x);
+	}
+	else	// se non incide sulle X incide sulle Y
+	{
+		ep.y = b_size * (cub->player_pos.y + ray->perp_wall_dist * ray->ray_dir.y);
+		ep.x = b_size * (cub->player_pos.x + ray->perp_wall_dist * ray->ray_dir.x);
+	}
+
+	draw_line(&sp, &ep, cub);
 }
 
 int	draw_minimap(t_cub* cub)
@@ -156,21 +197,20 @@ int	draw_minimap(t_cub* cub)
 	float	k;
 	float	m;
 
-	// int offset;
-
 	float	mapw;
 	float	maph;
 	int i;
 	int	j;
+	int	b_size;
 
-	// offset = 10;
 
 	mapw = ft_strlen(cub->map[0]);
 	maph = row_counter(cub->map);
 
-	width = (WIN_SIZE_W/mapw) / 2;
-	height = (WIN_SIZE_H/maph) / 2;
-
+	if (mapw > maph)
+		b_size = MINI_WIN_SIZE / mapw;
+	else
+		b_size = MINI_WIN_SIZE / maph;
 	
 	i = 0;
 	while (i < maph)
@@ -180,13 +220,13 @@ int	draw_minimap(t_cub* cub)
 		{
 			if (cub->map[i][j] == '1')
 			{
-				m = 1;
-				while (m < width - 1)
+				m = 0;
+				while (m < b_size)
 				{
-					k = 1;
-					while (k < width - 1)
+					k = 0;
+					while (k < b_size)
 					{
-						my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * width) + k), 0x0abcdef);
+						my_mlx_pixel_put(cub->data, (int)((j * b_size) + m), (int)((i * b_size) + k), 0x0abcdef);
 						k++;
 					}
 					m++;					
@@ -194,13 +234,13 @@ int	draw_minimap(t_cub* cub)
 			}
 			else
 			{
-				m = 1;
-				while (m < width - 1)
+				m = 0;
+				while (m < b_size)
 				{
-					k = 1;
-					while (k < width - 1)
+					k = 0;
+					while (k < b_size)
 					{
-						my_mlx_pixel_put(cub->data, (int)((j * width) + m), (int)((i * width) + k), 0x0ffffff);
+						my_mlx_pixel_put(cub->data, (int)((j * b_size) + m), (int)((i * b_size) + k), 0x0ffffff);
 						k++;
 					}
 					m++;
@@ -210,7 +250,19 @@ int	draw_minimap(t_cub* cub)
 		}
 		i++;
 	}
-	//mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
+
+	int		x;
+	t_ray	ray;
+	double	camera_x;
+
+	x = 0;
+	while (x * 10 < (int)(mapw * b_size))
+	{
+		camera_x = 2 * (x * 10)/ (double)(mapw * b_size) - 1;
+		ray = raycast(cub, cub->map, camera_x);
+		draw_ray(cub, &ray);
+		x++;
+	}
 	return (0);
 }
  

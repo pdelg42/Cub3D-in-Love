@@ -8,14 +8,13 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/Users/gdel-giu/Desktop/another/Cub3D-in-Love/cub3d",
+			"program": "/Users/sgerace/Desktop/Cub3D-in-Love/cub3d",
 			"args": ["refMap.cub"],
 			"stopAtEntry": false,
-			"cwd": "/Users/gdel-giu/Desktop/another/Cub3D-in-Love",
+			"cwd": "/Users/sgerace/Desktop/Cub3D-in-Love",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb"
 		}
-
 	]
 }

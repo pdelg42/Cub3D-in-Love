@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mainTest.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/21 02:15:22 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/25 16:25:22 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ void	define_player_orientation(t_cub* cub)
 	}
 }
 
-void	define_player_stats(t_cub* cub)
-{
-	define_player_pos(cub);
-	define_player_orientation(cub);
-}
+// void	define_player_stats(t_cub* cub)
+// {
+// 	define_player_pos(cub);
+// 	define_player_orientation(cub);
+// }
 
 int	game_loop(t_cub* cub)
 {

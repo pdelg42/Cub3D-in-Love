@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/24 02:35:52 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:37:56 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define ONE_DEG 0.0174533
 // enums per definire gli orientamenti di base
 // 0 -> 3
+
+# define MINI_WIN_SIZE 400
 
 typedef struct s_ray
 {
@@ -145,7 +147,6 @@ int		map_validator(t_cub **cub);
 
 // minimap
 
-void	define_player_pos(t_cub* cub);
 int		draw_minimap(t_cub* cub);
 void	minimove(t_cub* cub, int key);
 void	add_map_padding(t_cub* cub);
@@ -169,5 +170,15 @@ int		valid_char(char c);
 void	draw_player(t_cub* cub, float x, float y, float a, int key);
 void	draw_game(t_cub* cub);
 void	add_walls(t_cub *cub);
+
+//player data
+
+void		define_player_orientation(t_cub* cub);
+t_player	*define_player_pos(t_cub* cub);
+void		set_plane(t_cub *cub);
+
+//raycast
+
+t_ray	raycast(t_cub *cub, char **map, double camera_x);
 
 #endif

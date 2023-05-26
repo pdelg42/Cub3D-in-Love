@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:44:40 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/24 02:57:38 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:07:18 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	update_ray(t_ray *ray, int axis)
 		ray->side = 1;
 	}
 }
-
 
 // set_ray
 
@@ -99,9 +98,11 @@ void	set_ray(t_cub *cub, t_ray *ray, double camera_x)
 	ray->ray_dir.y = cub->player_pos.diry + cub->player_pos.plane.y * camera_x;
 	ray->map_x = (int)cub->player_pos.x;
 	ray->map_y = (int)cub->player_pos.y;
+	
 	set_delta_dist(ray);
 	set_step(ray);
 	set_side_dist(ray, cub->player_pos);
+
 }
 
 // raycast
@@ -184,7 +185,7 @@ void	draw_wall(t_cub *cub, t_ray *ray, int x)
 	// t_data	info;
 	// t_data	*tex_info;
 	// t_data	*img_info;
-	int	line_height = (int)(WIN_SIZE_H / ray->perp_wall_dist);
+	int		line_height = (int)(WIN_SIZE_H / ray->perp_wall_dist);
 	double	start_y = (WIN_SIZE_H / 2.) - (line_height / 2.);
 	double	end_y = (WIN_SIZE_H / 2.) + (line_height / 2.);
 	int		color[2] = {0x00000000, 0x00ffffff};

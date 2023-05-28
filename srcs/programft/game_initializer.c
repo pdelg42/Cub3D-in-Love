@@ -6,35 +6,11 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:58:47 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/26 14:38:35 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/28 09:30:01 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
-
-void	define_player_orientation(t_cub* cub)
-{
-	if (cub->map[(int)cub->player_pos.y][(int)cub->player_pos.x] == 'N')
-	{
-		cub->player_pos.dirx = 0;
-		cub->player_pos.diry = -1;
-	}
-	else if (cub->map[(int)cub->player_pos.y][(int)cub->player_pos.x] == 'S')
-	{
-		cub->player_pos.dirx = 0;
-		cub->player_pos.diry = 1;	
-	}
-	else if (cub->map[(int)cub->player_pos.y][(int)cub->player_pos.x] == 'W')
-	{
-		cub->player_pos.dirx = -1;
-		cub->player_pos.diry = 0;
-	}
-	else if (cub->map[(int)cub->player_pos.y][(int)cub->player_pos.x] == 'E')
-	{
-		cub->player_pos.dirx = 1;
-		cub->player_pos.diry = 0;
-	}
-}
 
 void	init_fetch(t_cub *cub)
 {
@@ -61,26 +37,6 @@ void	init_fetch(t_cub *cub)
 	cub->player_pos.wd = 0.;
 }
 
-void	set_plane(t_cub *cub)
-{
-	if (cub->player_pos.dirx == 0)
-	{
-		if (cub->player_pos.diry == 1)
-			cub->player_pos.plane.x = -1;
-		else
-			cub->player_pos.plane.x = 1;
-		cub->player_pos.plane.y = 0;
-	}
-	else
-	{
-		if (cub->player_pos.dirx == 1)
-			cub->player_pos.plane.y = 1;
-		else
-			cub->player_pos.plane.y = -1;
-		cub->player_pos.plane.x = 0;
-	}
-}
-
 void	init_statics(t_cub *cub)
 {
 	int	i;
@@ -99,10 +55,6 @@ void	init_statics(t_cub *cub)
 	cub->data->img = mlx_new_image(cub->mlx, WIN_SIZE_W, WIN_SIZE_H);
 	cub->data->addr = mlx_get_data_addr(cub->data->img,
 	&cub->data->bits_per_pixel, &cub->data->line_length, &cub->data->endian);
-	// cub->player_pos.x = 11.f;
-	// cub->player_pos.y = 6.f;
-	// cub->player_pos.dirx = 1;
-	// cub->player_pos.diry = 0;
 	cub->player_pos.angle = 0.f;
 }
 

@@ -6,37 +6,13 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/26 19:04:11 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/28 09:45:27 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-t_player*	define_player_pos(t_cub* cub)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (cub->map[i])
-	{
-		j = 0;
-		while (cub->map[i][j])
-		{
-			if (cub->map[i][j] == 'N' || cub->map[i][j] == 'S' || cub->map[i][j] == 'W' || cub->map[i][j] == 'E')
-			{
-				cub->player_pos.x = (float)j + 0.5;
-				cub->player_pos.y = (float)i + 0.5;
-				return (&cub->player_pos);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-void	draw_player(t_cub* cub, float x, float y, float angle, int key)
+void	draw_player(t_cub* cub)
 {
 	float	width;
 	float	height;
@@ -66,29 +42,11 @@ void	draw_player(t_cub* cub, float x, float y, float angle, int key)
 	int	final_x = 0;
 	int	final_y = 0;
 	
-	m = 0;
-	while (m < 15)
-	{
-		k = 0;
-		while (k < 15)
-		{
-			float rotated_x = m * cos(angle) - k * sin(angle);
-            float rotated_y = m * sin(angle) + k * cos(angle);
 
-            final_x = (int)(center_x + rotated_x);
-            final_y = (int)(center_y + rotated_y);
+    final_x = (int)(center_x);
+    final_y = (int)(center_y);
 
             my_mlx_pixel_put(cub->data, final_x, final_y, 0x0cddddf);
-			k++;
-		}
-		m++;
-	}
-
-	for (int o = 0; o < b_size; o++)
-	{
-		my_mlx_pixel_put(cub->data, center_x + (o * cub->player_pos.dirx), center_y + (o * cub->player_pos.diry), 0x0000000);
-	}
-	
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 }
 
@@ -263,6 +221,9 @@ int	draw_minimap(t_cub* cub)
 		draw_ray(cub, &ray);
 		x++;
 	}
+
+	mlx_put_image_to_window(cub->mlx, cub->win,
+		cub->data->img, 0, 0);
 	return (0);
 }
  

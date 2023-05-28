@@ -6,7 +6,7 @@
 #    By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/05/26 14:38:06 by sgerace          ###   ########.fr        #
+#    Updated: 2023/05/28 08:45:04 by sgerace          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,13 @@ libs:
 	make -C ./includes/.
 
 $(NAME): $(OBJS) 
-	$(CC) $(FLAGS) $(LIBS) $(OBJS) $(KIT) -o $(NAME) 
+	$(CC) $(FLAGS) $(OBJS) $(KIT) -o $(NAME) $(LIBS)
 
 $(PRGMFT)/%.o : $(PRGMFT)/%.c
-	$(CC) -c $(LIBS) $(FLAGS) $< -o $@
+	$(CC) -c $(FLAGS) $< -o $@
 
 d :
-	$(CC) $(DEBUGGER) $(FLAGS) $(LIBS) $(OBJS) $(KIT) -o $(NAME)
+	$(CC) $(DEBUGGER) $(FLAGS) $(OBJS) $(KIT) -o $(NAME) $(LIBS)
 
 clean:
 	rm -rf $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:44:40 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/26 19:07:18 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/28 11:46:32 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,11 @@ void	draw_wall(t_cub *cub, t_ray *ray, int x)
 	// t_data	*img_info;
 	int		line_height = (int)(WIN_SIZE_H / ray->perp_wall_dist);
 	double	start_y = (WIN_SIZE_H / 2.) - (line_height / 2.);
+	if (start_y < 0)
+		start_y = 0;
 	double	end_y = (WIN_SIZE_H / 2.) + (line_height / 2.);
+	if (end_y >= WIN_SIZE_H)
+		end_y = WIN_SIZE_H;
 	int		color[2] = {0x00000000, 0x00ffffff};
 
 	// img_info = &game->graphic_info.img_info;

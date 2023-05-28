@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/26 14:37:56 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/28 11:49:49 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@
 
 # define FOV_ANGLE 60.0
 
-# define ONE_DEG 0.0174533
+# define ONE_DEG 0.0174533 * 3
+
+# define MOVESTEP 0.3
 // enums per definire gli orientamenti di base
 // 0 -> 3
 
@@ -130,6 +132,10 @@ typedef struct s_cub
 	int		key_state[KEY_COUNT];
 }   t_cub;
 
+//start game
+
+void	start_game(t_cub* cub);
+
 // foos() and bars()
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -148,8 +154,7 @@ int		map_validator(t_cub **cub);
 // minimap
 
 int		draw_minimap(t_cub* cub);
-void	minimove(t_cub* cub, int key);
-void	add_map_padding(t_cub* cub);
+void	try_move(t_cub* cub, int key);
 
 // parser
 
@@ -167,18 +172,32 @@ int		first_last(char *box, int *k);
 int		wall_line(char *box);
 int		valid_char(char c);
 
-void	draw_player(t_cub* cub, float x, float y, float a, int key);
+void	draw_player(t_cub* cub);
 void	draw_game(t_cub* cub);
 void	add_walls(t_cub *cub);
 
 //player data
 
-void		define_player_orientation(t_cub* cub);
-t_player	*define_player_pos(t_cub* cub);
-void		set_plane(t_cub *cub);
+void	set_player_data(t_cub* cub);
+void	set_player_orientation(t_cub* cub);
+void	set_player_pos(t_cub* cub);
+void	set_plane(t_cub *cub);
+
+// movements
+
+int		stop_motion(int key, t_cub* cub);
+int		move(int key, t_cub *cub);
+int		moves_loop(t_cub* cub, int key);
+int		check_wall_collision(t_cub* cub, int key);
+void	rotate_player(t_cub* cub, int key, double angle);
 
 //raycast
 
 t_ray	raycast(t_cub *cub, char **map, double camera_x);
+
+// close game
+
+void	close_game(t_cub *cub, char *mex);
+int		exit_call(t_cub *cub);
 
 #endif

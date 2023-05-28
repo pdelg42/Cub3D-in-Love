@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:44:40 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/28 11:46:32 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/28 17:18:05 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,88 +132,97 @@ t_ray	raycast(t_cub *cub, char **map, double camera_x)
 	return (ray);
 }
 
-// draw walls
+static unsigned int	get_img_color(t_img_info *img_info, int x, int y)
+{
+	int	color_byte;
+	int	pixel;
 
-// static unsigned int	get_img_color(t_img_info *img_info, int x, int y)
-// {
-// 	int	color_byte;
-// 	int	pixel;
+	color_byte = img_info->bpp / 8;
+	pixel = (y * img_info->size_line) / color_byte + x;
+	return (*(img_info->buf + pixel));
+}
 
-// 	color_byte = img_info->bpp / 8;
-// 	pixel = (y * img_info->size_line) / color_byte + x;
-// 	return (*(img_info->buf + pixel));
-// }
+static int	get_texture_scaled_x(t_player *player, t_ray *ray)
+{
+	double	wall_x;
+	int		texture_x;
 
-// static int	get_texture_scaled_x(t_point *pos, t_ray *ray)
-// {
-// 	double	wall_x;
-// 	int		texture_x;
+	if (ray->side == 0)
+		wall_x = player->y + ray->perp_wall_dist * ray->ray_dir.y;
+	else
+		wall_x = player->x + ray->perp_wall_dist * ray->ray_dir.x;
+	wall_x = wall_x - floor(wall_x);
+	texture_x = (int)(wall_x * (double)TILE_SIZE);
+	if (ray->side == 0 && ray->ray_dir.x < 0)
+		texture_x = TILE_SIZE - texture_x - 1;
+	if (ray->side == 1 && ray->ray_dir.y > 0)
+		texture_x = TILE_SIZE - texture_x - 1;
+	return (texture_x);
+}
 
-// 	if (ray->side == X)
-// 		wall_x = pos->y + ray->perp_wall_dist * ray->ray_dir.y;
-// 	else
-// 		wall_x = pos->x + ray->perp_wall_dist * ray->ray_dir.x;
-// 	wall_x = wall_x - floor(wall_x);
-// 	texture_x = (int)(wall_x * (double)TEXTURE_SIZE);
-// 	if (ray->side == X && ray->ray_dir.x < 0)
-// 		texture_x = TEXTURE_SIZE - texture_x - 1;
-// 	if (ray->side == Y && ray->ray_dir.y > 0)
-// 		texture_x = TEXTURE_SIZE - texture_x - 1;
-// 	return (texture_x);
-// }
+t_render_info	get_render_info(t_ray *ray, t_player *player)
+{
+	t_render_info	render_info;
 
-// t_render_info	get_render_info(t_ray *ray, t_state *state)
-// {
-// 	t_render_info	render_info;
+	render_info.line_height = (int)(WIN_SIZE_H / ray->perp_wall_dist);
+	render_info.ratio = (double)TILE_SIZE / render_info.line_height;
+	render_info.start_y = (WIN_SIZE_H / 2) - (render_info.line_height / 2);
+	render_info.end_y = (WIN_SIZE_H / 2) + (render_info.line_height / 2);
+	if (render_info.start_y < 0)
+		render_info.start_y = 0;
+	if (render_info.end_y >= WIN_SIZE_H)
+		render_info.end_y = WIN_SIZE_H;
+	render_info.tex_x = get_texture_scaled_x(player, ray);
+	render_info.tex_pos = (render_info.start_y - WIN_SIZE_H / 2
+			+ render_info.line_height / 2) * render_info.ratio;
+	return (render_info);
+}
 
-// 	render_info.line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
-// 	render_info.ratio = (double)TEXTURE_SIZE / render_info.line_height;
-// 	render_info.start_y = (WIN_HEIGHT / 2) - (render_info.line_height / 2);
-// 	render_info.end_y = (WIN_HEIGHT / 2) + (render_info.line_height / 2);
-// 	if (render_info.start_y < 0)
-// 		render_info.start_y = 0;
-// 	if (render_info.end_y >= WIN_HEIGHT)
-// 		render_info.end_y = WIN_HEIGHT;
-// 	render_info.tex_x = get_texture_scaled_x(&state->pos, ray);
-// 	render_info.tex_pos = (render_info.start_y - WIN_HEIGHT / 2
-// 			+ render_info.line_height / 2) * render_info.ratio;
-// 	return (render_info);
-// }
+void	draw_pixel(t_img_info *img_info, int x, int y, int color)
+{
+	int	color_byte;
+	int	pixel;
+
+	color_byte = img_info->bpp / 8;
+	pixel = (y * img_info->size_line) / color_byte + x;
+	*(img_info->buf + pixel) = color;
+}
 
 void	draw_wall(t_cub *cub, t_ray *ray, int x)
 {
-	// t_data	info;
-	// t_data	*tex_info;
-	// t_data	*img_info;
-	int		line_height = (int)(WIN_SIZE_H / ray->perp_wall_dist);
-	double	start_y = (WIN_SIZE_H / 2.) - (line_height / 2.);
-	if (start_y < 0)
-		start_y = 0;
-	double	end_y = (WIN_SIZE_H / 2.) + (line_height / 2.);
-	if (end_y >= WIN_SIZE_H)
-		end_y = WIN_SIZE_H;
-	int		color[2] = {0x00000000, 0x00ffffff};
+	t_render_info	info;
+	t_img_info		*tex_info;
+	t_img_info		*img_info;
+	int				colora[4] = {0xaa0000, 0x00aa00, 0x0000aa, 0xabcdef};
+	int				color;
 
-	// img_info = &game->graphic_info.img_info;
-	// info = get_render_info(ray, &game->state);
-	// tex_info = game->graphic_info.texture_info;
-	while (start_y < end_y)
+	img_info = &cub->graphic_info.img_info;
+	info = get_render_info(ray, &cub->player_pos);
+	tex_info = cub->graphic_info.texture_info;
+	while (info.start_y < info.end_y)
 	{
-		// info.tex_y = (int)info.tex_pos & (TEXTURE_SIZE - 1);
-		// if (ray->side == X && ray->ray_dir.x > 0)
-		// 	color = get_img_color(&tex_info[WE], info.tex_x, info.tex_y);
-		// else if (ray->side == X && ray->ray_dir.x < 0)
-		// 	color = get_img_color(&tex_info[EA], info.tex_x, info.tex_y);
-		// else if (ray->side == Y && ray->ray_dir.y > 0)
-		// 	color = get_img_color(&tex_info[NO], info.tex_x, info.tex_y);
-		// else if (ray->side == Y && ray->ray_dir.y < 0)
-		// 	color = get_img_color(&tex_info[SO], info.tex_x, info.tex_y);
-		if ((int)start_y % 10)
-			my_mlx_pixel_put(cub->data, x, start_y, color[0]);
-		else
-			my_mlx_pixel_put(cub->data, x, start_y, color[1]);
-		// info.tex_pos += info.ratio;
-		start_y++;
+		info.tex_y = (int)info.tex_pos & (TILE_SIZE - 1);
+		if (ray->side == 0 && ray->ray_dir.x > 0)
+			color = colora[0];
+		else if (ray->side == 0 && ray->ray_dir.x < 0)
+			color = colora[1];
+		else if (ray->side == 1 && ray->ray_dir.y > 0)
+			color = colora[2];
+		else if (ray->side == 1 && ray->ray_dir.y < 0)
+			color = colora[3];
+	
+		// if (ray->side == 0 && ray->ray_dir.x > 0)
+		// 	color = get_img_color(&tex_info[0], info.tex_x, info.tex_y);
+		// else if (ray->side == 0 && ray->ray_dir.x < 0)
+		// 	color = get_img_color(&tex_info[1], info.tex_x, info.tex_y);
+		// else if (ray->side == 1 && ray->ray_dir.y > 0)
+		// 	color = get_img_color(&tex_info[2], info.tex_x, info.tex_y);
+		// else if (ray->side == 1 && ray->ray_dir.y < 0)
+		// 	color = get_img_color(&tex_info[3], info.tex_x, info.tex_y);
+		// draw_pixel(img_info, x, info.start_y, color);
+		my_mlx_pixel_put(cub->data, x, info.start_y, color);
+		info.tex_pos += info.ratio;
+		info.start_y++;
 	}
 }
 

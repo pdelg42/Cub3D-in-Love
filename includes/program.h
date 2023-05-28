@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/28 11:49:49 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/28 13:39:19 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,30 +106,58 @@ typedef struct s_player
 
 } t_player;
 
+// rendering delle immagini
+
+typedef struct s_img_info
+{
+	unsigned int	*buf;
+	int				bpp;
+	int				size_line;
+	int				endian;
+
+}					t_img_info;
+
+typedef struct s_graphic_info
+{
+	void			*img;
+	void			*texture[4];
+	int				color[2];
+	t_img_info		img_info;
+	t_img_info		texture_info[4];
+}					t_graphic_info;
+
+typedef struct s_render_info
+{
+	double					tex_pos;
+	int						tex_x;
+	int						tex_y;
+	double					ratio;
+	int						line_height;
+	int						start_y;
+	int						end_y;
+}							t_render_info;
+
 // struct principale
 
 typedef struct s_cub
 {
-	t_fetch		*fetched;
-    t_data  	*data;
-	t_rgb		color;
-	t_rgb		*floor_color;
-	t_rgb		*ceil_color;
-	t_player	player_pos;
-    void   	*mlx;
-    void   	*win;
-	char	*str_tmp;
-	char	**mat_tmp;
-	char	**map;
-	char	**minimap;
-	char	*wall_imgs_addrs[5];
-	char	*wall_imgs[4];
-	int		player_existence;
-	int		wstate;
-	int		sstate;
-	int		astate;
-	int		dstate;
-	int		key_state[KEY_COUNT];
+	t_fetch			*fetched;
+    t_data  		*data;
+	t_rgb			color;
+	t_rgb			*floor_color;
+	t_rgb			*ceil_color;
+	t_player		player_pos;
+	t_graphic_info	graphic_info;
+    void   			*mlx;
+    void   			*win;
+	char			*str_tmp;
+	char			**mat_tmp;
+	char			**map;
+	char			**minimap;
+	char			*wall_imgs_addrs[5];
+	char			*wall_imgs[4];
+	int				player_existence;
+	int				key_state[KEY_COUNT];
 }   t_cub;
 
 //start game

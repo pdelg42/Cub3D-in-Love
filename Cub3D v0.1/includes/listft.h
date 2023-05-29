@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 08:41:56 by aperrone          #+#    #+#             */
-/*   Updated: 2023/03/05 08:22:56 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/29 11:52:14 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	deinit(t_node *node);
 void	relister(t_node **h);
 int		len_list(t_node	**h);
 char	**list_to_matrix(t_node **head);
+char	**list_to_matrixDest(t_node **head, int dest);
+char	**list_to_matrixFrom(t_node **head, int from);
 t_node	*matrix_to_list(char **matrix);
 int		src_in_list(t_node	**h, char *field);
 void	list_point_to(t_node **list, int id);

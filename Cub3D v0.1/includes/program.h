@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/28 13:39:19 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:30:05 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_img_info
 typedef struct s_graphic_info
 {
 	void			*img;
-	void			*texture[4];
+	char			**texture;
 	int				color[2];
 	t_img_info		img_info;
 	t_img_info		texture_info[4];

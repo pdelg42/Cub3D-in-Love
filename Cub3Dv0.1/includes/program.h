@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/28 13:39:19 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:08:26 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,12 @@ typedef struct s_render_info
 	int						end_y;
 }							t_render_info;
 
+typedef struct s_rgB {
+	int	r;
+	int	g;
+	int	b;
+}	t_rgB;
+
 // struct principale
 
 typedef struct s_cub
@@ -146,6 +152,7 @@ typedef struct s_cub
 	t_rgb			color;
 	t_rgb			*floor_color;
 	t_rgb			*ceil_color;
+	t_rgB			coloR;
 	t_player		player_pos;
 	t_graphic_info	graphic_info;
     void   			*mlx;

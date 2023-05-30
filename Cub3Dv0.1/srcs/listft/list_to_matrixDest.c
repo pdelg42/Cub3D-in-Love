@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_to_matrixV2.c                                 :+:      :+:    :+:   */
+/*   list_to_matrixDest.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 08:14:30 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/29 11:28:30 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:46:09 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-char	**list_to_matrixDest(t_node **head, int dest)
+char	**list_to_matrix_dest(t_node **head, int dest)
 {
 	t_node	*temp;
 	char	**matrix;

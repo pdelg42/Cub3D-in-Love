@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 13:08:26 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 14:22:46 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 # define FOV_ANGLE 60.0
 
-# define ONE_DEG 0.0174533 * 3
+# define THREE_DEG 0.0523599
 
 # define MOVESTEP 0.3
 // enums per definire gli orientamenti di base
@@ -57,7 +57,7 @@ typedef struct s_ray
 
 enum e_orientations {
 	NORD = 1,
-	SOUTH, 
+	SOUTH,
 	EAST,
 	WEST
 } ;
@@ -83,7 +83,7 @@ typedef struct s_fetch
 	int			len;
 }	t_fetch;
 
-typedef struct	s_data 
+typedef struct s_data
 {
 	void	*img;
 	void	*img2;
@@ -94,17 +94,16 @@ typedef struct	s_data
 	int		endian;
 }	t_data;
 
-typedef struct s_player 
+typedef struct s_player
 {
-	float angle;
-	double x;
-	double y;
-	double dirx;
-	double diry;
-	t_point plane;
-	float wd;
-
-} t_player;
+	float	angle;
+	double	x;
+	double	y;
+	double	dirx;
+	double	diry;
+	t_point	plane;
+	float	wd;
+}	t_player;
 
 // rendering delle immagini
 
@@ -148,15 +147,15 @@ typedef struct s_rgB {
 typedef struct s_cub
 {
 	t_fetch			*fetched;
-    t_data  		*data;
+	t_data			*data;
 	t_rgb			color;
 	t_rgb			*floor_color;
 	t_rgb			*ceil_color;
 	t_rgB			coloR;
 	t_player		player_pos;
 	t_graphic_info	graphic_info;
-    void   			*mlx;
-    void   			*win;
+	void			*mlx;
+	void			*win;
 	char			*str_tmp;
 	char			**mat_tmp;
 	char			**map;
@@ -165,74 +164,94 @@ typedef struct s_cub
 	char			*wall_imgs[4];
 	int				player_existence;
 	int				key_state[KEY_COUNT];
-}   t_cub;
+}	t_cub;
 
 //start game
 
-void	start_game(t_cub* cub);
+void			start_game(t_cub *cub);
 
 // foos() and bars()
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	render(t_cub *cub);
-int		import_elements(t_cub *cub);
-int		file_validator(char *map_path);
-int		game_init(t_cub *cub);
-void	init_fetch(t_cub *cub);
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			render(t_cub *cub);
+int				import_elements(t_cub *cub);
+int				file_validator(char *map_path);
+int				game_init(t_cub *cub);
+void			init_fetch(t_cub *cub);
+
+// init img
+
+void			init_img(t_graphic_info *graphic_info, t_cub *cub);
+void			init_graphic_info(t_graphic_info *graphic_info, t_cub *cub);
+void			*make_img(void *mlx_ptr, char *xpmFile);
+void			insert_img(t_cub *cub);
 
 //map_utils
 
-int		map_normalizer(t_cub **cub);
-int		map_checks(t_cub **cub);
-int		map_validator(t_cub **cub);
+int				map_normalizer(t_cub **cub);
+int				map_checks(t_cub **cub);
+int				map_validator(t_cub **cub);
 
 // minimap
 
-int		draw_minimap(t_cub* cub);
-void	try_move(t_cub* cub, int key);
+int				draw_minimap(t_cub *cub);
+void			try_move(t_cub *cub, int key);
 
 // parser
 
-int		parser(int fd, t_cub *cub);
+int				parser(int fd, t_cub *cub);
 
 // parser_utils
 
-char	*line_reparator(char *box);
-int		info_adjust(t_node **info, t_fetch *fetched);
-int		presence_validator(t_node *info, t_fetch *fetched);
+char			*line_reparator(char *box);
+int				info_adjust(t_node **info, t_fetch *fetched);
+int				presence_validator(t_node *info, t_fetch *fetched);
 
 // parser__utils
 
-int		first_last(char *box, int *k);
-int		wall_line(char *box);
-int		valid_char(char c);
+int				first_last(char *box, int *k);
+int				wall_line(char *box);
+int				valid_char(char c);
 
-void	draw_player(t_cub* cub);
-void	draw_game(t_cub* cub);
-void	add_walls(t_cub *cub);
+void			draw_player(t_cub *cub);
+void			draw_game(t_cub *cub);
+void			add_walls(t_cub *cub);
 
 //player data
 
-void	set_player_data(t_cub* cub);
-void	set_player_orientation(t_cub* cub);
-void	set_player_pos(t_cub* cub);
-void	set_plane(t_cub *cub);
+void			set_player_data(t_cub *cub);
+void			set_player_orientation(t_cub *cub);
+void			set_player_pos(t_cub *cub);
+void			set_plane(t_cub *cub);
 
 // movements
 
-int		stop_motion(int key, t_cub* cub);
-int		move(int key, t_cub *cub);
-int		moves_loop(t_cub* cub, int key);
-int		check_wall_collision(t_cub* cub, int key);
-void	rotate_player(t_cub* cub, int key, double angle);
+int				stop_motion(int key, t_cub *cub);
+int				move(int key, t_cub *cub);
+int				moves_loop(t_cub *cub, int key);
+int				check_wall_collision(t_cub *cub, int key);
+void			rotate_player(t_cub *cub, int key, double angle);
 
 //raycast
 
-t_ray	raycast(t_cub *cub, char **map, double camera_x);
+t_ray			raycast(t_cub *cub, char **map, double camera_x);
+void			set_ray(t_cub *cub, t_ray *ray, double camera_x);
+void			set_perp_wall_dist(t_ray *ray, t_player *pos);
+void			update_ray(t_ray *ray, int axis);
+void			set_step(t_ray *ray);
+void			set_delta_dist(t_ray *ray);
+void			set_side_dist(t_ray *ray, t_player pos);
+
+// render
+
+t_render_info	get_render_info(t_ray *ray, t_player *player);
+unsigned int	get_img_color(t_img_info *img_info, int x, int y);
+int				get_texture_scaled_x(t_player *player, t_ray *ray);
+void			draw_pixel(t_img_info *img_info, int x, int y, int color);
 
 // close game
 
-void	close_game(t_cub *cub, char *mex);
-int		exit_call(t_cub *cub);
+void			close_game(t_cub *cub, char *mex);
+int				exit_call(t_cub *cub);
 
 #endif

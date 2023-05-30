@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:02:25 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/12 22:25:29 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:47:16 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ft_putnbr(long n, char *str, int *i)
 		str[(*i)++] = n + '0';
 }
 
-char	*ftm_itoa(t_garbage** gc, int n)
+char	*ftm_itoa(t_garbage **gc, int n)
 {
 	char	*str;
 	int		i;
@@ -49,7 +49,6 @@ char	*ftm_itoa(t_garbage** gc, int n)
 
 	nbr = n;
 	str = gc_alloc(gc, (sizeof(char) * (ft_nbrlen(nbr) + 1)), 0);
-	// str = (char *)malloc(sizeof(char) * (ft_nbrlen(nbr) + 1));
 	if (str == NULL)
 		return (NULL);
 	i = 0;

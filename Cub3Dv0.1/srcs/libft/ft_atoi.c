@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 08:43:27 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/10 21:25:53 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:48:45 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	base(int c, int base)
 int	check_sign(char sign)
 {
 	if (sign > '9' || sign < '0')
-		return(0);
+		return (0);
 	return (1);
 }
 
@@ -52,7 +52,6 @@ long long	a_(char *str, int len_base)
 		sig = 1;
 		i++;
 	}
-	// check_sign(str[i]);
 	while (base(str[i], len_base) != -1)
 	{
 		nbr = nbr * len_base;

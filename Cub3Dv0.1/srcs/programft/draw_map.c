@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 17:10:45 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/28 09:45:27 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:35:21 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,25 @@
 
 void	draw_player(t_cub* cub)
 {
-	float	width;
-	float	height;
-	int	k;
-	int	m;
-
+	float	center_x;
+	float	center_y;
 	float	mapw;
 	float	maph;
+	int	final_x = 0;
+	int	final_y = 0;
 
 	int	b_size;
-
 	mapw = ft_strlen(cub->map[0]);
 	maph = row_counter(cub->map);
-
 	if (mapw > maph)
 		b_size = MINI_WIN_SIZE / mapw;
 	else
 		b_size = MINI_WIN_SIZE / maph;
-
-	float	center_x;
-	float	center_y;
-
-    // Disegna il giocatore nella sua nuova posizione con la rotazione.
     center_x = (cub->player_pos.x) * b_size;
     center_y = (cub->player_pos.y) * b_size;
-
-	int	final_x = 0;
-	int	final_y = 0;
-	
-
     final_x = (int)(center_x);
     final_y = (int)(center_y);
-
-            my_mlx_pixel_put(cub->data, final_x, final_y, 0x0cddddf);
+    my_mlx_pixel_put(cub->data, final_x, final_y, 0x0cddddf);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->data->img, 0, 0);
 }
 
@@ -119,12 +105,11 @@ void	draw_line(t_player *sp, t_player *ep, t_cub* cub)
 
 void	draw_ray(t_cub *cub, t_ray *ray)
 {
-	// t_player*	pos;
 	t_player	sp;
 	t_player	ep;
 	int		b_size;
 
-	if (ft_strlen(cub->map[0]) > row_counter(cub->map))
+	if ((int)ft_strlen(cub->map[0]) > row_counter(cub->map))
 		b_size = MINI_WIN_SIZE / ft_strlen(cub->map[0]);
 	else
 		b_size = MINI_WIN_SIZE / row_counter(cub->map);
@@ -150,8 +135,6 @@ void	draw_ray(t_cub *cub, t_ray *ray)
 
 int	draw_minimap(t_cub* cub)
 {
-	float	width;
-	float	height;
 	float	k;
 	float	m;
 

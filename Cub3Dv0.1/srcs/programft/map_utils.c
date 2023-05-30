@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/26 18:42:06 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:37:54 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int	is_void(char **map, int i, int k)
 	return (0);
 }
 
-int	is_player(t_cub **cub, char c, int i, int k)
+int	is_player(t_cub **cub, char c)
 {
-	if (c == 'N' || c == 'S' || c == 'E'|| c == 'W')
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		(*cub)->player_existence++;
-		// (*cub)->player_pos.x = k;
-		// (*cub)->player_pos.y = i;
 		return (1);
 	}
 	return (0);
@@ -70,7 +68,7 @@ int	map_checks(t_cub **cub)
 		{
 			while ((*cub)->fetched->map_mtx[i][++(k)])
 				if ((*cub)->fetched->map_mtx[i][(k)] == '0'
-				|| is_player(cub, (*cub)->fetched->map_mtx[i][(k)], i, (k)))
+				|| is_player(cub, (*cub)->fetched->map_mtx[i][(k)]))
 					if (is_void((*cub)->fetched->map_mtx, i, (k)))
 						return (0);
 		}
@@ -82,7 +80,8 @@ int	map_checks(t_cub **cub)
 		freecontent((*cub)->fetched->map);
 		freelist(&(*cub)->fetched->map);
 		(*cub)->fetched->map = matrix_to_list((*cub)->fetched->map_mtx);
-		freematrix((*cub)->fetched->map_mtx, row_counter((*cub)->fetched->map_mtx));
+		freematrix((*cub)->fetched->map_mtx, \
+			row_counter((*cub)->fetched->map_mtx));
 		return (1);
 	}
 	return (0);

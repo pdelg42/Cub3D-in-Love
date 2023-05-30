@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 13:10:21 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:46:09 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	hex_converter(int value, char *color)
 		color[1] = y + '0';
 	else
 		color[1] = y - 10 + 'A';
-
 }
 
 int	rgb_fetcher(t_cub **cub, char c[4], int nvalue)
@@ -69,7 +68,7 @@ int	value_builder(char *box, int *k, int *h, char c[4])
 	return (1);
 }
 
-int skip_char(char *box, int *k, int *nvalue)
+int	skip_char(char *box, int *k, int *nvalue)
 {
 	while (!ft_isdigit(box[*k]))
 		(*k)++;
@@ -77,11 +76,10 @@ int skip_char(char *box, int *k, int *nvalue)
 	return (1);
 }
 
-int	rgb_builder(t_cub **cub, t_node *temp, int *i) 
+int	rgb_builder(t_cub **cub, t_node *temp, int *i)
 {
 	int		k;
 	int		h;
-	int		value;
 	int		nvalue;
 	char	c[4];
 
@@ -96,7 +94,6 @@ int	rgb_builder(t_cub **cub, t_node *temp, int *i)
 						return (0);
 		temp = temp->next;
 	}
-	//pause();
 	return (1);
 }
 
@@ -105,25 +102,25 @@ int		split_info(t_node *info, t_cub **cub)
 	t_node	*temp;
 	int		i;
 
-	// (*cub)->graphic_info.texture = list_to_matrixDest(&info, 4);
+	// (*cub)->graphic_info.texture = list_to_matrix_dest(&info, 4);
 	temp = info;
 	i = 0;
 	while (temp && i++ < 4)
 		temp = temp->next;
 	rgb_builder(cub, temp, &i);
-	//pause();
 	return (1);
 }
 
 int		info_checks(t_node *info, t_fetch *fetched)
 {
 	if (presence_validator(info, fetched) == 6)
+	{
 		if (info_adjust(&info, fetched))
 		{
 			printlist(&info);
-			// //pause();
 		}
-			return (1);
+		return (1);
+	}
 	return (0);
 }
 
@@ -144,7 +141,7 @@ int	build_information(int fd, t_node **info, t_cub **cub)
 			{
 				add_t(&(*cub)->fetched->map,
 					new_(ft_strtrim(line, " \t\n"), ++i));
-				if ((*cub)->fetched->len < ft_strlen(line))
+				if ((*cub)->fetched->len < (int)ft_strlen(line))
 					(*cub)->fetched->len = ft_strlen(line) - 1;
 			}
 		}

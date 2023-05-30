@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isnum.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 20:33:56 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/12 20:08:22 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:49:04 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/libft.h"
+#include "../../includes/libft.h"
 
 int	ft_isnum(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ft_isspace(*str))

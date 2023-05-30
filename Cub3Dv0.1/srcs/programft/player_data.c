@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 09:29:38 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/28 09:33:19 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:44:13 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	set_plane(t_cub *cub)
 	return ;
 }
 
-void	set_player_pos(t_cub* cub)
+void	set_player_pos(t_cub *cub)
 {
 	int	i;
 	int	j;
@@ -58,7 +58,7 @@ void	set_player_pos(t_cub* cub)
 	return ;
 }
 
-void	set_player_orientation(t_cub* cub)
+void	set_player_orientation(t_cub *cub)
 {
 	if (cub->map[(int)cub->player_pos.y][(int)cub->player_pos.x] == 'N')
 	{
@@ -68,7 +68,7 @@ void	set_player_orientation(t_cub* cub)
 	else if (cub->map[(int)cub->player_pos.y][(int)cub->player_pos.x] == 'S')
 	{
 		cub->player_pos.dirx = 0;
-		cub->player_pos.diry = 1;	
+		cub->player_pos.diry = 1;
 	}
 	else if (cub->map[(int)cub->player_pos.y][(int)cub->player_pos.x] == 'W')
 	{
@@ -83,7 +83,7 @@ void	set_player_orientation(t_cub* cub)
 	return ;
 }
 
-void	set_player_data(t_cub* cub)
+void	set_player_data(t_cub *cub)
 {
 	set_player_pos(cub);
 	set_player_orientation(cub);

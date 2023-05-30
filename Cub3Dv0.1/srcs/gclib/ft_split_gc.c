@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:03:10 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/12 22:27:17 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:46:56 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ static int	wc(const char *s, char c)
 	return (i);
 }
 
-static char	*wd(t_garbage** gc, const char *s, int begin, int end)
+static char	*wd(t_garbage **gc, const char *s, int begin, int end)
 {
 	char	*word;
 	int		i;
 
 	i = 0;
-	// word = malloc((end - begin + 1) * sizeof(char));
 	word = gc_alloc(gc, (end - begin + 1) * sizeof(char), 0);
 	while (begin < end)
 		word[i++] = s[begin++];
@@ -47,14 +46,13 @@ static char	*wd(t_garbage** gc, const char *s, int begin, int end)
 	return (word);
 }
 
-char	**ftm_split(t_garbage** gc, char const *s, char c)
+char	**ftm_split(t_garbage **gc, char const *s, char c)
 {
 	size_t	i;
 	size_t	j;
 	int		index;
 	char	**split;
 
-	// split = malloc((wc(s, c) + 1) * sizeof(char *));
 	split = gc_alloc(gc, (wc(s, c) + 1) * sizeof(char *), 0);
 	if (!s || !split)
 		return (0);

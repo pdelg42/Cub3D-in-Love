@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   list_to_matrixFrom.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 08:14:30 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/29 11:55:14 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:50:07 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-char	**list_to_matrixFrom(t_node **head, int from)
+char	**list_to_matrix_from(t_node **head, int from)
 {
 	t_node	*temp;
 	char	**matrix;

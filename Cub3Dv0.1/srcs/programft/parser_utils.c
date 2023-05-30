@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:51:15 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/19 12:04:05 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:40:51 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	info_adjust(t_node **info, t_fetch *fetched)
 	return (1);
 }
 
-
 int	box_compare(int *i, t_node *p_checks, char *temp)
 {
 	if (!ft_strcmp(temp, p_checks->box))
@@ -73,6 +72,7 @@ int	box_compare(int *i, t_node *p_checks, char *temp)
 	}
 	return (1);
 }
+
 void	build_to_compare(char *temp, char *box)
 {
 	temp[0] = box[0];

@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:06:17 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/12 22:06:43 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:47:35 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ char	*ft_substr_m(t_garbage **garbage, char const *s, t_xsubstr sub)
 	stack[i] = '\0';
 	return (stack);
 }
-

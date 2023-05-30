@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 09:31:54 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/28 09:39:06 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:33:43 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	close_game(t_cub *cub, char *mex)
 {
-	int i;
+	int	i;
 
 	if (!cub->mlx)
 		exit(1);

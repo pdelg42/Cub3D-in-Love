@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:33:26 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/12 20:34:41 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 13:47:30 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_inset(int c, const char *set)
 	return (0);
 }
 
-char	*ft_strtrim_gc(t_garbage** gc, const char *s1, const char *set)
+char	*ft_strtrim_gc(t_garbage **gc, const char *s1, const char *set)
 {
 	size_t	i;
 	size_t	s;
@@ -40,7 +40,6 @@ char	*ft_strtrim_gc(t_garbage** gc, const char *s1, const char *set)
 	while (e > s && ft_inset(s1[e - 1], set))
 		e--;
 	str = gc_alloc(gc, (sizeof(*s1) * (e - s + 1)), 0);
-	// str = (char *)malloc(sizeof(*s1) * (e - s + 1));
 	if (!str)
 		return (NULL);
 	i = 0;

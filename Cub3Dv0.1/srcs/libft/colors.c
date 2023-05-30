@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:36:07 by aperrone          #+#    #+#             */
-/*   Updated: 2023/03/03 15:36:48 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:48:35 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-void	white()
+void	white(void)
 {
 	write(1, "\033[1;37m", 8);
 }
 
-void	red()
+void	red(void)
 {
 	write(1, "\033[1;31m", 8);
 }
 
-void	purple()
+void	purple(void)
 {
 	write(1, "\033[1;35m", 8);
 }

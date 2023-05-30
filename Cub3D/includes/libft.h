@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:31:17 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/16 18:13:00 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 16:47:22 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int			ft_isalpha(int c);
 int			ft_isascii(int c);
 int			ft_isspace(int c);
 int			ft_isprint(int c);
-void		white();
-void		red();
-void		purple();
+void		white(void);
+void		red(void);
+void		purple(void);
 char		*ft_strtrim(const char *s1, const char *set);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *b, size_t n);
-char        *ft_strstr(char *str, char *to_find);
+char		*ft_strstr(char *str, char *to_find);
 void		*ft_memset(void *b, int c, size_t len);
 void		ft_cpychar(char c, char **out);
 

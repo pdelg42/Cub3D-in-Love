@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:58:35 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/30 14:40:12 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 16:45:19 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,29 @@ void	rotate_player(t_cub *cub, int key, double angle)
 	cub->player_pos.plane.y = old_planex * sin(angle) + old_planey * cos(angle);
 }
 
-// void	move_up_or_down(t_cub tmp, int key, int sign)
-// {
-// 	if (key == 1)
-// 	{
-// 		tmp.player_pos.x -= tmp.player_pos.dirx * MOVESTEP;
-// 		tmp.player_pos.y -= tmp.player_pos.diry * MOVESTEP;
-// 	}
-// 	else if (key == 13)
-// 	{
-// 		tmp.player_pos.x += tmp.player_pos.dirx * MOVESTEP;
-// 		tmp.player_pos.y += tmp.player_pos.diry * MOVESTEP;
-// 	}
-// }
+void	update_player_position(t_cub *tmp, int key)
+{
+	if (key == 1)
+	{
+		tmp->player_pos.x -= tmp->player_pos.dirx * MOVESTEP;
+		tmp->player_pos.y -= tmp->player_pos.diry * MOVESTEP;
+	}
+	else if (key == 13)
+	{
+		tmp->player_pos.x += tmp->player_pos.dirx * MOVESTEP;
+		tmp->player_pos.y += tmp->player_pos.diry * MOVESTEP;
+	}
+	else if (key == 0)
+	{
+		tmp->player_pos.y -= tmp->player_pos.dirx * MOVESTEP;
+		tmp->player_pos.x += tmp->player_pos.diry * MOVESTEP;
+	}
+	else if (key == 2)
+	{
+		tmp->player_pos.y += tmp->player_pos.dirx * MOVESTEP;
+		tmp->player_pos.x -= tmp->player_pos.diry * MOVESTEP;
+	}
+}
 
 int	check_wall_collision(t_cub *cub, int key)
 {
@@ -53,26 +63,7 @@ int	check_wall_collision(t_cub *cub, int key)
 	int			x;
 
 	tmp = *cub;
-	if (key == 1)
-	{
-		tmp.player_pos.x -= tmp.player_pos.dirx * MOVESTEP;
-		tmp.player_pos.y -= tmp.player_pos.diry * MOVESTEP;
-	}
-	else if (key == 13)
-	{
-		tmp.player_pos.x += tmp.player_pos.dirx * MOVESTEP;
-		tmp.player_pos.y += tmp.player_pos.diry * MOVESTEP;
-	}
-	else if (key == 0)
-	{
-		tmp.player_pos.y -= tmp.player_pos.dirx * MOVESTEP;
-		tmp.player_pos.x += tmp.player_pos.diry * MOVESTEP;
-	}
-	else if (key == 2)
-	{
-		tmp.player_pos.y += tmp.player_pos.dirx * MOVESTEP;
-		tmp.player_pos.x -= tmp.player_pos.diry * MOVESTEP;
-	}
+	update_player_position(&tmp, key);
 	if (key == 124 || key == 123)
 		rotate_player(&tmp, key, THREE_DEG);
 	if (cub->map[(int)tmp.player_pos.y][(int)tmp.player_pos.x] == '1')

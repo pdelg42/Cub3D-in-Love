@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 14:22:46 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 17:08:26 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,11 @@ int				map_validator(t_cub **cub);
 
 int				draw_minimap(t_cub *cub);
 void			try_move(t_cub *cub, int key);
+void			draw_rays(t_cub *cub, float mapw, int b_size);
+void			draw_ray(t_cub *cub, t_ray *ray);
+void			draw_line(t_player *sp, t_player *ep, t_cub *cub);
+void			draw_line_x(t_player *sp, t_player *ep, t_cub *cub);
+void			draw_line_y(t_player *sp, t_player *ep, t_cub *cub);
 
 // parser
 

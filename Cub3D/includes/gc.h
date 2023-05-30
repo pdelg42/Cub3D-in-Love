@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:14:07 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/12 22:38:27 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 16:45:40 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ char		*ftm_itoa(t_garbage **garbage, int n);
 char		**ftm_split(t_garbage **garbage, char const *s, char c);
 char		*ftm_strjoin(t_garbage **g, char const *s1, char const *s2, int f);
 void		ft_init_fmv(t_xfillmv *fmv);
-char		*ft_strtrim_gc(t_garbage** gc, const char *s1, const char *set);
+char		*ft_strtrim_gc(t_garbage **gc, const char *s1, const char *set);
 #endif

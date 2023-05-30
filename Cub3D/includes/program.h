@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 17:08:26 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 18:11:31 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ typedef struct s_cub
 	t_fetch			*fetched;
 	t_data			*data;
 	t_rgb			color;
-	t_rgb			*floor_color;
-	t_rgb			*ceil_color;
+	int				floor_color;
+	int				ceil_color;
 	t_rgB			coloR;
 	t_player		player_pos;
 	t_graphic_info	graphic_info;

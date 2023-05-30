@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:44:40 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/30 14:18:03 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 18:17:34 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	draw_game_bg(t_cub *cub)
 		x = -1;
 		while (++x < WIN_SIZE_W)
 		{
-			my_mlx_pixel_put(cub->data, x, y, 0x7799f0);
+			my_mlx_pixel_put(cub->data, x, y, cub->ceil_color);
 			my_mlx_pixel_put(cub->data, x, y + (WIN_SIZE_H / 2),
-				0x77f077);
+				cub->floor_color);
 		}
 	}
 }

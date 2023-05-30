@@ -3,52 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 13:46:09 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 19:11:14 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-void	hex_converter(int value, char *color)
+int	relist_information(t_node **info, t_fetch *fetched)
 {
-	int	x;
-	int	y;
-
-	x = value / 16;
-	y = value % 16;
-	if (x < 10)
-		color[0] = x + '0';
-	else
-		color[0] = x - 10 + 'A';
-	if (y < 10)
-		color[1] = y + '0';
-	else
-		color[1] = y - 10 + 'A';
+	return (1);
 }
 
-int	rgb_fetcher(t_cub **cub, char c[4], int nvalue)
+int	sono_stanco(char *box)
 {
-	char	hex[9];
-	int		f;
+	int	i;
 
-	f = 0;
+	i = 1;
+	while (box[++i])
+		if (!ft_isdigit(box[i]) && box[i] != ',')
+			return (0);
+	return (1);
+}
+
+int	rgb_fetcher(t_cub **cub, char c[4], int nvalue, int i)
+{
 	if (nvalue == 1)
 		(*cub)->coloR.r = a_(c, 10);
 	if (nvalue == 2)
 		(*cub)->coloR.g = a_(c, 10);
 	if (nvalue == 3)
 	{
-		hex[0] = '0';
-		hex[1] = 'x';
 		(*cub)->coloR.b = a_(c, 10);
-		hex_converter((*cub)->coloR.r, &hex[2]);
-		hex_converter((*cub)->coloR.g, &hex[4]);
-		hex_converter((*cub)->coloR.b, &hex[6]);
-		hex[8] = 0;
-		printf("hex: %s\n", hex);
+		if (i == 6)
+			(*cub)->ceil_color = (*cub)->coloR.r << 16 | (*cub)->coloR.g << 8 | (*cub)->coloR.b;
+		else
+			(*cub)->floor_color = (*cub)->coloR.r << 16 | (*cub)->coloR.g << 8 | (*cub)->coloR.b;
 	}
 	return (1);
 }
@@ -88,10 +80,17 @@ int	rgb_builder(t_cub **cub, t_node *temp, int *i)
 		k = -1;
 		nvalue = 0;
 		while (temp->box[++k] && nvalue < 3)
-			if (skip_char(temp->box, &k, &nvalue))
-				if (value_builder(temp->box, &k, &h, c))
-					if (!rgb_fetcher(cub, c, nvalue))
-						return (0);
+		{
+			if (sono_stanco(temp->box))
+			{
+				if (skip_char(temp->box, &k, &nvalue))
+					if (value_builder(temp->box, &k, &h, c))
+						if (!rgb_fetcher(cub, c, nvalue, *i))
+							return (0);
+			}
+			else
+				return (0);
+		}
 		temp = temp->next;
 	}
 	return (1);
@@ -107,8 +106,9 @@ int		split_info(t_node *info, t_cub **cub)
 	i = 0;
 	while (temp && i++ < 4)
 		temp = temp->next;
-	rgb_builder(cub, temp, &i);
-	return (1);
+	if (rgb_builder(cub, temp, &i))
+		return (1);
+	return (0);
 }
 
 int		info_checks(t_node *info, t_fetch *fetched)
@@ -117,9 +117,13 @@ int		info_checks(t_node *info, t_fetch *fetched)
 	{
 		if (info_adjust(&info, fetched))
 		{
-			printlist(&info);
+			if (relist_information(&info, fetched))
+			{
+				printlist(&info);
+
+			}
+			return (1);
 		}
-		return (1);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:21:13 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/30 14:21:39 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/30 16:29:10 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ void	insert_img(t_cub *cub)
 	{
 		if (i == 0)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				"/Users/sgerace/Desktop/new/Cub3Dv0.1/img/EA.xpm");
+				"/Users/aperrone/Desktop/Cub3D-in-Love/Cub3D/img/EA.xpm");
 		else if (i == 1)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				"/Users/sgerace/Desktop/new/Cub3Dv0.1/img/NO.xpm");
+				"/Users/aperrone/Desktop/Cub3D-in-Love/Cub3D/img/NO.xpm");
 		else if (i == 2)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				"/Users/sgerace/Desktop/new/Cub3Dv0.1/img/SO.xpm");
+				"/Users/aperrone/Desktop/Cub3D-in-Love/Cub3D/img/SO.xpm");
 		else if (i == 3)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				"/Users/sgerace/Desktop/new/Cub3Dv0.1/img/WE.xpm");
+				"/Users/aperrone/Desktop/Cub3D-in-Love/Cub3D/img/WE.xpm");
 		img_info.buf = \
 			(unsigned *)mlx_get_data_addr(cub->graphic_info.texture[i],
 				&img_info.bpp, &img_info.size_line, &img_info.endian);

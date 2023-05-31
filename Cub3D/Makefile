@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+         #
+#    By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/05/30 14:12:05 by sgerace          ###   ########.fr        #
+#    Updated: 2023/05/31 12:26:26 by gdel-giu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ MAIN = main.c
 INC = includes/program.h
 
 PRGMFT = ./srcs/programft
-LIBS = -L./includes -lft -llistft -lgetnextline -lfixed -lpoint -lgc
+LIBS = -L./includes -lft -llistft -lgetnextline
 KIT = -L./mlx -lmlx -framework OpenGL -framework AppKit
 FILES = ${wildcard $(PRGMFT)/*.c}
 
@@ -44,7 +44,7 @@ libs:
 	make -C ./includes/.
 
 $(NAME): $(OBJS) 
-	$(CC) $(FLAGS) $(OBJS) $(KIT) -o $(NAME) $(LIBS)
+	$(CC) $(LIBS) $(OBJS) $(KIT) -o $(NAME) $(LIBS)
 
 $(PRGMFT)/%.o : $(PRGMFT)/%.c
 	$(CC) -c $(FLAGS) $< -o $@

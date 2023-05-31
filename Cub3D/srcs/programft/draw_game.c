@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 21:44:40 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/30 18:17:34 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:07:39 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
+
+t_render_info	get_render_info(t_ray *ray, t_player *player)
+{
+	t_render_info	render_info;
+
+	render_info.line_height = (int)(WIN_SIZE_H / ray->perp_wall_dist);
+	render_info.ratio = (double)TILE_SIZE / render_info.line_height;
+	render_info.start_y = (WIN_SIZE_H / 2) - (render_info.line_height / 2);
+	render_info.end_y = (WIN_SIZE_H / 2) + (render_info.line_height / 2);
+	if (render_info.start_y < 0)
+		render_info.start_y = 0;
+	if (render_info.end_y >= WIN_SIZE_H)
+		render_info.end_y = WIN_SIZE_H;
+	render_info.tex_x = get_texture_scaled_x(player, ray);
+	render_info.tex_pos = (render_info.start_y - WIN_SIZE_H / 2
+			+ render_info.line_height / 2) * render_info.ratio;
+	return (render_info);
+}
 
 void	draw_wall(t_cub *cub, t_ray *ray, int x)
 {

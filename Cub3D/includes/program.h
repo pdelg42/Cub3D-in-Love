@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/31 09:48:41 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:28:27 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include "get_next_line.h"
 
 # include "../mlx/mlx.h"
-# include "../fixed/fixed.h"
-# include "point.h"
-# include "gc.h"
 
 # define WIN_SIZE_W 1080
 # define WIN_SIZE_H 720
@@ -40,6 +37,14 @@
 // 0 -> 3
 
 # define MINI_WIN_SIZE 400
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+	double	dirx;
+	double	diry;
+}	t_point;
 
 typedef struct s_ray
 {
@@ -174,7 +179,6 @@ void			start_game(t_cub *cub);
 
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void			render(t_cub *cub);
-int				import_elements(t_cub *cub);
 int				file_validator(char *map_path);
 int				game_init(t_cub *cub);
 void			init_fetch(t_cub *cub);

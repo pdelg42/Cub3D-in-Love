@@ -6,7 +6,7 @@
 /*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 09:36:19 by aperrone          #+#    #+#             */
-/*   Updated: 2023/02/12 14:54:34 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:16:22 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	del_h(t_node **h)
 		return ;
 	if ((*h)->next == *h)
 	{
-		free (*h);
+		free((*h)->box);
+		free(*h);
 		*h = NULL;
 	}
 	else
@@ -31,6 +32,7 @@ void	del_h(t_node **h)
 		*h = next;
 		next->prev = temp->prev;
 		temp->prev->next = next;
+		free(temp->box);
 		free(temp);
 	}
 	temp = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_relister.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 09:47:50 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/31 15:28:26 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:02:10 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node	*cpyn(t_node *node)
 {
 	t_node	*temp;
 
-	temp = new_((node->box), node->id);
+	temp = new_(node->box, node->id);
 	return (temp);
 }
 

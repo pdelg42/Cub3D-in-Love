@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:19:01 by gdel-giu          #+#    #+#             */
-/*   Updated: 2023/05/31 17:15:22 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:18:15 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,24 @@ int	main(int argc, char **argv)
 		close_game(&cub, "\033[1;31mInit error");
 	if (!parser(file_validator(argv[1]), &cub))
 	{
+		// pause();
 		//close_game(&cub, "\033[1;31mInit error");
 		//freematrix(cub.fetched->map_mtx, row_counter(cub.fetched->map_mtx));
 		//freematrix(cub.fetched->paths_mtx, row_counter(cub.fetched->map_mtx));
-		free(cub.fetched->paths_mtx[0]);
-		cub.fetched->paths_mtx[0] = NULL;
-		free(cub.fetched->paths_mtx[1]);
-		cub.fetched->paths_mtx[1] = NULL;
-		free(cub.fetched->paths_mtx[2]);
-		cub.fetched->paths_mtx[2] = NULL;
-		free(cub.fetched->paths_mtx[3]);
-		cub.fetched->paths_mtx[3] = NULL;
-		free(cub.fetched->paths_mtx);
+		// free(cub.fetched->paths_mtx[0]);
+		// cub.fetched->paths_mtx[0] = NULL;
+		// free(cub.fetched->paths_mtx[1]);
+		// cub.fetched->paths_mtx[1] = NULL;
+		// free(cub.fetched->paths_mtx[2]);
+		// cub.fetched->paths_mtx[2] = NULL;
+		// free(cub.fetched->paths_mtx[3]);
+		// cub.fetched->paths_mtx[3] = NULL;
+		// free(cub.fetched->paths_mtx);
 		//cub.fetched->paths_mtx = NULL;
 		
 		// freecontent(cub.fetched->map);
 		// freelist(&cub.fetched->map);
-		printlist(&cub.fetched->checks);
+		// printlist(&cub.fetched->checks);
 		// freecontent(cub.fetched->checks);
 		// freelist(&cub.fetched->checks);
 
@@ -60,6 +61,7 @@ int	main(int argc, char **argv)
 		//pause();
 		exit(printf("NO\n"));
 	}
+	mlx_do_key_autorepeaton(cub.mlx);
 	init_graphic_info(&cub.graphic_info, &cub);
 	insert_img(&cub);
 	set_player_data(&cub);

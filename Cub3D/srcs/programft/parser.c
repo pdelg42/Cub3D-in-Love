@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/31 17:12:33 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:30:17 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,14 @@ int	build_information(int fd, t_node **info, t_cub **cub)
 	if (wall_line((*cub)->fetched->map->box)
 		&& wall_line((*cub)->fetched->map->prev->box))
 		if (map_validator(cub))
+	{	
 			if (map_checks(cub))
 				{
 					if (map_normalizer(cub))
 						return (1);
-					//pause();
 				}
+					// pause();
+	}
 	return (0);
 }
 

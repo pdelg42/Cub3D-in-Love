@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/31 16:40:01 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:30:26 by gdel-giu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ int	map_normalizer(t_cub **cub)
 		map_->box = ft_strjoin(map_->box, to_normalize);
 		free(to_normalize);
 		map_ = map_->next;
+
 	}
 	(*cub)->map = list_to_matrix(&(*cub)->fetched->map);
+			// pause();
 	return (1);
 }
 

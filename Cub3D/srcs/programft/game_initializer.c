@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_initializer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:58:47 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 13:34:52 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/31 14:25:01 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	init_fetch(t_cub *cub)
 {
 	cub->fetched = malloc(sizeof(t_fetch));
-	cub->fetched->paths = NULL;
 	cub->fetched->colors = NULL;
 	cub->fetched->map = NULL;
-	cub->fetched->paths_mtx = NULL;
 	cub->fetched->paths_mtx = NULL;
 	cub->fetched->colors_str = NULL;
 	cub->fetched->p_t = NULL;

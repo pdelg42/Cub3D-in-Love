@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 00:13:59 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/16 19:38:36 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/31 17:12:06 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*ft_strtrim(const char *s1, const char *set)
 	while (s < e)
 		str[i++] = s1[s++];
 	str[i] = 0;
+	//free((char *) s1);
 	s1 = NULL;
 	return (str);
 }

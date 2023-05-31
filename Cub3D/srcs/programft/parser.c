@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/31 11:52:02 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:12:33 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	rgb_control(char *box)
 
 int	rgb_fetcher(t_cub **cub, char c[4], int nvalue, int i)
 {
-	printf("%s\n", c);
 	if (nvalue == 1)
 		(*cub)->coloR.r = a_(c, 10);
 	if (nvalue == 2)
@@ -34,9 +33,11 @@ int	rgb_fetcher(t_cub **cub, char c[4], int nvalue, int i)
 	{
 		(*cub)->coloR.b = a_(c, 10);
 		if (i == 6)
-			(*cub)->floor_color = (*cub)->coloR.r << 16 | (*cub)->coloR.g << 8 | (*cub)->coloR.b;
+			(*cub)->floor_color = (*cub)->coloR.r << 16
+				| (*cub)->coloR.g << 8 | (*cub)->coloR.b;
 		else
-			(*cub)->ceil_color = (*cub)->coloR.r << 16 | (*cub)->coloR.g << 8 | (*cub)->coloR.b;
+			(*cub)->ceil_color = (*cub)->coloR.r << 16
+				| (*cub)->coloR.g << 8 | (*cub)->coloR.b;
 	}
 	return (1);
 }
@@ -91,13 +92,24 @@ int		split_info(t_node *info, t_cub **cub)
 	t_node	*temp;
 	int		i;
 
-	// (*cub)->graphic_info.texture = list_to_matrix_dest(&info, 4);
+	(*cub)->fetched->paths_mtx = malloc(sizeof(char *) * 5);
+	(*cub)->fetched->paths_mtx[0] = ft_substr(info->box, 3,
+			ft_strlen(info->box));
+	(*cub)->fetched->paths_mtx[1] = ft_substr(info->next->box, 3,
+			ft_strlen(info->box));
+	(*cub)->fetched->paths_mtx[2] = ft_substr(info->next->next->box, 3,
+			ft_strlen(info->box));
+	(*cub)->fetched->paths_mtx[3] = ft_substr(info->next->next->next->box, 3,
+			ft_strlen(info->box));
+		(*cub)->fetched->paths_mtx[4] = NULL;
 	temp = info;
 	i = 0;
 	while (temp && i++ < 4)
 		temp = temp->next;
 	if (rgb_builder(cub, temp, &i))
+	{
 		return (1);
+	}
 	return (0);
 }
 
@@ -114,6 +126,7 @@ int	build_information(int fd, t_node **info, t_cub **cub)
 {
 	char	*line;
 	int		i;
+	char	*temp;
 
 	i = 0;
 	line = get_next_line(fd);
@@ -121,15 +134,17 @@ int	build_information(int fd, t_node **info, t_cub **cub)
 	{
 		if (ft_strcmp(line, "\n"))
 		{
+			temp = ft_strtrim(line, " \t\n");
 			if (i < 6)
-				add_t(info, new_(ft_strtrim(line, " \t\n"), ++i));
+				add_t(info, new_(temp, ++i));
 			else
 			{
 				add_t(&(*cub)->fetched->map,
-					new_(ft_strtrim(line, " \t\n"), ++i));
+					new_(temp, ++i));
 				if ((*cub)->fetched->len < (int)ft_strlen(line))
 					(*cub)->fetched->len = ft_strlen(line) - 1;
 			}
+			free(temp);
 		}
 		free(line);
 		line = get_next_line(fd);
@@ -139,8 +154,11 @@ int	build_information(int fd, t_node **info, t_cub **cub)
 		&& wall_line((*cub)->fetched->map->prev->box))
 		if (map_validator(cub))
 			if (map_checks(cub))
-				if (map_normalizer(cub))
-					return (1);
+				{
+					if (map_normalizer(cub))
+						return (1);
+					//pause();
+				}
 	return (0);
 }
 
@@ -154,5 +172,7 @@ int	parser(int fd, t_cub *cub)
 			if (info_checks(&info, cub->fetched))
 				if (split_info(info, &cub))
 					return (1);
+	freecontent(info);
+	freelist(&info);
 	return (0);
 }

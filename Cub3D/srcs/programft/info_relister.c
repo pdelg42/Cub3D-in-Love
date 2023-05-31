@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 09:47:50 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/31 10:53:46 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:28:26 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node	*cpyn(t_node *node)
 {
 	t_node	*temp;
 
-	temp = new_(ft_strdup(node->box), node->id);
+	temp = new_((node->box), node->id);
 	return (temp);
 }
 
@@ -69,7 +69,5 @@ int	relist_information(t_node **info, t_fetch *fetched)
 	while (fetched->p_t && fetched->len--)
 		push(&temp, info);
 	relister(info);
-	printf("hererelist\n");
-	printlist(info);
 	return (1);
 }

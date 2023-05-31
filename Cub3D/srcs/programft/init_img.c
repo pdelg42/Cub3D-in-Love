@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:21:13 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/31 12:20:17 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:34:30 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ void	insert_img(t_cub *cub)
 	{
 		if (i == 0)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				"./img/EA.xpm");
+				cub->fetched->paths_mtx[3]);
 		else if (i == 1)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				"./img/NO.xpm");
+				cub->fetched->paths_mtx[0]);
 		else if (i == 2)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				"./img/SO.xpm");
+				cub->fetched->paths_mtx[1]);
 		else if (i == 3)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				"./img/WE.xpm");
+				cub->fetched->paths_mtx[2]);
 		img_info.buf = \
 			(unsigned *)mlx_get_data_addr(cub->graphic_info.texture[i],
 				&img_info.bpp, &img_info.size_line, &img_info.endian);

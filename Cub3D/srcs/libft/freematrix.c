@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   freematrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:27:14 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/10 12:53:27 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/31 16:31:32 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	freematrix(char **splitted, int i)
 	if (splitted)
 	{
 		k = -1;
-		while (++k < i)
+		while (k < i)
 		{
 			free(splitted[k]);
-			splitted[k] = NULL;
+			splitted[++k] = NULL;
 		}
 		free(splitted);
 	}

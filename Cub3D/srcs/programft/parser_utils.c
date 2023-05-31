@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:51:15 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 13:40:51 by sgerace          ###   ########.fr       */
+/*   Updated: 2023/05/31 16:51:48 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ int	info_adjust(t_node **info, t_fetch *fetched)
 	{
 		temp = line_reparator(fetched->p_t->box);
 		free(fetched->p_t->box);
+		fetched->p_t->box = NULL;
 		fetched->p_t->box = ft_strdup(temp);
 		free(temp);
+		temp = NULL;
 		fetched->p_t = fetched->p_t->next;
 	}
 	return (1);

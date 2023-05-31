@@ -6,18 +6,13 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 04:48:42 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 19:11:14 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:52:02 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/program.h"
 
-int	relist_information(t_node **info, t_fetch *fetched)
-{
-	return (1);
-}
-
-int	sono_stanco(char *box)
+int	rgb_control(char *box)
 {
 	int	i;
 
@@ -30,6 +25,7 @@ int	sono_stanco(char *box)
 
 int	rgb_fetcher(t_cub **cub, char c[4], int nvalue, int i)
 {
+	printf("%s\n", c);
 	if (nvalue == 1)
 		(*cub)->coloR.r = a_(c, 10);
 	if (nvalue == 2)
@@ -38,9 +34,9 @@ int	rgb_fetcher(t_cub **cub, char c[4], int nvalue, int i)
 	{
 		(*cub)->coloR.b = a_(c, 10);
 		if (i == 6)
-			(*cub)->ceil_color = (*cub)->coloR.r << 16 | (*cub)->coloR.g << 8 | (*cub)->coloR.b;
-		else
 			(*cub)->floor_color = (*cub)->coloR.r << 16 | (*cub)->coloR.g << 8 | (*cub)->coloR.b;
+		else
+			(*cub)->ceil_color = (*cub)->coloR.r << 16 | (*cub)->coloR.g << 8 | (*cub)->coloR.b;
 	}
 	return (1);
 }
@@ -80,17 +76,11 @@ int	rgb_builder(t_cub **cub, t_node *temp, int *i)
 		k = -1;
 		nvalue = 0;
 		while (temp->box[++k] && nvalue < 3)
-		{
-			if (sono_stanco(temp->box))
-			{
-				if (skip_char(temp->box, &k, &nvalue))
-					if (value_builder(temp->box, &k, &h, c))
-						if (!rgb_fetcher(cub, c, nvalue, *i))
-							return (0);
-			}
-			else
+			if (!rgb_control(temp->box)
+				|| !skip_char(temp->box, &k, &nvalue)
+				|| !value_builder(temp->box, &k, &h, c)
+				|| !rgb_fetcher(cub, c, nvalue, *i))
 				return (0);
-		}
 		temp = temp->next;
 	}
 	return (1);
@@ -111,20 +101,12 @@ int		split_info(t_node *info, t_cub **cub)
 	return (0);
 }
 
-int		info_checks(t_node *info, t_fetch *fetched)
+int		info_checks(t_node **info, t_fetch *fetched)
 {
-	if (presence_validator(info, fetched) == 6)
-	{
-		if (info_adjust(&info, fetched))
-		{
-			if (relist_information(&info, fetched))
-			{
-				printlist(&info);
-
-			}
-			return (1);
-		}
-	}
+	if (presence_validator(*info, fetched) == 6)
+		if (info_adjust(info, fetched))
+			if (relist_information(info, fetched))
+				return (1);
 	return (0);
 }
 
@@ -169,7 +151,7 @@ int	parser(int fd, t_cub *cub)
 	info = NULL;
 	if (fd > 0)
 		if (build_information(fd, &info, &cub))
-			if (info_checks(info, cub->fetched))
+			if (info_checks(&info, cub->fetched))
 				if (split_info(info, &cub))
 					return (1);
 	return (0);

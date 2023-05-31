@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/30 18:11:31 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:48:41 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ void			draw_line_y(t_player *sp, t_player *ep, t_cub *cub);
 
 // parser
 
+int				relist_information(t_node **info, t_fetch *fetched);
 int				parser(int fd, t_cub *cub);
 
 // parser_utils

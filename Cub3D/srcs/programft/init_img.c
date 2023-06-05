@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:21:13 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/31 14:34:30 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:55:42 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_graphic_info(t_graphic_info *graphic_info, t_cub *cub)
 		graphic_info->color[i] = -1;
 }
 
-void	*make_img(void *mlx_ptr, char *xpmFile)
+void	*make_img(void *mlx_ptr, char *xpmFile, t_cub *cub)
 {
 	char	*path;
 	void	*img;
@@ -50,6 +50,7 @@ void	*make_img(void *mlx_ptr, char *xpmFile)
 	if (!img)
 	{
 		printf("XPM Error : check IMG_PATH or fileName");
+		close_game(cub, "\033[1;31Path error");
 	}
 	return (img);
 }
@@ -64,16 +65,16 @@ void	insert_img(t_cub *cub)
 	{
 		if (i == 0)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				cub->fetched->paths_mtx[3]);
+				cub->fetched->paths_mtx[3], cub);
 		else if (i == 1)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				cub->fetched->paths_mtx[0]);
+				cub->fetched->paths_mtx[0], cub);
 		else if (i == 2)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				cub->fetched->paths_mtx[1]);
+				cub->fetched->paths_mtx[1], cub);
 		else if (i == 3)
 			cub->graphic_info.texture[i] = make_img(cub->mlx, \
-				cub->fetched->paths_mtx[2]);
+				cub->fetched->paths_mtx[2], cub);
 		img_info.buf = \
 			(unsigned *)mlx_get_data_addr(cub->graphic_info.texture[i],
 				&img_info.bpp, &img_info.size_line, &img_info.endian);

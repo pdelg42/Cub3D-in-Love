@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:46:26 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/31 14:24:57 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:04:24 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ enum e_orientations {
 // union da utilizzare per gestire l'inserimento dei colori
 // evitando ambiguitá particolari (generalmente valori non idonei)
 
-typedef union u_rgb {
-	unsigned int	rgb;
-	unsigned char	col_param;
-}	t_rgb;
+// typedef union u_rgb {
+// 	unsigned int	rgb;
+// 	unsigned char	col_param;
+// }	t_rgb;
 
 typedef struct s_fetch
 {
@@ -152,7 +152,7 @@ typedef struct s_cub
 {
 	t_fetch			*fetched;
 	t_data			*data;
-	t_rgb			color;
+	//t_rgb			color;
 	int				floor_color;
 	int				ceil_color;
 	t_rgB			coloR;
@@ -186,13 +186,13 @@ void			init_fetch(t_cub *cub);
 
 void			init_img(t_graphic_info *graphic_info, t_cub *cub);
 void			init_graphic_info(t_graphic_info *graphic_info, t_cub *cub);
-void			*make_img(void *mlx_ptr, char *xpmFile);
+void			*make_img(void *mlx_ptr, char *xpmFile, t_cub *cub);
 void			insert_img(t_cub *cub);
 
 //map_utils
 
 int				map_normalizer(t_cub **cub);
-int				map_checks(t_cub **cub);
+int				map_checks(t_cub **cub, int i);
 int				map_validator(t_cub **cub);
 
 // minimap
@@ -262,5 +262,11 @@ void			draw_pixel(t_img_info *img_info, int x, int y, int color);
 
 void			close_game(t_cub *cub, char *mex);
 int				exit_call(t_cub *cub);
+
+int				rgb_control(char *box);
+int				skip_char(char *box, int *k, int *nvalue);
+int				value_builder(char *box, int *k, int *h, char c[4]);
+int				rgb_fetcher(t_cub **cub, char c[4], int nvalue, int i);
+int				split_info(t_node *info, t_cub **cub);
 
 #endif

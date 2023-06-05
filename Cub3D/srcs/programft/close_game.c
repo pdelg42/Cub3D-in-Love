@@ -6,7 +6,7 @@
 /*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 09:31:54 by sgerace           #+#    #+#             */
-/*   Updated: 2023/05/31 14:42:34 by aperrone         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:55:45 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	close_game(t_cub *cub, char *mex)
 	if (!cub->win)
 		exit(1);
 	mlx_destroy_window(cub->mlx, cub->win);
-	freematrix(cub->map, row_counter(cub->map));
-	freematrix(cub->mat_tmp, row_counter(cub->mat_tmp));
 	if (cub->str_tmp)
 		free(cub->str_tmp);
 	if (!cub->data)

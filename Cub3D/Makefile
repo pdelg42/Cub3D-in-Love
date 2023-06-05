@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+         #
+#    By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 09:37:55 by aperrone          #+#    #+#              #
-#    Updated: 2023/05/31 12:26:26 by gdel-giu         ###   ########.fr        #
+#    Updated: 2023/06/05 15:54:13 by aperrone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIBS = -L./includes -lft -llistft -lgetnextline
 KIT = -L./mlx -lmlx -framework OpenGL -framework AppKit
 FILES = ${wildcard $(PRGMFT)/*.c}
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -O3
 DEBUGGER = -g
 
 OBJS = $(FILES:.c=.o)
@@ -61,5 +61,6 @@ fclean: clean
 	make fclean -C ./includes/.
 
 re: fclean all
-	
+
+
 .PHONY: all clean fclean

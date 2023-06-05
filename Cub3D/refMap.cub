@@ -1,10 +1,18 @@
-SO ./img/SO.xpm
-
-F 1,0,123
 WE ./img/WE.xpm
+SO ./img/SO.xpm
 EA ./img/EA.xpm
+
+
+
 NO ./img/NO.xpm
-C 255,0,4
+F 1,0,23
+
+
+
+
+
+
+C 2,0,155
 
 111111111111111111111
 100000000000000000001

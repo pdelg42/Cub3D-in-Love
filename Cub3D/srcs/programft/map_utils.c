@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdel-giu <gdel-giu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperrone <aperrone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 19:03:55 by aperrone          #+#    #+#             */
-/*   Updated: 2023/05/31 20:30:26 by gdel-giu         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:00:09 by aperrone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,19 @@ int	map_normalizer(t_cub **cub)
 		temp = (*cub)->fetched->len - ft_strlen(map_->box);
 		to_normalize = malloc(temp);
 		ft_memset(to_normalize, '0', temp);
-		//pause();
 		to_normalize[temp] = 0;
 		map_->box = ft_strjoin(map_->box, to_normalize);
 		free(to_normalize);
 		map_ = map_->next;
-
 	}
 	(*cub)->map = list_to_matrix(&(*cub)->fetched->map);
-			// pause();
 	return (1);
 }
 
-int	map_checks(t_cub **cub)
+int	map_checks(t_cub **cub, int i)
 {
-	int	i;
 	int	k;
 
-	i = 0;
 	k = 0;
 	while ((*cub)->fetched->map_mtx[++i])
 	{
